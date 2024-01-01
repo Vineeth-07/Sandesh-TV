@@ -15,7 +15,14 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.render("home", { title: "Sandesh TV Daily News" });
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const todayDate = new Date().toLocaleDateString(undefined, options);
+  res.render("home", { title: "Sandesh TV Daily News", date: todayDate });
 });
 
 module.exports = app;
