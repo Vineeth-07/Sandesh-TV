@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       images: {
-        type: Sequelize.BLOB
+        type: Sequelize.JSONB
       },
       createdAt: {
         allowNull: false,
