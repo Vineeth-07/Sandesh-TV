@@ -7,8 +7,18 @@ const { Article } = require("./models");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
 const upload = multer({ storage: storage });
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", async (req, res) => {
   try {
@@ -41,8 +51,8 @@ app.get("/createarticle", async (req, res) => {
 app.post("/createArticle", upload.array("images"), async (req, res) => {
   try {
     const imagesData = req.files.map((file) => ({
-      buffer: file.buffer,
-      originalname: file.originalname,
+      filename: file.originalname,
+      data: file.buffer,
     }));
 
     await Article.createArticle({
@@ -53,7 +63,7 @@ app.post("/createArticle", upload.array("images"), async (req, res) => {
     });
 
     console.log(
-      `Article created with ${req.body.title},${req.body.date},${req.body.category},${imagesData}`
+      `Article created with ${req.body.title},${req.body.date},${req.body.category},${JSON.stringify(imagesData)}`
     );
     return res.redirect("/createArticle");
   } catch (err) {
