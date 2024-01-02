@@ -1,28 +1,64 @@
 const express = require("express");
 const app = express();
-const csrf = require("tiny-csrf");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const connectEnsureLogin = require("connect-ensure-login");
-const LocalStratergy = require("passport-local");
 const path = require("path");
-const bcrypt = require("bcrypt");
-const session = require("express-session");
-const passport = require("passport");
-const flash = require("connect-flash");
+const multer = require("multer");
+const { Article } = require("./models");
+
 app.set("view engine", "ejs");
-// eslint-disable-next-line no-undef
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const todayDate = new Date().toLocaleDateString(undefined, options);
-  res.render("home", { title: "Sandesh TV Daily News", date: todayDate });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.get("/", async (req, res) => {
+  try {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const todayDate = new Date().toLocaleDateString(undefined, options);
+    let articles = await Article.getArticles();
+    res.render("home", {
+      title: "Sandesh TV Daily News",
+      date: todayDate,
+      articles: articles,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/createarticle", async (req, res) => {
+  try {
+    res.render("createArticle", { title: "Create Article" });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/createArticle", upload.array("images"), async (req, res) => {
+  try {
+    const imagesData = req.files.map((file) => ({
+      buffer: file.buffer,
+      originalname: file.originalname,
+    }));
+
+    await Article.createArticle({
+      title: req.body.title,
+      date: req.body.date,
+      category: req.body.category,
+      images: imagesData,
+    });
+
+    console.log(
+      `Article created with ${req.body.title},${req.body.date},${req.body.category},${imagesData}`
+    );
+    return res.redirect("/createArticle");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = app;
