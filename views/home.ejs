@@ -14,26 +14,10 @@
 <body>
     <%- include('header.ejs') %>
     <div >
-    <%- include('articleListItems.ejs') %>
-    </div>
         <a href="/createArticle">Add article</a>
 
-        <% for (let i=0; i < articles.length; i++) { %>
-            <p>
-                <%= articles[i].title %>
-            </p>
-            <p>
-                <%= articles[i].date %>
-            </p>
-            <p>
-                <%= articles[i].category %>
-            </p>
-
-            <% for (let j=0; j < articles[i].images.length; j++) { %>
-                <img src="/uploads/<%= articles[i].images[j].filename %>" alt="<%= articles[i].images[j].filename %>">
-                <% } %>
-                    <% } %>
-
+    <%- include('articleListItems.ejs') %>
+    </div>
 </body>
 
 </html>

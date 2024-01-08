@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -63,9 +63,27 @@ app.post("/createArticle", upload.array("images"), async (req, res) => {
     });
 
     console.log(
-      `Article created with ${req.body.title},${req.body.date},${req.body.category},${JSON.stringify(imagesData)}`
+      `Article created with ${req.body.title},${req.body.date},${
+        req.body.category
+      },${JSON.stringify(imagesData)}`
     );
     return res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/:category", async (req, res) => {
+  try {
+    const selectedCategory = req.params.category;
+    const articlesInCategory = await Article.getArticlesByCategory(
+      selectedCategory
+    );
+    res.render("categoryArticle", {
+      title: `${selectedCategory}`,
+      category: selectedCategory,
+      articles: articlesInCategory,
+    });
   } catch (err) {
     console.log(err);
   }

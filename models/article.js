@@ -18,6 +18,15 @@ module.exports = (sequelize) => {
         order: [["id", "ASC"]],
       });
     }
+
+    static getArticlesByCategory(selectedCategory) {
+      return this.findAll({
+        where: {
+          category: selectedCategory,
+        },
+        order: [["id", "ASC"]],
+      });
+    }
   }
 
   Article.init(

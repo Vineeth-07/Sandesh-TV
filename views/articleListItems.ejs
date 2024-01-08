@@ -15,15 +15,19 @@
     <% } %>
 
     <% Object.keys(latestImages).forEach(category => { %>
-        <div class="p-2 border border-gray-300 col-auto rounded-md">
-            <h2 class="p-2 text-xl"><%= category %></h2>
+        <a href="/<%= category %>">
+            <div class="p-2 border border-gray-300 col-auto rounded-md">
+                <h2 class="p-2 text-xl"><%= category.toUpperCase() %></h2>
+    
+                <% if (latestImages[category].image) { %>
+                    <div>
+                        <img class="rounded-md" src="/uploads/<%= latestImages[category].image %>"
+                             alt="<%= latestImages[category].image %>">
+                    </div>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+    </a>
 
-            <% if (latestImages[category].image) { %>
-                <div>
-                    <img class="rounded-md" src="/uploads/<%= latestImages[category].image %>"
-                         alt="<%= latestImages[category].image %>">
-                </div>
-            <% } %>
-        </div>
-    <% }) %>
-</div>
+
