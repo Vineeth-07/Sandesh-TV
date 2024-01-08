@@ -1,0 +1,29 @@
+<div class="flex gap-4 grid grid-cols-4">
+    <% const latestImages = {}; %>
+
+    <% for (let i = 0; i < articles.length; i++) { %>
+        <% const category = articles[i].category; %>
+
+        <% if (!latestImages[category] || latestImages[category].date < articles[i].date) { %>
+            <% latestImages[category] = {
+                date: articles[i].date,
+                image: articles[i].images && articles[i].images.length > 0
+                    ? articles[i].images[articles[i].images.length - 1].filename
+                    : null
+            }; %>
+        <% } %>
+    <% } %>
+
+    <% Object.keys(latestImages).forEach(category => { %>
+        <div class="p-2 border border-gray-300 col-auto rounded-md">
+            <h2 class="p-2 text-xl"><%= category %></h2>
+
+            <% if (latestImages[category].image) { %>
+                <div>
+                    <img class="rounded-md" src="/uploads/<%= latestImages[category].image %>"
+                         alt="<%= latestImages[category].image %>">
+                </div>
+            <% } %>
+        </div>
+    <% }) %>
+</div>

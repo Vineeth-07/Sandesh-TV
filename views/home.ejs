@@ -12,7 +12,10 @@
 </head>
 
 <body>
-    <% include('header.ejs') %>
+    <%- include('header.ejs') %>
+    <div >
+    <%- include('articleListItems.ejs') %>
+    </div>
         <a href="/createArticle">Add article</a>
 
         <% for (let i=0; i < articles.length; i++) { %>

@@ -65,7 +65,7 @@ app.post("/createArticle", upload.array("images"), async (req, res) => {
     console.log(
       `Article created with ${req.body.title},${req.body.date},${req.body.category},${JSON.stringify(imagesData)}`
     );
-    return res.redirect("/createArticle");
+    return res.redirect("/");
   } catch (err) {
     console.log(err);
   }
