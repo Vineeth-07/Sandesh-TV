@@ -89,4 +89,9 @@ app.get("/:category", async (req, res) => {
   }
 });
 
+app.get('/article/:filename',(req,res)=>{
+  const filename = req.params.filename
+  res.render('article',{filename})
+})
+
 module.exports = app;

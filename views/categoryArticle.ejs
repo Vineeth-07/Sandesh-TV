@@ -67,8 +67,11 @@
 
         <% if (articles[i].images && articles[i].images.length > 0) { %>
           <div class="article-image">
-            <img src="/uploads/<%= articles[i].images[0].filename %>"
+            <a href="/article/<%= articles[i].images[0].filename %>">
+              <img src="/uploads/<%= articles[i].images[0].filename %>"
                  alt="<%= articles[i].images[0].filename %>">
+            </a>
+            
           </div>
         <% } else { %>
           <div class="no-image">
