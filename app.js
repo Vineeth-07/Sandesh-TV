@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const multer = require("multer");
 const { Article } = require("./models");
+const article = require("./models/article");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -92,12 +93,38 @@ app.get("/:category", async (req, res) => {
 app.get("/:category/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
-    const articles = await Article.getArticleById(articleId);
-    const article = articles[0];
-    console.log(article);
+    const article = await Article.getArticleById(articleId)
+    console.log(article[0].title)
+    const category = req.params.category;
+
+
+    const sameCategoryArticles = await Article.getArticlesByCategory(category)
+    console.log(sameCategoryArticles)
+    const stack = sameCategoryArticles.map(article => ({
+      title: article.dataValues.title,
+      image: article.dataValues.images && article.dataValues.images.length > 0
+        ? article.dataValues.images[0].filename
+        : null,
+        id:article.dataValues.id
+    }));
+
+    const currentIndex = stack.findIndex(item=>item.title === article[0].title)
+
+    const prevIndex = currentIndex > 0 ? currentIndex -1 :null
+    const nextIndex = currentIndex < stack.length -1 ? currentIndex + 1 : null
+    console.log(stack)
+
+    console.log("c",currentIndex)
+    console.log("p",prevIndex)
+    console.log("n",nextIndex)
+
     res.render("article", {
-      title: `${article.title}`,
-      article: article,
+      title:  `${article[0].title}`,
+      article: article[0], 
+      prevArticleIndex: prevIndex,
+      nextArticleIndex: nextIndex,
+      category,
+      stack
     });
   } catch (err) {
     console.log(err);
