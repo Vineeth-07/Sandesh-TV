@@ -27,6 +27,15 @@ module.exports = (sequelize) => {
         order: [["id", "ASC"]],
       });
     }
+
+    static getArticleById(articleId) {
+      return this.findAll({
+        where: {
+          id: articleId,
+        },
+        order: [["id", "ASC"]],
+      });
+    }
   }
 
   Article.init(

@@ -89,9 +89,19 @@ app.get("/:category", async (req, res) => {
   }
 });
 
-app.get('/article/:filename',(req,res)=>{
-  const filename = req.params.filename
-  res.render('article',{filename})
-})
+app.get("/:category/:id", async (req, res) => {
+  try {
+    const articleId = req.params.id;
+    const articles = await Article.getArticleById(articleId);
+    const article = articles[0];
+    console.log(article);
+    res.render("article", {
+      title: `${article.title}`,
+      article: article,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = app;

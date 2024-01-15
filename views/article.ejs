@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image</title>
+    <title><%= title %></title>
 </head>
 <body>
-    <div class="image-container">
-        <img src="/uploads/<%=filename%>" alt="<%= filename %>">
-    </div>
-    <div class="navigation-links">
-        <% if (prevFilename) { %>
-          <a href="/image/<%= prevFilename %>">Previous</a>
-        <% } %>
-    
-        <% if (nextFilename) { %>
-          <a href="/image/<%= nextFilename %>">Next</a>
-        <% } %>
+
+  <h1><%= title.toUpperCase() %></h1>
+
+  <div class="article-container">
+    <h2><%= article.title %></h2>
+    <p><%= article.date %></p>
+    <p><%= article.category %></p>
+
+    <% if (article.images && article.images.length > 0) { %>
+      <div class="article-image">
+        <img src="/uploads/<%= article.images[0].filename %>"
+           alt="<%= article.images[0].filename %>">
       </div>
+    <% } else { %>
+      <div class="no-image">
+        <span>No Image</span>
+      </div>
+    <% } %>
+
+  </div>
+
 </body>
+
 </html>
