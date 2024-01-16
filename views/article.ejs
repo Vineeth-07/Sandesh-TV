@@ -4,29 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .article-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .no-image {
+            text-align: center;
+            padding: 20px;
+            background-color: #eee;
+            border-radius: 8px;
+        }
+
+        .navigation-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .navigation-links button,
+        .navigation-links a {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-links button:hover,
+        .navigation-links a:hover {
+            background-color: #297fb8;
+        }
+    </style>
 </head>
 <body>
 
-  <h1><%= title.toUpperCase() %></h1>
+    <h1><%= title.toUpperCase() %></h1>
 
-  <div class="article-container">
-    <h2><%= article.title %></h2>
-    <p><%= article.date %></p>
-    <p><%= article.category %></p>
+    <div class="article-container">
+        <h2><%= article.title %></h2>
+        <p><%= article.date %></p>
+        <p><%= article.category %></p>
 
-    <% if (article.images && article.images.length > 0) { %>
-      <div class="article-image">
-        <img src="/uploads/<%= article.images[0].filename %>"
-           alt="<%= article.images[0].filename %>">
-      </div>
-    <% } else { %>
-      <div class="no-image">
-        <span>No Image</span>
-      </div>
-    <% } %>
+        <% if (article.images && article.images.length > 0) { %>
+        <div class="article-image">
+            <img src="/uploads/<%= article.images[0].filename %>"
+            alt="<%= article.images[0].filename %>">
+        </div>
+        <% } else { %>
+        <div class="no-image">
+            <span>No Image</span>
+        </div>
+        <% } %>
+        <div class="navigation-links">
+            <% if (prevArticleIndex !== null) { %>
+            <button>
+                <a href="/<%= category %>/<%= stack[prevArticleIndex].id %>">Previous</a>
+            </button>
+            <% } %>
 
-  </div>
+            <% if (nextArticleIndex !== null) { %>
+            <button>
+                <a href="/<%= category %>/<%= stack[nextArticleIndex].id %>">Next</a>
+            </button>
+            <% } %>
+        </div>
+    </div>
 
 </body>
-
 </html>
