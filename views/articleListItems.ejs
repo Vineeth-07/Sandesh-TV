@@ -7,8 +7,8 @@
         <% if (!latestImages[category] || latestImages[category].date < articles[i].date) { %>
             <% latestImages[category] = {
                 date: articles[i].date,
-                image: articles[i].images && articles[i].images.length > 0
-                    ? articles[i].images[articles[i].images.length - 1].filename
+                image: articles[i].images 
+                    ? articles[i].images.filename
                     : null
             }; %>
         <% } %>

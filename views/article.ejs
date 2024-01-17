@@ -71,10 +71,10 @@
         <p><%= article.date %></p>
         <p><%= article.category %></p>
 
-        <% if (article.images && article.images.length > 0) { %>
+        <% if (article.images) { %>
         <div class="article-image">
-            <img src="/uploads/<%= article.images[0].filename %>"
-            alt="<%= article.images[0].filename %>">
+            <img src="/uploads/<%= article.images.filename %>"
+            alt="<%= article.images.filename %>">
         </div>
         <% } else { %>
         <div class="no-image">

@@ -37,6 +37,7 @@ app.get("/", async (req, res) => {
       articles: articles,
     });
     console.log(articles[0].images);
+    console.log(articles)
   } catch (err) {
     console.log(err);
   }
@@ -97,16 +98,17 @@ app.get("/:category/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
     const article = await Article.getArticleById(articleId);
+    console.log(article)
     console.log(article[0].title);
     const category = req.params.category;
 
     const sameCategoryArticles = await Article.getArticlesByCategory(category);
-    console.log(sameCategoryArticles);
+    // console.log(sameCategoryArticles);
     const stack = sameCategoryArticles.map((article) => ({
       title: article.dataValues.title,
       image:
-        article.dataValues.images && article.dataValues.images.length > 0
-          ? article.dataValues.images[0].filename
+        article.dataValues.images
+          ? article.dataValues.images.filename
           : null,
       id: article.dataValues.id,
     }));
@@ -114,7 +116,7 @@ app.get("/:category/:id", async (req, res) => {
     const currentIndex = stack.findIndex(
       (item) => item.title === article[0].title
     );
-
+      
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
     const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
     console.log(stack);
