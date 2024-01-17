@@ -4,12 +4,13 @@ const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Article extends Model {
-    static createArticle({ title, date, category, images }) {
+    static createArticle({ title, date, category, images, state }) {
       return this.create({
         title,
         date,
         category,
         images,
+        state,
       });
     }
 
@@ -44,6 +45,7 @@ module.exports = (sequelize) => {
       date: DataTypes.DATE,
       category: DataTypes.STRING,
       images: DataTypes.JSONB,
+      state: DataTypes.STRING,
     },
     {
       sequelize,

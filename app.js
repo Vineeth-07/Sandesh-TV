@@ -36,6 +36,7 @@ app.get("/", async (req, res) => {
       date: todayDate,
       articles: articles,
     });
+    console.log(articles[0].images);
   } catch (err) {
     console.log(err);
   }
@@ -49,24 +50,26 @@ app.get("/createarticle", async (req, res) => {
   }
 });
 
-app.post("/createArticle", upload.array("images"), async (req, res) => {
+app.post("/createArticle", upload.single("image"), async (req, res) => {
   try {
-    const imagesData = req.files.map((file) => ({
-      filename: file.originalname,
-      data: file.buffer,
-    }));
+    const image = req.file;
+    const imageData = {
+      filename: image.originalname,
+      data: image.buffer,
+    };
 
     await Article.createArticle({
       title: req.body.title,
       date: req.body.date,
       category: req.body.category,
-      images: imagesData,
+      images: imageData,
+      state: req.body.state,
     });
 
     console.log(
       `Article created with ${req.body.title},${req.body.date},${
-        req.body.category
-      },${JSON.stringify(imagesData)}`
+        req.body.state
+      },${req.body.category},${JSON.stringify(imageData)}`
     );
     return res.redirect("/");
   } catch (err) {
@@ -93,38 +96,40 @@ app.get("/:category", async (req, res) => {
 app.get("/:category/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
-    const article = await Article.getArticleById(articleId)
-    console.log(article[0].title)
+    const article = await Article.getArticleById(articleId);
+    console.log(article[0].title);
     const category = req.params.category;
 
-
-    const sameCategoryArticles = await Article.getArticlesByCategory(category)
-    console.log(sameCategoryArticles)
-    const stack = sameCategoryArticles.map(article => ({
+    const sameCategoryArticles = await Article.getArticlesByCategory(category);
+    console.log(sameCategoryArticles);
+    const stack = sameCategoryArticles.map((article) => ({
       title: article.dataValues.title,
-      image: article.dataValues.images && article.dataValues.images.length > 0
-        ? article.dataValues.images[0].filename
-        : null,
-        id:article.dataValues.id
+      image:
+        article.dataValues.images && article.dataValues.images.length > 0
+          ? article.dataValues.images[0].filename
+          : null,
+      id: article.dataValues.id,
     }));
 
-    const currentIndex = stack.findIndex(item=>item.title === article[0].title)
+    const currentIndex = stack.findIndex(
+      (item) => item.title === article[0].title
+    );
 
-    const prevIndex = currentIndex > 0 ? currentIndex -1 :null
-    const nextIndex = currentIndex < stack.length -1 ? currentIndex + 1 : null
-    console.log(stack)
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
+    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
+    console.log(stack);
 
-    console.log("c",currentIndex)
-    console.log("p",prevIndex)
-    console.log("n",nextIndex)
+    console.log("c", currentIndex);
+    console.log("p", prevIndex);
+    console.log("n", nextIndex);
 
     res.render("article", {
-      title:  `${article[0].title}`,
-      article: article[0], 
+      title: `${article[0].title}`,
+      article: article[0],
       prevArticleIndex: prevIndex,
       nextArticleIndex: nextIndex,
       category,
-      stack
+      stack,
     });
   } catch (err) {
     console.log(err);

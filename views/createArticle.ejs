@@ -1,52 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 p-4">
-
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 p-4">
     <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Create Article</h2>
+      <h2 class="text-2xl font-semibold mb-4">Create Article</h2>
 
-        <form action="/createArticle" method="post" enctype="multipart/form-data">
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
-                <input type="text" name="title" id="title" required
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-            </div>
+      <form action="/createArticle" method="post" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-600"
+            >Title</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
 
-            <div class="mb-4">
-                <label for="date" class="block text-sm font-medium text-gray-600">Date</label>
-                <input type="date" name="date" id="date" required
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-            </div>
+        <div class="mb-4">
+          <label for="date" class="block text-sm font-medium text-gray-600"
+            >Date</label
+          >
+          <input
+            type="date"
+            name="date"
+            id="date"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
 
-            <div class="mb-4">
-                <label for="category" class="block text-sm font-medium text-gray-600">Category</label>
-                <select name="category" id="category"
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-                    <option value="sports">Sports</option>
-                    <option value="politics">Politics</option>
-                    <option value="history">History</option>
-                    <option value="cinema">Cinema</option>
-                </select>
-            </div>
+        <div class="mb-4">
+            <label for="state" class="block text-sm font-medium text-gray-600"
+            >State</label
+          >
+          <select
+            name="state"
+            id="state"
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          >
+            <option value="telangana">Telangana</option>
+            <option value="andhra pradesh">Andhra Pradesh</option>
+          </select>
+        </div>
 
-            <div class="mb-4">
-                <label for="images" class="block text-sm font-medium text-gray-600">Images</label>
-                <input type="file" name="images" id="images" multiple required
-                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-            </div>
+        <div class="mb-4">
+           
 
-            <button type="submit"
-                class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
-                Create Article
-            </button>
-        </form>
+          <label for="category" class="block text-sm font-medium text-gray-600"
+            >Category</label
+          >
+
+          <select
+            name="category"
+            id="category"
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          >
+            <option value="sports">Sports</option>
+            <option value="politics">Politics</option>
+            <option value="history">History</option>
+            <option value="cinema">Cinema</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="image" class="block text-sm font-medium text-gray-600"
+            >Images</label
+          >
+          <input
+            type="file"
+            name="image"
+            id="image"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Create Article
+        </button>
+      </form>
     </div>
-
-</body>
+  </body>
 </html>
