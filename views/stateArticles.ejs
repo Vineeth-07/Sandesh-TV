@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santesh TV <%= category %> news</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .article-box {
+      width: calc(25% - 8px); /* 25% width for each box with 4px gap */
+      border: 1px solid #ddd;
+      padding: 8px;
+      margin: 4px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 300px;
+    }
+
+    .article-box h2 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .article-image {
+      flex-grow: 1;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .no-image {
+      flex-grow: 1;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1><%= state.toUpperCase() %></h1>
+
+  <div class="flex-container">
+    <% for (let i = 0; i < articles.length; i++) { %>
+      <div class="article-box">
+        <% if (articles[i].images ) { %>
+          <div class="article-image">
+            <a href="/<%= category %>/<%=state%>/<%= articles[i].id %>">
+              <img src="/uploads/<%= articles[i].images.filename %>"
+                 alt="<%= articles[i].images.filename %>">
+            </a>
+          </div>
+        <% } else { %>
+          <div class="no-image">
+            <span>No Image</span>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+
+</body>
+
+</html>

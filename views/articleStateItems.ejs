@@ -1,0 +1,27 @@
+    <% const latestImages = {
+        'telangana': {},
+        'andhra pradesh': {}
+    }; %>
+
+    <% for (let i = 0; i < articles.length; i++) { %>
+        <% const state = articles[i].state; %>
+
+        <% if (!latestImages[state].date || latestImages[state].date < articles[i].date) { %>
+            <% latestImages[state].date = articles[i].date; %>
+            <% latestImages[state].image = articles[i].images 
+                ? articles[i].images.filename
+                : null; %>
+        <% } %>
+    <% } %>
+
+    <% Object.keys(latestImages).forEach(state => { %>
+        <div class="bg-gray-100 p-4 rounded-md">
+            <% if (latestImages[state].image) { %>
+                <div>
+                    <img class="rounded-md w-full" src="/uploads/<%= latestImages[state].image %>"
+                        alt="<%= latestImages[state].image %>">
+                </div>
+            <% }  %>
+        </div>
+    <% }) %>
+
