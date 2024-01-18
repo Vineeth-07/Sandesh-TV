@@ -84,26 +84,68 @@ app.get("/:category", async (req, res) => {
     const articlesInCategory = await Article.getArticlesByCategory(
       selectedCategory
     );
+    console.log("abcd",articlesInCategory.length)
+    const andhraArticles = []
+    const telanganaArticles =[]
+    for(let i=0;i<articlesInCategory.length;i++){
+      if (articlesInCategory[i].state === "telangana"){
+        telanganaArticles.push(articlesInCategory[i])
+      }else{
+        andhraArticles.push(articlesInCategory[i])
+      }
+    }
+    console.log('telanganaArticles',telanganaArticles)
+    console.log('telanganaArticles',telanganaArticles.length)
+    console.log('andhraArticles',andhraArticles)
     res.render("categoryArticle", {
       title: `${selectedCategory}`,
       category: selectedCategory,
       articles: articlesInCategory,
+      telanganaArticles,
+      andhraArticles
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get("/:category/:id", async (req, res) => {
+function mapState(state){
+  if (state.toLowerCase() === "andhra") {
+    return "andhra pradesh"
+  }
+  return state
+}
+
+app.get("/:category/:state",async(req,res)=>{
+  const category = req.params.category
+  let state = req.params.state
+  state = mapState(state)
+  const articles = await Article.getArticlesByStateAndCategory(category,state)
+  console.log("unique",articles)
+  console.log(articles.length)
+  console.log(state)
+  console.log(category)
+  res.render("stateArticles",{
+    articles,
+    category,
+    state
+  })
+})
+
+app.get("/:category/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
     const article = await Article.getArticleById(articleId);
     console.log(article)
     console.log(article[0].title);
     const category = req.params.category;
-
-    const sameCategoryArticles = await Article.getArticlesByCategory(category);
-    // console.log(sameCategoryArticles);
+    console.log(category)
+    
+    let state = req.params.state
+    state = mapState(state)
+    console.log(state)
+    const sameCategoryArticles = await Article.getArticlesByStateAndCategory(category,state);
+    console.log(sameCategoryArticles);
     const stack = sameCategoryArticles.map((article) => ({
       title: article.dataValues.title,
       image:
@@ -132,6 +174,7 @@ app.get("/:category/:id", async (req, res) => {
       nextArticleIndex: nextIndex,
       category,
       stack,
+      state
     });
   } catch (err) {
     console.log(err);
