@@ -23,17 +23,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", async (req, res) => {
   try {
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    const todayDate = new Date().toLocaleDateString(undefined, options);
     let articles = await Article.getArticles();
     res.render("home", {
       title: "Sandesh TV Daily News",
-      date: todayDate,
       articles: articles,
     });
     console.log(articles[0].images);
@@ -58,10 +50,12 @@ app.post("/createArticle", upload.single("image"), async (req, res) => {
       filename: image.originalname,
       data: image.buffer,
     };
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
 
     await Article.createArticle({
       title: req.body.title,
-      date: req.body.date,
+      date: todayDate,
       category: req.body.category,
       images: imageData,
       state: req.body.state,
@@ -128,6 +122,7 @@ app.get("/:category/:state", async (req, res) => {
   res.render("stateArticles", {
     articles,
     category,
+    title: category,
     state,
   });
 });
