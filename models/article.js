@@ -29,14 +29,14 @@ module.exports = (sequelize) => {
       });
     }
 
-    static getArticlesByStateAndCategory(selectedCategory,selectedState){
+    static getArticlesByStateAndCategory(selectedCategory, selectedState) {
       return this.findAll({
-        where : {
+        where: {
           category: selectedCategory,
-          state : selectedState
+          state: selectedState,
         },
-        order : [["id","ASC"]]
-      })
+        order: [["id", "ASC"]],
+      });
     }
 
     static getArticleById(articleId) {
