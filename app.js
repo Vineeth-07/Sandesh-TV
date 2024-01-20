@@ -156,19 +156,12 @@ app.get("/:category/:state/:id", async (req, res) => {
         : null,
       id: article.dataValues.id,
     }));
-
     const currentIndex = stack.findIndex(
       (item) => item.title === article[0].title
     );
 
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
     const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
-    console.log(stack);
-
-    console.log("c", currentIndex);
-    console.log("p", prevIndex);
-    console.log("n", nextIndex);
-
     res.render("article", {
       title: `${article[0].title}`,
       article: article[0],

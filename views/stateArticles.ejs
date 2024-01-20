@@ -59,9 +59,9 @@
 
   <h1><%= state.toUpperCase() %></h1>
 
-  <div class="flex-container">
+  <div class="flex-container p-4">
     <% for (let i = 0; i < articles.length; i++) { %>
-      <div class="article-box">
+      <div class="article-box rounded">
         <% if (articles[i].images ) { %>
           <div class="article-image">
             <a href="/<%= category %>/<%=state%>/<%= articles[i].id %>">
