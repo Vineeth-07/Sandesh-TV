@@ -36,8 +36,6 @@ app.get("/", async (req, res) => {
       date: todayDate,
       articles: articles,
     });
-    console.log(articles[0].images);
-    console.log(articles)
   } catch (err) {
     console.log(err);
   }
@@ -84,89 +82,69 @@ app.get("/:category", async (req, res) => {
     const articlesInCategory = await Article.getArticlesByCategory(
       selectedCategory
     );
-    console.log("abcd",articlesInCategory.length)
+    const telanganaArticles = []
     const andhraArticles = []
-    const telanganaArticles =[]
-    for(let i=0;i<articlesInCategory.length;i++){
-      if (articlesInCategory[i].state === "telangana"){
-        telanganaArticles.push(articlesInCategory[i])
-      }else{
-        andhraArticles.push(articlesInCategory[i])
+    for (let i = 0; i < articlesInCategory.length; i++) {
+      if (articlesInCategory[i].state === "telangana") {
+        telanganaArticles.push(articlesInCategory[i]);
+      } else {
+        andhraArticles.push(articlesInCategory[i]);
       }
     }
-    console.log('telanganaArticles',telanganaArticles)
-    console.log('telanganaArticles',telanganaArticles.length)
-    console.log('andhraArticles',andhraArticles)
     res.render("categoryArticle", {
       title: `${selectedCategory}`,
       category: selectedCategory,
       articles: articlesInCategory,
       telanganaArticles,
-      andhraArticles
+      andhraArticles,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-function mapState(state){
+function mapState(state) {
   if (state.toLowerCase() === "andhra") {
-    return "andhra pradesh"
+    return "andhra pradesh";
   }
-  return state
+  return state;
 }
 
-app.get("/:category/:state",async(req,res)=>{
-  const category = req.params.category
-  let state = req.params.state
-  state = mapState(state)
-  const articles = await Article.getArticlesByStateAndCategory(category,state)
-  console.log("unique",articles)
-  console.log(articles.length)
-  console.log(state)
-  console.log(category)
-  res.render("stateArticles",{
+app.get("/:category/:state", async (req, res) => {
+  const category = req.params.category;
+  let state = req.params.state;
+  state = mapState(state);
+  const articles = await Article.getArticlesByStateAndCategory(category, state);
+  res.render("stateArticles", {
     articles,
     category,
-    state
-  })
-})
+    state,
+  });
+});
 
 app.get("/:category/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
     const article = await Article.getArticleById(articleId);
-    console.log(article)
-    console.log(article[0].title);
     const category = req.params.category;
-    console.log(category)
-    
-    let state = req.params.state
-    state = mapState(state)
-    console.log(state)
-    const sameCategoryArticles = await Article.getArticlesByStateAndCategory(category,state);
-    console.log(sameCategoryArticles);
+    let state = req.params.state;
+    state = mapState(state);
+    const sameCategoryArticles = await Article.getArticlesByStateAndCategory(
+      category,
+      state
+    );
     const stack = sameCategoryArticles.map((article) => ({
       title: article.dataValues.title,
-      image:
-        article.dataValues.images
-          ? article.dataValues.images.filename
-          : null,
+      image: article.dataValues.images
+        ? article.dataValues.images.filename
+        : null,
       id: article.dataValues.id,
     }));
-
     const currentIndex = stack.findIndex(
       (item) => item.title === article[0].title
     );
-      
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
     const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
-    console.log(stack);
-
-    console.log("c", currentIndex);
-    console.log("p", prevIndex);
-    console.log("n", nextIndex);
-
     res.render("article", {
       title: `${article[0].title}`,
       article: article[0],
@@ -174,7 +152,7 @@ app.get("/:category/:state/:id", async (req, res) => {
       nextArticleIndex: nextIndex,
       category,
       stack,
-      state
+      state,
     });
   } catch (err) {
     console.log(err);
