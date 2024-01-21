@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%=title%></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 </head>
 <body>
-    
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+        <form actio="/createNews" method="post" enctype="multipart/form-data">
+        <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
+            <input type="text" name="title" id="title" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+        </div>
+        <div class="mb-4">
+            <label for="content" class="block text-sm font-medium text-gray-600">Content</label>
+            <input type="text" name="content" id="content" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+        </div>
+        <div class="mb-4">
+            <label for="image" class="block text-sm font-medium text-gray-600">Image</label>
+            <input type="file" name="image" name="image" id="image" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Create News
+        </button>
+    </form>
+    </div>
 </body>
 </html>

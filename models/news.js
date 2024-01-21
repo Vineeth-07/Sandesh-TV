@@ -1,9 +1,32 @@
 'use strict';
 const {
-  Model
+  Model,Op
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
+
+    static createNews({title,content,date,image}){
+      return this.create({
+        title,
+        content,
+        date,
+        image
+      })
+    }
+
+    static getNews(){
+      return this.findAll({
+        order:[["id","ASC"]]
+      })
+    }
+
+    static getNewsByTodaysDate(todayDate) {
+      return News.findAll({
+        where: sequelize.literal(`to_char("News"."date", 'DD/MM/YYYY') = '${todayDate}'`)
+      });
+    }
+    
+
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   News.init({
+    title:DataTypes.STRING,
     content: DataTypes.STRING,
     date: DataTypes.DATE,
     image: DataTypes.JSONB

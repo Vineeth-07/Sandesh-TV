@@ -1,0 +1,20 @@
+
+        <div class="slider">
+            <div class="list">
+                <% todaysNews.forEach(function(item, index) { %>
+                    <div class="item" data-index="<%= index %>">
+                        <img src="/uploads/<%= item.image.filename %>" alt="<%= item.title %>">
+                    </div>
+                <% }); %>
+            </div>
+            <div class="buttons">
+                <button id="prev"><</button>
+                <button id="next">></button>
+            </div>
+            <ul class="dots">
+                <% todaysNews.forEach(function(_, index) { %>
+                    <li data-index="<%= index %>"></li>
+                <% }); %>
+            </ul>
+        </div>
+
