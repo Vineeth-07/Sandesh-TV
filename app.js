@@ -162,4 +162,12 @@ app.get("/:category/:state/:id", async (req, res) => {
   }
 });
 
+app.get("/createnews", async (req, res) => {
+  try {
+    res.render("createNews", { title: "Create News" });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = app;
