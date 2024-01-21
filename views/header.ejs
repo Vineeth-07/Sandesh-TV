@@ -4,26 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
   </head>
   <body>
-    <% const options = { 
-        weekday: "long", 
-        year: "numeric", 
-        month: "long", 
-        day: "numeric" 
-    } %>
-    <% const todayDate = new Date().toLocaleDateString(undefined, options) %>
-    
-    <div class="p-4 bg-blue-500 text-white text-sm"><%= todayDate %> | Sandesh TV Daily News</div>
-    <nav style="background-color: #F5F5DC">
-      <div>
-        <img
-          src="/images/sandesh-tv-logo.png"
-          alt="Logo"
-          style="width: 200px; height: auto"
-        />
-      </div>
-    </nav>
+    <% const options = { weekday: "long", year: "numeric", month: "long", day:
+    "numeric" } %> <% const todayDate = new Date().toLocaleDateString(undefined,
+    options) %>
+
+    <div class="p-4 bg-blue-500 text-white text-sm">
+      <%= todayDate %> | Sandesh TV Daily News
+    </div>
+    <div style="background-color: #f5f5dc">
+        <a href="/">
+          <img
+            src="/images/sandesh-tv-logo.png"
+            alt="Logo"
+            style="width: 200px; height: auto"
+        /></a>
+    </div>
   </body>
 </html>

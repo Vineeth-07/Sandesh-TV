@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
 </head>
-
 <body>
     <%- include('header.ejs') %>
-    <div >
-        <a href="/createArticle">Add article</a>
-    <%- include('articleListItems.ejs') %>
+    <div class="p-4 bg-white text-black text-sm flex border border-black items-center">
+        <div class="relative group flex">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <div class="absolute hidden bg-white border border-black mt-2 py-2 space-y-2 group-hover:block rounded">
+                <div class="px-4 py-2 hover:bg-gray-100 rounded">
+                    <a href="#">Movies</a>
+                </div>
+                <div class="px-4 py-2 hover:bg-gray-100 rounded">
+                    <a href="#">Sports</a>
+                </div>
+                <div class="px-4 py-2 hover:bg-gray-100 rounded">
+                    <a href="#">Business</a>
+                </div>
+            </div>
+        </div>
+        <div class="border p-2 mx-4">
+            <a href="/" class="font-bold">Home</a>
+        </div>
+        <div class="border p-2 mr-4">
+            <a href="/" class="font-bold">News</a>
+        </div>
+        <div class="border p-2 mr-4">
+            <a href="/" class="font-bold">About us</a>
+        </div>
+        <div class="border p-2">
+            <a href="/e-paper" class="font-bold">Epaper</a>
+        </div>
     </div>
 </body>
-
 </html>

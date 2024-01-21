@@ -33,6 +33,18 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/e-paper", async (req, res) => {
+  try {
+    let articles = await Article.getArticles();
+    res.render("e-paper", {
+      title: "Sandesh TV e-paper",
+      articles: articles,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get("/createarticle", async (req, res) => {
   try {
     res.render("createArticle", { title: "Create Article" });
