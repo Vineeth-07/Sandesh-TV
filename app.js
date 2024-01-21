@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const multer = require("multer");
-const { Article } = require("./models");
+const { Article,News } = require("./models");
 const article = require("./models/article");
 
 app.set("view engine", "ejs");
@@ -24,9 +24,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
+    const news = await News.getNews()
+    const today = new Date()
+    const todayDate = today.toLocaleDateString('en-GB')
+    console.log('todaysDate',todayDate)
+    const todaysNews = await News.getNewsByTodaysDate(todayDate)
+    console.log('todaysNews',todaysNews)
+    console.log('news',news)
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,
+      news,
+      todaysNews
     });
   } catch (err) {
     console.log(err);
@@ -77,32 +86,32 @@ app.post("/createArticle", upload.single("image"), async (req, res) => {
   }
 });
 
-app.get("/:category", async (req, res) => {
-  try {
-    const selectedCategory = req.params.category;
-    const articlesInCategory = await Article.getArticlesByCategory(
-      selectedCategory
-    );
-    const andhraArticles = [];
-    const telanganaArticles = [];
-    for (let i = 0; i < articlesInCategory.length; i++) {
-      if (articlesInCategory[i].state === "telangana") {
-        telanganaArticles.push(articlesInCategory[i]);
-      } else {
-        andhraArticles.push(articlesInCategory[i]);
-      }
-    }
-    res.render("categoryArticle", {
-      title: `${selectedCategory}`,
-      category: selectedCategory,
-      articles: articlesInCategory,
-      telanganaArticles,
-      andhraArticles,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+// app.get("/:category", async (req, res) => {
+//   try {
+//     const selectedCategory = req.params.category;
+//     const articlesInCategory = await Article.getArticlesByCategory(
+//       selectedCategory
+//     );
+//     const andhraArticles = [];
+//     const telanganaArticles = [];
+//     for (let i = 0; i < articlesInCategory.length; i++) {
+//       if (articlesInCategory[i].state === "telangana") {
+//         telanganaArticles.push(articlesInCategory[i]);
+//       } else {
+//         andhraArticles.push(articlesInCategory[i]);
+//       }
+//     }
+//     res.render("categoryArticle", {
+//       title: `${selectedCategory}`,
+//       category: selectedCategory,
+//       articles: articlesInCategory,
+//       telanganaArticles,
+//       andhraArticles,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 function mapState(state) {
   if (state.toLowerCase() === "andhra") {
@@ -169,5 +178,29 @@ app.get("/createnews", async (req, res) => {
     console.log(err);
   }
 });
+
+app.post("/createNews",upload.single("image"),async(req,res)=>{
+  try{
+    const image = req.file
+    const imageData = {
+      filename:image.originalname,
+      data:image.buffer
+    }
+    const today = new Date()
+    const todayDate = today.toISOString().split("T")[0]
+    console.log(req.body.title)
+    console.log(req.body.content)
+    console.log(todayDate)
+    await News.createNews({
+      title:req.body.title,
+      content:req.body.content,
+      date: todayDate,
+      image:imageData
+    })
+    return res.redirect("/")
+  }catch(err){
+    console.log(err)
+  }
+})
 
 module.exports = app;
