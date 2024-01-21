@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const multer = require("multer");
-const { Article,News } = require("./models");
+const { Article, News } = require("./models");
 const article = require("./models/article");
 
 app.set("view engine", "ejs");
@@ -24,18 +24,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
-    const news = await News.getNews()
-    const today = new Date()
-    const todayDate = today.toLocaleDateString('en-GB')
-    console.log('todaysDate',todayDate)
-    const todaysNews = await News.getNewsByTodaysDate(todayDate)
-    console.log('todaysNews',todaysNews)
-    console.log('news',news)
+    const news = await News.getNews();
+    const today = new Date();
+    const todayDate = today.toLocaleDateString("en-GB");
+    console.log("todaysDate", todayDate);
+    const todaysNews = await News.getNewsByTodaysDate(todayDate);
+    console.log("todaysNews", todaysNews);
+    console.log("news", news);
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,
       news,
-      todaysNews
+      todaysNews,
     });
   } catch (err) {
     console.log(err);
@@ -136,6 +136,7 @@ app.get("/:category/:state", async (req, res) => {
 app.get("/:category/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
+    console.log(req.params.id);
     const article = await Article.getArticleById(articleId);
     const category = req.params.category;
     let state = req.params.state;
@@ -179,28 +180,28 @@ app.get("/createnews", async (req, res) => {
   }
 });
 
-app.post("/createNews",upload.single("image"),async(req,res)=>{
-  try{
-    const image = req.file
+app.post("/createNews", upload.single("image"), async (req, res) => {
+  try {
+    const image = req.file;
     const imageData = {
-      filename:image.originalname,
-      data:image.buffer
-    }
-    const today = new Date()
-    const todayDate = today.toISOString().split("T")[0]
-    console.log(req.body.title)
-    console.log(req.body.content)
-    console.log(todayDate)
+      filename: image.originalname,
+      data: image.buffer,
+    };
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
+    console.log(req.body.title);
+    console.log(req.body.content);
+    console.log(todayDate);
     await News.createNews({
-      title:req.body.title,
-      content:req.body.content,
+      title: req.body.title,
+      content: req.body.content,
       date: todayDate,
-      image:imageData
-    })
-    return res.redirect("/")
-  }catch(err){
-    console.log(err)
+      image: imageData,
+    });
+    return res.redirect("/");
+  } catch (err) {
+    console.log(err);
   }
-})
+});
 
 module.exports = app;

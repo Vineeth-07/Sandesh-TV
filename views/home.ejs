@@ -5,8 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        /* Custom styles for centering and resizing the slider */
+        .swiper-container {
+            width: 50%; /* Adjust as needed */
+            height: 300px; /* Adjust the height as needed */
+            margin: auto; /* Center the slider */
+            position: relative; /* Position for absolute navigation buttons */
+            overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
+        }
+
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Adjust to stack content vertically */
+            text-align: center; /* Center text */
+        }
+
+        .swiper-slide img {
+            max-width: 100%; /* Make the image fill the slide */
+            max-height: 100%; /* Make the image fill the slide */
+            width: auto; /* Maintain aspect ratio */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1; /* Ensure buttons appear above the image */
+            transition: background-color 0.3s;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background-color: rgba(0, 0, 0, 0.5); /* Change background color on hover */
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1.8rem;
+            color: #333; /* Adjust the color as needed */
+        }
+
+        .swiper-button-prev::after {
+            content: '\2039'; /* Unicode character for left-pointing arrow */
+        }
+
+        .swiper-button-next::after {
+            content: '\203A'; /* Unicode character for right-pointing arrow */
+        }
+
+        .swiper-button-prev {
+            left: 10px;
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
     <%- include('header.ejs') %>
@@ -41,15 +110,43 @@
         </div>
     </div>
     <div>
-        <%-include("newsSlider.ejs") %>
-    </div>
-    <div>
         <a href="/createnews">
             Create news
         </a>
     </div>
-    <div class="divide-y divide-dotted">
-        <%- include("newsListItems.ejs")%>
+    <!-- Swiper Slider -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <% todaysNews.forEach(news => { %>
+                <div class="swiper-slide">
+                    <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
+                </div>
+            <% }) %>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
+
+    <div class="divide-y divide-dotted">
+        <%- include('newsListItems') %>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var mySwiper = new Swiper('.swiper-container', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+        });
+    </script>
 </body>
 </html>
