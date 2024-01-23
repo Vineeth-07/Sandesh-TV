@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         where: sequelize.literal(`to_char("News"."date", 'DD/MM/YYYY') = '${todayDate}'`)
       });
     }
+
+    static getNewsById(id){
+      return News.findOne({
+        where:{
+          id:id
+        }
+      })
+    }
     
 
     /**

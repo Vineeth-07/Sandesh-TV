@@ -119,7 +119,9 @@
         <div class="swiper-wrapper">
             <% todaysNews.forEach(news => { %>
                 <div class="swiper-slide">
-                    <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
+                    <a href="/news/<%=news.id%>">
+                        <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
+                    </a>
                 </div>
             <% }) %>
         </div>
@@ -145,6 +147,9 @@
                     el: '.swiper-pagination',
                     clickable: true,
                 },
+                autoplay:{
+                    delay:1000
+                }
             });
         });
     </script>

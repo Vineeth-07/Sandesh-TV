@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <style>
+        /* Custom styles for centering and resizing the slider */
+.container {
+    width: 50%; /* Adjust as needed */
+    height: 300px; /* Adjust the height as needed */
+    margin: auto; /* Center the slider */
+    position: relative; /* Position for absolute navigation buttons */
+    overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
+}
+
+.container img {
+    max-width: 100%; /* Make the image fill the container */
+    height: 100%; /* Make the image fill the container */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    object-position: center; /* Center the image within the container */
+}
+
+    </style>
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <div class="p-4">
+        <h3 class="font-bold text-3xl"><%=news.title%></h3>
+    </div>
+    <div class="container">
+        <img class="image" src="/uploads/<%=news.image.filename%>" alt="news.title">
+    </div>
+    <div>
+        <p><%=news.content%></p>
+    </div>
+</body>
+</html>

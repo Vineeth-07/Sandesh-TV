@@ -120,57 +120,57 @@ function mapState(state) {
   return state;
 }
 
-app.get("/:category/:state", async (req, res) => {
-  const category = req.params.category;
-  let state = req.params.state;
-  state = mapState(state);
-  const articles = await Article.getArticlesByStateAndCategory(category, state);
-  res.render("stateArticles", {
-    articles,
-    category,
-    title: category,
-    state,
-  });
-});
+// app.get("/:category/:state", async (req, res) => {
+//   const category = req.params.category;
+//   let state = req.params.state;
+//   state = mapState(state);
+//   const articles = await Article.getArticlesByStateAndCategory(category, state);
+//   res.render("stateArticles", {
+//     articles,
+//     category,
+//     title: category,
+//     state,
+//   });
+// });
 
-app.get("/:category/:state/:id", async (req, res) => {
-  try {
-    const articleId = req.params.id;
-    console.log(req.params.id);
-    const article = await Article.getArticleById(articleId);
-    const category = req.params.category;
-    let state = req.params.state;
-    state = mapState(state);
-    const sameCategoryArticles = await Article.getArticlesByStateAndCategory(
-      category,
-      state
-    );
-    const stack = sameCategoryArticles.map((article) => ({
-      title: article.dataValues.title,
-      image: article.dataValues.images
-        ? article.dataValues.images.filename
-        : null,
-      id: article.dataValues.id,
-    }));
-    const currentIndex = stack.findIndex(
-      (item) => item.title === article[0].title
-    );
+// app.get("/:category/:state/:id", async (req, res) => {
+//   try {
+//     const articleId = req.params.id;
+//     console.log(req.params.id);
+//     const article = await Article.getArticleById(articleId);
+//     const category = req.params.category;
+//     let state = req.params.state;
+//     state = mapState(state);
+//     const sameCategoryArticles = await Article.getArticlesByStateAndCategory(
+//       category,
+//       state
+//     );
+//     const stack = sameCategoryArticles.map((article) => ({
+//       title: article.dataValues.title,
+//       image: article.dataValues.images
+//         ? article.dataValues.images.filename
+//         : null,
+//       id: article.dataValues.id,
+//     }));
+//     const currentIndex = stack.findIndex(
+//       (item) => item.title === article[0].title
+//     );
 
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
-    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
-    res.render("article", {
-      title: `${article[0].title}`,
-      article: article[0],
-      prevArticleIndex: prevIndex,
-      nextArticleIndex: nextIndex,
-      category,
-      stack,
-      state,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+//     const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
+//     const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
+//     res.render("article", {
+//       title: `${article[0].title}`,
+//       article: article[0],
+//       prevArticleIndex: prevIndex,
+//       nextArticleIndex: nextIndex,
+//       category,
+//       stack,
+//       state,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.get("/createnews", async (req, res) => {
   try {
@@ -203,5 +203,20 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
     console.log(err);
   }
 });
+
+app.get("/news/:id",async(req,res)=>{
+  try{
+    const id = req.params.id
+    const news = await News.getNewsById(id)
+    res.render("news",{
+      title:news.title,
+      id:id,
+      news
+    })
+  }catch(err){
+    console.log(err)
+  }
+  
+})
 
 module.exports = app;
