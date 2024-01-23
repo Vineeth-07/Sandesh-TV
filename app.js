@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const multer = require("multer");
-const { Article, News } = require("./models");
+const { Article, News, Videos } = require("./models");
 const article = require("./models/article");
 
 app.set("view engine", "ejs");
@@ -34,7 +34,6 @@ app.get("/", async (req, res) => {
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,
-      news,
       todaysNews,
     });
   } catch (err) {
@@ -204,19 +203,52 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
   }
 });
 
-app.get("/news/:id",async(req,res)=>{
-  try{
-    const id = req.params.id
-    const news = await News.getNewsById(id)
-    res.render("news",{
-      title:news.title,
-      id:id,
-      news
-    })
-  }catch(err){
-    console.log(err)
+app.get("/news/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const news = await News.getNewsById(id);
+    res.render("news", {
+      title: news.title,
+      id: id,
+      news,
+    });
+  } catch (err) {
+    console.log(err);
   }
-  
-})
+});
+
+app.get("/videos", async (req, res) => {
+  try {
+    let videos = await Videos.getVideos();
+    res.render("videos", {
+      title: "Sandesh TV videos",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/createVideo", async (req, res) => {
+  try {
+    res.render("createVideo", {
+      title: "Add video",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/createVideo", async (req, res) => {
+  try {
+    console.log(req.body.title, req.body.url);
+    await News.createVideo({
+      title: req.body.title,
+      url: req.body.url,
+    });
+    return res.redirect("/videos");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = app;

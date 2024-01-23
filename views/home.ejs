@@ -15,7 +15,6 @@
             position: relative; /* Position for absolute navigation buttons */
             overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
         }
-
         .swiper-slide {
             position: relative;
             display: flex;
@@ -24,14 +23,12 @@
             flex-direction: column; /* Adjust to stack content vertically */
             text-align: center; /* Center text */
         }
-
         .swiper-slide img {
             max-width: 100%; /* Make the image fill the slide */
             max-height: 100%; /* Make the image fill the slide */
             width: auto; /* Maintain aspect ratio */
             height: auto; /* Maintain aspect ratio */
         }
-
         .swiper-button-next,
         .swiper-button-prev {
             position: absolute;
@@ -48,30 +45,24 @@
             z-index: 1; /* Ensure buttons appear above the image */
             transition: background-color 0.3s;
         }
-
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
             background-color: rgba(0, 0, 0, 0.5); /* Change background color on hover */
         }
-
         .swiper-button-next::after,
         .swiper-button-prev::after {
             font-size: 1.8rem;
             color: #333; /* Adjust the color as needed */
         }
-
         .swiper-button-prev::after {
             content: '\2039'; /* Unicode character for left-pointing arrow */
         }
-
         .swiper-button-next::after {
             content: '\203A'; /* Unicode character for right-pointing arrow */
         }
-
         .swiper-button-prev {
             left: 10px;
         }
-
         .swiper-button-next {
             right: 10px;
         }
@@ -105,8 +96,11 @@
         <div class="border p-2 mr-4">
             <a href="/" class="font-bold">About us</a>
         </div>
+        <div class="border p-2 mr-4">
+            <a href="/e-paper" class="font-bold">E-Paper</a>
+        </div>
         <div class="border p-2">
-            <a href="/e-paper" class="font-bold">Epaper</a>
+            <a href="/videos" class="font-bold">Videos</a>
         </div>
     </div>
     <div>
@@ -117,13 +111,19 @@
     <!-- Swiper Slider -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <% todaysNews.forEach(news => { %>
+            <% if (todaysNews.length > 0) { %>
+                <% todaysNews.forEach(news => { %>
+                    <div class="swiper-slide">
+                        <a href="/news/<%=news.id%>">
+                            <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
+                        </a>
+                    </div>
+                <% }) %>
+            <% } else { %>
                 <div class="swiper-slide">
-                    <a href="/news/<%=news.id%>">
-                        <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
-                    </a>
+                    <p>No news available for today.</p>
                 </div>
-            <% }) %>
+            <% } %>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-next"></div>
@@ -148,7 +148,7 @@
                     clickable: true,
                 },
                 autoplay:{
-                    delay:1000
+                    delay:2000
                 }
             });
         });

@@ -1,9 +1,13 @@
-  <% for (let i=0; i< news.length; i++) { %>
-            <div class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1">
-                <a href="/news/<%=news[i].id%>">
-                    <p class="tracking-light font-bold line-clamp-2"><%= news[i].title %> | <%= news[i].content %>...</p>
-                </a>
-            </div>
+<% if (todaysNews.length > 0) { %>
+    <% for (let i=0; i < todaysNews.length; i++) { %>
+        <div class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1">
+            <a href="/news/<%=todaysNews[i].id%>">
+                <p class="tracking-light font-bold line-clamp-2"><%= todaysNews[i].title %> | <%= todaysNews[i].content %>...</p>
+            </a>
+        </div>
     <% } %>
-
-
+<% } else { %>
+    <div class="py-2 px-4">
+        <p>No news available for today.</p>
+    </div>
+<% } %>
