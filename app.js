@@ -28,10 +28,7 @@ app.get("/", async (req, res) => {
     const news = await News.getNews();
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
-    console.log("todaysDate", todayDate);
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
-    console.log("todaysNews", todaysNews);
-    console.log("news", news);
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,
@@ -189,9 +186,6 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
     };
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
-    console.log(req.body.title);
-    console.log(req.body.content);
-    console.log(todayDate);
     await News.createNews({
       title: req.body.title,
       content: req.body.content,
@@ -221,7 +215,6 @@ app.get("/news/:id", async (req, res) => {
 app.get("/videos", async (req, res) => {
   try {
     let videos = await Videos.getVideos();
-    console.log(videos);
     res.render("videos", {
       title: "Sandesh TV videos",
       videos: videos,
