@@ -1,6 +1,6 @@
 <% if (todaysNews.length > 0) { %>
     <% for (let i=0; i < todaysNews.length; i++) { %>
-        <div class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1">
+        <div class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1 col-start-2 col-span-2">
             <a href="/news/<%=todaysNews[i].id%>">
                 <p class="tracking-light font-bold line-clamp-2"><%= todaysNews[i].title %> | <%= todaysNews[i].content %>...</p>
             </a>
