@@ -12,15 +12,19 @@
 <body>
   <%- include('header.ejs') %>
     <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-        <form action="/createVideo" method="post">
+        <form action="/createVideo" method="post" enctype="application/x-www-form-urlencoded">
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
             <input type="text" name="title" id="title" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
         </div>
         <div class="mb-4">
             <label for="url" class="block text-sm font-medium text-gray-600">URL</label>
-            <input type="text" name="url" id="urk" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+            <input type="text" name="url" id="url" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
         </div>
+        <div class="mb-4">
+          <label for="video_id" class="block text-sm font-medium text-gray-600">Video ID</label>
+          <input type="text" name="ideo_id" id="ideo_id" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+      </div>
         <button
           type="submit"
           class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"

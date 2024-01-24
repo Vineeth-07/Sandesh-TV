@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
   try {
@@ -220,8 +221,10 @@ app.get("/news/:id", async (req, res) => {
 app.get("/videos", async (req, res) => {
   try {
     let videos = await Videos.getVideos();
+    console.log(videos);
     res.render("videos", {
       title: "Sandesh TV videos",
+      videos: videos,
     });
   } catch (err) {
     console.log(err);
@@ -240,10 +243,10 @@ app.get("/createVideo", async (req, res) => {
 
 app.post("/createVideo", async (req, res) => {
   try {
-    console.log(req.body.title, req.body.url);
-    await News.createVideo({
+    await Videos.createVideo({
       title: req.body.title,
       url: req.body.url,
+      video_id: req.body.video_id,
     });
     return res.redirect("/videos");
   } catch (err) {

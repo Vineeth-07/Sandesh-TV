@@ -1,17 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> </title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= title %></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
 </head>
 
 <body>
-  <%- include('header.ejs') %>
-  <a href="/createVideo">Add video</a>
+  <% const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } %>
+  <% const todayDate = new Date().toLocaleDateString(undefined, options) %>
 
+  <div class="p-4 bg-blue-500 text-white text-sm">
+    <%= todayDate %> | Sandesh TV Daily News
+  </div>
+  <div style="background-color: #f5f5dc">
+    <a href="/">
+      <img src="/images/sandesh-tv-logo.png" alt="Logo" style="width: 200px; height: auto" />
+    </a>
+  </div>
+  <a href="/createVideo">Add video</a>
+  <div class="container mx-auto mt-8">
+    <% if (videos && videos.length > 0) { %> 
+      <% videos.forEach(video => { %>
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-4 text-center"><%= video.title %></h2>
+          <div class="aspect-w-16 aspect-h-9 flex items-center justify-center">
+            <% if (video.url.includes('youtube.com/embed')) { %>
+              <iframe
+                width="640"
+                height="360"
+                src="<%= video.url %>"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            <% } else { %>
+              <div id="player_<%= video.video_id %>"></div>
+              <script>
+                function getYouTubeVideoId(url) {
+                  var regex = /[?&]v=([^&#]*)/;
+                  var match = url.match(regex);
+                  return match && match[1] ? match[1] : null;
+                }
+                var videoId_<%= video.video_id %> = getYouTubeVideoId('<%= video.url %>');
+                function onYouTubeIframeAPIReady() {
+                  new YT.Player('player_<%= video.video_id %>', {
+                    height: '360',
+                    width: '640',
+                    videoId: videoId_<%= video.video_id %>,
+                  });
+                }
+              </script>
+            <% } %>
+          </div>
+        </div>
+      <% }); %> 
+    <% } else { %>
+      <p>No videos available</p>
+    <% } %>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 
 </html>

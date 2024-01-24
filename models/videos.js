@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static createVideo({ title, url }) {
+    static createVideo({ title, url, video_id }) {
       return this.create({
         title,
         url,
+        video_id,
       });
     }
 
@@ -27,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       url: DataTypes.STRING,
+      video_id: DataTypes.STRING,
     },
     {
       sequelize,
