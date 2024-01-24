@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdeliver.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
         /* Custom styles for centering and resizing the slider */
         .swiper-container {
@@ -66,73 +67,192 @@
         .swiper-button-next {
             right: 10px;
         }
+        .group:hover .hidden {
+            display: block;
+        }
+        #container{
+            display: flex;
+            flex-direction: column;
+            border: 1px solid red;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            background: #FFF;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.2);
+        }
+        .sidebar{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 64px; /* Set your preferred width */
+            background-color: #ffffff; /* Add your preferred background color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        .sidebar.open{
+            display:block
+        }
+        .content-container {
+            transition: margin-left 0.3s ease;
+            margin-left: 0;
+            z-index: 1; /* Adjust the margin to match the sidebar width */
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
     <%- include('header.ejs') %>
-    <div class="p-4 bg-white text-black text-sm flex border border-black items-center">
-        <div class="relative group flex">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-            <div class="absolute hidden bg-white border border-black mt-2 py-2 space-y-2 group-hover:block rounded">
-                <div class="px-4 py-2 hover:bg-gray-100 rounded">
-                    <a href="#">Movies</a>
-                </div>
-                <div class="px-4 py-2 hover:bg-gray-100 rounded">
-                    <a href="#">Sports</a>
-                </div>
-                <div class="px-4 py-2 hover:bg-gray-100 rounded">
-                    <a href="#">Business</a>
-                </div>
+    <div class="max-w-2xl mx-auto">
+
+        <aside class="sidebar w-64 hidden" aria-label="Sidebar">
+            <div class="px-3 py-4 overflow-y-auto rounded bg-gray-50 dark:bg-gray-800">
+                <button id="closeSidebar" class="absolute top-2 right-2 p-2 text-gray-600 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <ul class="py-7 px-4 space-y-2">
+                    <li>
+                        <button type="button" class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                      <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>వార్తలు</span>
+                      <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                        <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Telangana</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Andhra Pradesh</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">సినిమా
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3">స్పోర్ట్స్ ( క్రీడలు)
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">బిజినెస్
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">ఆధ్యాత్మికం
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">చరిత్ర
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">    
+                            <span class="flex-1 ml-3 whitespace-nowrap">వీడియోలు</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">మ్యాగ్జిన్
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap">About Us</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
+    </div>
+    <div class="content-container">
+        <div class="p-4 bg-white text-black text-sm flex border border-black items-center">
+        
+            <div class="relative group flex">
+                <button id="toggleSidebar" onclick="Open()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                      </svg>
+                </button>
+            </div>
+            <div class="border p-2 mx-4">
+                <a href="/" class="font-bold">Home</a>
+            </div>
+            <div class="border p-2 mr-4">
+                <a href="/" class="font-bold">News</a>
+            </div>
+            <div class="border p-2 mr-4">
+                <a href="/" class="font-bold">About us</a>
+            </div>
+            <div class="border p-2 mr-4">
+                <a href="/e-paper" class="font-bold">E-Paper</a>
+            </div>
+            <div class="border p-2">
+                <a href="/videos" class="font-bold">Videos</a>
             </div>
         </div>
-        <div class="border p-2 mx-4">
-            <a href="/" class="font-bold">Home</a>
+        <div>
+            <a href="/createnews">
+                Create news
+            </a>
         </div>
-        <div class="border p-2 mr-4">
-            <a href="/" class="font-bold">News</a>
-        </div>
-        <div class="border p-2 mr-4">
-            <a href="/" class="font-bold">About us</a>
-        </div>
-        <div class="border p-2 mr-4">
-            <a href="/e-paper" class="font-bold">E-Paper</a>
-        </div>
-        <div class="border p-2">
-            <a href="/videos" class="font-bold">Videos</a>
-        </div>
-    </div>
-    <div>
-        <a href="/createnews">
-            Create news
-        </a>
-    </div>
-    <!-- Swiper Slider -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <% if (todaysNews.length > 0) { %>
-                <% todaysNews.forEach(news => { %>
+        <!-- Swiper Slider -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <% if (todaysNews.length > 0) { %>
+                    <% todaysNews.forEach(news => { %>
+                        <div class="swiper-slide">
+                            <a href="/news/<%=news.id%>">
+                                <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
+                            </a>
+                        </div>
+                    <% }) %>
+                <% } else { %>
                     <div class="swiper-slide">
-                        <a href="/news/<%=news.id%>">
-                            <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
-                        </a>
+                        <p>No news available for today.</p>
                     </div>
-                <% }) %>
-            <% } else { %>
-                <div class="swiper-slide">
-                    <p>No news available for today.</p>
-                </div>
-            <% } %>
+                <% } %>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+    
+        <div class="divide-y divide-dotted">
+            <%- include('newsListItems') %>
+        </div>
     </div>
-
-    <div class="divide-y divide-dotted">
-        <%- include('newsListItems') %>
-    </div>
+    
 
     <!-- Scripts -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -152,6 +272,19 @@
                 }
             });
         });
+        document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.querySelector('.sidebar');
+        const toggleButton = document.getElementById('toggleSidebar');
+        const closeSidebarbutton = document.getElementById('closeSidebar')
+
+        toggleButton.addEventListener('click', function () {
+            sidebar.classList.toggle('open');
+        });
+
+        closeSidebarbutton.addEventListener('click',function(){
+            sidebar.classList.remove('open')
+        })
+    });
     </script>
 </body>
 </html>
