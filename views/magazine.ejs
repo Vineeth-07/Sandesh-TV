@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <a href="/createMagazine">Add magazine</a>
+    <% if (magazines && magazines.length > 0) { %>
+        <ul>
+            <% magazines.forEach(magazine => { %>
+                <li>
+                    <h2><%= magazine.title %></h2>
+                    <p>Date: <%= magazine.date %></p>
+                    <% if (magazine.pdf) { %>
+                        <iframe src="/uploads/<%=magazine.pdf.filename%>" width="100%" height="600px"></iframe>
+                    <% } else { %>
+                        <p>No PDF available</p>
+                    <% } %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No magazines available</p>
+    <% } %>
+
+</body>
+</html>

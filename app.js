@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const multer = require("multer");
-const { Article, News, Videos } = require("./models");
-const article = require("./models/article");
+const { Article, News, Videos, Magazine } = require("./models");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -107,6 +106,48 @@ app.post("/createArticle", upload.single("image"), async (req, res) => {
     });
 
     return res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/magazine", async (req, res) => {
+  try {
+    let magazines = await Magazine.getMagazines();
+    res.render("magazine", {
+      title: "Sandesh TV magazines",
+      magazines: magazines,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/createMagazine", async (req, res) => {
+  try {
+    res.render("createMagazine", {
+      title: "Add magazine",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/createMagazine", upload.single("pdf"), async (req, res) => {
+  try {
+    const pdf = req.file;
+    const pdfData = {
+      filename: pdf.originalname,
+      data: pdf.buffer,
+    };
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
+    await Magazine.createMagazine({
+      title: req.body.title,
+      date: todayDate,
+      pdf: pdfData,
+    });
+    return res.redirect("/magazine");
   } catch (err) {
     console.log(err);
   }
