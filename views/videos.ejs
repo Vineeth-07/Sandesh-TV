@@ -30,17 +30,7 @@
 </head>
 
 <body>
-  <% const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } %>
-  <% const todayDate = new Date().toLocaleDateString(undefined, options) %>
-
-  <div class="p-4 bg-blue-500 text-white text-sm">
-    <%= todayDate %> | Sandesh TV Daily News
-  </div>
-  <div style="background-color: #f5f5dc">
-    <a href="/">
-      <img src="/images/sandesh-tv-logo.png" alt="Logo" style="width: 200px; height: auto" />
-    </a>
-  </div>
+  <%- include('header.ejs') %>
   <a href="/createVideo">Add video</a>
   <div class="container mx-auto mt-8">
     <% if (videos && videos.length > 0) { %> 

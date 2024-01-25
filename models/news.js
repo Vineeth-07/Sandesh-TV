@@ -1,39 +1,37 @@
-'use strict';
-const {
-  Model,Op
-} = require('sequelize');
+"use strict";
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
-
-    static createNews({title,content,date,image}){
+    static createNews({ title, content, date, image }) {
       return this.create({
         title,
         content,
         date,
-        image
-      })
+        image,
+      });
     }
 
-    static getNews(){
+    static getNews() {
       return this.findAll({
-        order:[["id","ASC"]]
-      })
+        order: [["id", "ASC"]],
+      });
     }
 
     static getNewsByTodaysDate(todayDate) {
       return News.findAll({
-        where: sequelize.literal(`to_char("News"."date", 'DD/MM/YYYY') = '${todayDate}'`)
+        where: sequelize.literal(
+          `to_char("News"."date", 'DD/MM/YYYY') = '${todayDate}'`
+        ),
       });
     }
 
-    static getNewsById(id){
+    static getNewsById(id) {
       return News.findOne({
-        where:{
-          id:id
-        }
-      })
+        where: {
+          id: id,
+        },
+      });
     }
-    
 
     /**
      * Helper method for defining associations.
@@ -44,14 +42,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  News.init({
-    title:DataTypes.STRING,
-    content: DataTypes.STRING,
-    date: DataTypes.DATE,
-    image: DataTypes.JSONB
-  }, {
-    sequelize,
-    modelName: 'News',
-  });
+  News.init(
+    {
+      title: DataTypes.TEXT,
+      content: DataTypes.TEXT,
+      date: DataTypes.DATE,
+      image: DataTypes.JSONB,
+    },
+    {
+      sequelize,
+      modelName: "News",
+    }
+  );
   return News;
 };
