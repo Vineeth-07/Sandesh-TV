@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=title%></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
     <style>
         /* Custom styles for centering and resizing the slider */
 .container {
@@ -25,13 +26,13 @@
 </head>
 <body>
     <%- include("header.ejs") %>
-    <div class="p-4">
-        <h3 class="font-bold text-3xl"><%=news.title%></h3>
+    <div class="p-4" style="font-family: 'Mandali', sans-serif;">
+        <h3 class="font-bold text-3xl"><span class="font-bold" style="color: rgb(44, 52, 155); font-size: 40px;"><%= news.title %></span></h3>
     </div>
     <div class="container">
         <img class="image" src="/uploads/<%=news.image.filename%>" alt="news.title">
     </div>
-    <div>
+    <div style="font-family: 'Mandali', sans-serif; font-size: 25px;">
         <p><%=news.content%></p>
     </div>
 </body>

@@ -147,6 +147,20 @@ app.post("/createVideo", async (req, res) => {
   }
 });
 
+app.get("/news/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const news = await News.getNewsById(id);
+    res.render("news", {
+      title: news.title,
+      id: id,
+      news,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get("/:category", async (req, res) => {
   try {
     const selectedCategory = req.params.category;
@@ -227,20 +241,6 @@ app.get("/:category/:state/:id", async (req, res) => {
       category,
       stack,
       state,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.get("/news/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const news = await News.getNewsById(id);
-    res.render("news", {
-      title: news.title,
-      id: id,
-      news,
     });
   } catch (err) {
     console.log(err);
