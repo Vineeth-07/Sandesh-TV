@@ -20,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "ASC"]],
       });
     }
+
+    static getMagazineById(id) {
+      return Magazine.findOne({
+        where: {
+          id: id,
+        },
+      });
+    }
+
     static associate(models) {
       // define association here
     }

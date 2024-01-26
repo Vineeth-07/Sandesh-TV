@@ -202,6 +202,18 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
+app.get("/magazine/:id", async (req, res) => {
+  try {
+    const magazine = await Magazine.getMagazineById(req.params.id);
+    res.render("magazineView", {
+      title: magazine.title,
+      magazine: magazine,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get("/:category", async (req, res) => {
   try {
     const selectedCategory = req.params.category;
