@@ -15,6 +15,12 @@ module.exports = {
       content: {
         type: Sequelize.TEXT,
       },
+      state: {
+        type: Sequelize.STRING,
+      },
+      category: {
+        type: Sequelize.STRING,
+      },
       date: {
         type: Sequelize.DATE,
       },

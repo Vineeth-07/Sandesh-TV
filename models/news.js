@@ -2,9 +2,11 @@
 const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
-    static createNews({ title, content, date, image }) {
+    static createNews({ title, content,state,category, date, image }) {
       return this.create({
         title,
+        state,
+        category,
         content,
         date,
         image,
@@ -33,6 +35,22 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static getNewsByState(state){
+      return News.findAll({
+        where: {
+          state:state
+        }
+      })
+    }
+
+    static getNewsByCategory(category){
+      return News.findAll({
+        where: {
+          category:category
+        }
+      })
+    }
+
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -45,7 +63,9 @@ module.exports = (sequelize, DataTypes) => {
   News.init(
     {
       title: DataTypes.TEXT,
-      content: DataTypes.TEXT,
+      state:DataTypes.STRING,
+      category:DataTypes.STRING,
+      content: DataTypes.TEXT,      
       date: DataTypes.DATE,
       image: DataTypes.JSONB,
     },

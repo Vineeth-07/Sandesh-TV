@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('header.ejs') %> 
+    <% if (newsByCategory.length > 0) { %> 
+        <% newsByCategory.forEach(news => { %>
+            <div class="">
+                <a href="/news/<%=news.id%>"> 
+                    <%=news.title%> 
+                </a>
+            </div>
+        <% }) %> 
+        <% } else { %>
+        <div class="">
+            <p>No news available for today.</p>
+        </div>
+    <% } %>
+  </body>
+</html>

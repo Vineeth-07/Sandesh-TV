@@ -19,7 +19,7 @@
                 <ul>
                     <% magazines.forEach(magazine => { %>
                         <a href="/magazine/<%= magazine.id %>">
-                            <li style="border-bottom: 1px solid #ccc; padding: 10px 0; font-family: 'Mandali', sans-serif; ">
+                            <li class="transition-transform duration-300 transform hover:-translate-y-1" style="border-bottom: 1px solid #ccc; padding: 10px 0; font-family: 'Mandali', sans-serif; ">
                                 <h2 class="font-bold text-3xl;">Title : <%= magazine.title %></h2>
                                 <p>Published on : <%= new Date(magazine.date).toLocaleDateString('en-GB') %></p>
                             </li>
