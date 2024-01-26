@@ -7,7 +7,7 @@
     "start": "nodemon -e js,ejs",
     "start:prod": "node index.js",
     "pretest": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate "
-    },
+  },
   "lint-staged": {
     "*.js": [
       "eslint",
@@ -45,6 +45,7 @@
     "mysql2": "^3.6.5",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pdfjs": "^2.5.3",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.28.0",

@@ -25,7 +25,6 @@ app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
     const news = await News.getNews();
-    console.log(news)
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
@@ -56,11 +55,10 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
     };
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
-    console.log(req.body.state)
     await News.createNews({
       title: req.body.title,
-      state:req.body.state,
-      category:req.body.category,
+      state: req.body.state,
+      category: req.body.category,
       content: req.body.content,
       date: todayDate,
       image: imageData,
@@ -148,7 +146,6 @@ app.post("/createMagazine", upload.single("pdf"), async (req, res) => {
       filename: filename,
       data: pdf.buffer,
     };
-    console.log(pdfData);
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
     await Magazine.createMagazine({
@@ -197,8 +194,6 @@ app.post("/createVideo", async (req, res) => {
   }
 });
 
-
-
 app.get("/news/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -225,77 +220,72 @@ app.get("/magazine/:id", async (req, res) => {
   }
 });
 
-
-app.get("/state/:state",async(req,res)=>{
-  const state = req.params.state
-  console.log(state)
-  const newsByState = await News.getNewsByState(state)
+app.get("/state/:state", async (req, res) => {
+  const state = req.params.state;
+  const newsByState = await News.getNewsByState(state);
   // const newsByCategory = await News.getNewsByCategory()
-  console.log(newsByState.length)
-  switch(state){
-    case 'telangana':
-      res.render("stateNews",{
+  switch (state) {
+    case "telangana":
+      res.render("stateNews", {
         title: "Telangana News",
-        newsByState
+        newsByState,
       });
       break;
-    case 'andhrapradesh':
-      res.render("stateNews",{
+    case "andhrapradesh":
+      res.render("stateNews", {
         title: "AndhraPradesh News",
-        newsByState
+        newsByState,
       });
       break;
-    case 'other':
-      res.render("stateNews",{
+    case "other":
+      res.render("stateNews", {
         title: "News",
-        newsByState
-      })
-      break
+        newsByState,
+      });
+      break;
     default:
-      res.status(404).send('Not Found')
+      res.status(404).send("Not Found");
   }
-})
+});
 
-app.get("/category/:category",async(req,res)=>{
-  const category = req.params.category
-  console.log(category)
-  const newsByCategory = await News.getNewsByCategory(category)
-  console.log(newsByCategory)
-  switch(category){
-    case 'cinema':
-      res.render("categoryNews",{
+app.get("/category/:category", async (req, res) => {
+  const category = req.params.category;
+  const newsByCategory = await News.getNewsByCategory(category);
+  switch (category) {
+    case "cinema":
+      res.render("categoryNews", {
         title: "Cinema",
         newsByCategory,
-      })
-      break
-    case 'sports':
-      res.render("categoryNews",{
+      });
+      break;
+    case "sports":
+      res.render("categoryNews", {
         title: "Sports",
         newsByCategory,
-      })
-      break
-    case  'business':
-      res.render("categoryNews",{
+      });
+      break;
+    case "business":
+      res.render("categoryNews", {
         title: "Business",
         newsByCategory,
-      })
-      break
-    case 'spirituality':
-      res.render("categoryNews",{
+      });
+      break;
+    case "spirituality":
+      res.render("categoryNews", {
         title: "Spirituality",
         newsByCategory,
-      })
-      break
-    case 'history':
-      res.render("categoryNews",{
+      });
+      break;
+    case "history":
+      res.render("categoryNews", {
         title: "History",
         newsByCategory,
-      })
-      break
+      });
+      break;
     default:
-      res.statusCode(404).send("Not Found")
+      res.statusCode(404).send("Not Found");
   }
-})
+});
 
 // app.get("/:category", async (req, res) => {
 //   try {
@@ -347,7 +337,6 @@ app.get("/:category/:state", async (req, res) => {
 app.get("/:category/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
-    console.log(req.params.id);
     const article = await Article.getArticleById(articleId);
     const category = req.params.category;
     let state = req.params.state;
