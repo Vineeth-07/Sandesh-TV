@@ -136,10 +136,15 @@ app.get("/createMagazine", async (req, res) => {
 app.post("/createMagazine", upload.single("pdf"), async (req, res) => {
   try {
     const pdf = req.file;
+    let filename = pdf.originalname;
+    if (filename.includes(" ")) {
+      filename = filename.trim();
+    }
     const pdfData = {
-      filename: pdf.originalname,
+      filename: filename,
       data: pdf.buffer,
     };
+    console.log(pdfData);
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
     await Magazine.createMagazine({
