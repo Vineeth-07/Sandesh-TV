@@ -18,8 +18,26 @@
             <input type="text" name="title" id="title" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
         </div>
         <div class="mb-4">
-            <label for="content" class="block text-sm font-medium text-gray-600">Content</label>
-            <input type="text" name="content" id="content" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+          <label for="state" class="block text-sm font-medium text-gray-600">Select State:</label>
+          <select id="state" name="state">
+            <option value="telangana">Telangana</option>
+            <option value="andhrapradesh">Andhra Pradesh</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="content" class="block text-sm font-medium text-gray-600">Content</label>
+          <input type="text" name="content" id="content" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+        </div>
+        <div class="mb-4">
+            <label for="category" class="block text-sm font-medium text-gray-600">Select category:</label>
+            <select id="category" name="category">
+              <option value="cinema">Cinema</option>
+              <option value="sports">Sports</option>
+              <option value="business">Business</option>
+              <option value="spirituality">Spirituality</option>
+              <option value="history">History</option>
+            </select>
         </div>
         <div class="mb-4">
             <label for="image" class="block text-sm font-medium text-gray-600">Image</label>

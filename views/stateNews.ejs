@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+</head>
+<body>
+  <%- include('header.ejs') %>
+  <% if (newsByState.length > 0) { %>
+    <% newsByState.forEach(news => { %>
+        <div class="">
+            <a href="/news/<%=news.id%>">
+                <%=news.title%>
+            </a>
+        </div>
+    <% }) %>
+<% } else { %>
+    <div class="">
+        <p>No news available for today.</p>
+    </div>
+<% } %>
+</body>
+</html>
