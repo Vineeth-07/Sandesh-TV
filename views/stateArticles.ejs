@@ -2,74 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Santesh TV <%= category %> news</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .flex-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .article-box {
-      width: calc(25% - 8px); /* 25% width for each box with 4px gap */
-      border: 1px solid #ddd;
-      padding: 8px;
-      margin: 4px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      height: 300px;
-    }
-
-    .article-box h2 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    .article-image {
-      flex-grow: 1;
-    }
-
-    .article-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    .no-image {
-      flex-grow: 1;
-      background-color: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 4px;
-    }
-  </style>
+  <!-- Add your head content here -->
 </head>
 
 <body>
   <%- include('header.ejs') %>
 
-  <h1><%= state.toUpperCase() %></h1>
+  <h1><%= state.toUpperCase() %> News</h1>
 
   <div class="flex-container p-4">
     <% for (let i = 0; i < articles.length; i++) { %>
       <div class="article-box rounded">
-        <% if (articles[i].images ) { %>
+        <% const article = articles[i]; %>
+
+        <% if (article.images) { %>
           <div class="article-image">
-            <a href="/<%= category %>/<%=state%>/<%= articles[i].id %>">
-              <img src="/uploads/<%= articles[i].images.filename %>"
-                 alt="<%= articles[i].images.filename %>">
+            <a href="/epaper/<%= article.state %>/<%= article.id %>">
+              <img src="/uploads/<%= article.images.filename %>"
+                 alt="<%= article.images.filename %>">
             </a>
           </div>
         <% } else { %>

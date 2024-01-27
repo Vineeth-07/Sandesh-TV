@@ -124,6 +124,12 @@
         #closeSidebar:hover {
             transform: scale(1.2); /* Zoom in by 10% on hover */
         }
+        .topButton {
+            transition: transform 0.3s ease-in-out;
+        }
+        .topButton:hover {
+            transform: scale(1.1);
+        }
 
         @media (max-width: 640px) {
         .sidebar {
@@ -159,7 +165,6 @@
     </div>
     <div class="content-container">
         <div class="p-4 bg-white text-black text-sm flex border rounded-lg items-center">
-        
             <div class="relative group flex">
                 <button id="toggleSidebar" onclick="Open()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -167,13 +172,13 @@
                     </svg>
                 </button>
             </div>
-            <div class="border transition-transform duration-300 transform hover:-translate-y-1 rounded-md p-2 mx-4">
+            <div class="topButton border rounded-md p-2 mx-4">
                 <a href="/" class="font-bold">Home</a>
             </div>
-            <div class="transition-transform duration-300 transform hover:-translate-y-1 border rounded-md p-2 mr-4">
-                <a href="/e-paper" class="font-bold">E-Paper</a>
+            <div class="topButton border rounded-md p-2 mr-4">
+                <a href="/epaper" class="font-bold">E-Paper</a>
             </div>
-            <div class="border transition-transform duration-300 transform hover:-translate-y-1 rounded-md p-2 mr-4">
+            <div class="topButton border rounded-md p-2 mr-4">
                 <a href="/videos" class="font-bold">Videos</a>
             </div>
         </div>

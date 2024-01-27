@@ -69,7 +69,7 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
   }
 });
 
-app.get("/e-paper", async (req, res) => {
+app.get("/epaper", async (req, res) => {
   try {
     let articles = await Article.getArticles();
     res.render("e-paper", {
@@ -92,6 +92,7 @@ app.get("/createarticle", async (req, res) => {
 app.post("/createArticle", upload.single("image"), async (req, res) => {
   try {
     const image = req.file;
+    console.log(req.body.title)
     const imageData = {
       filename: image.originalname,
       data: image.buffer,
@@ -102,12 +103,11 @@ app.post("/createArticle", upload.single("image"), async (req, res) => {
     await Article.createArticle({
       title: req.body.title,
       date: todayDate,
-      category: req.body.category,
       images: imageData,
       state: req.body.state,
     });
 
-    return res.redirect("/");
+    return res.redirect("/epaper");
   } catch (err) {
     console.log(err);
   }
@@ -320,52 +320,29 @@ function mapState(state) {
   return state;
 }
 
-app.get("/:category/:state", async (req, res) => {
-  const category = req.params.category;
-  let state = req.params.state;
-  state = mapState(state);
-  const articles = await Article.getArticlesByStateAndCategory(category, state);
+app.get("/epaper/:state", async (req, res) => {
+  let state = req.params.state
+  const articles = await Article.getArticlesByState(state);
+
   res.render("stateArticles", {
-    articles,
-    category,
-    title: category,
-    state,
+      articles,
+      title: state,
+      state,
   });
 });
 
 
-app.get("/:category/:state/:id", async (req, res) => {
+
+app.get("/epaper/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
+    const state = req.params.state
     const article = await Article.getArticleById(articleId);
-    const category = req.params.category;
-    let state = req.params.state;
-    state = mapState(state);
-    const sameCategoryArticles = await Article.getArticlesByStateAndCategory(
-      category,
-      state
-    );
-    const stack = sameCategoryArticles.map((article) => ({
-      title: article.dataValues.title,
-      image: article.dataValues.images
-        ? article.dataValues.images.filename
-        : null,
-      id: article.dataValues.id,
-    }));
-    const currentIndex = stack.findIndex(
-      (item) => item.title === article[0].title
-    );
-
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
-    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
+    console.log(article[0].title)
     res.render("article", {
-      title: `${article[0].title}`,
-      article: article[0],
-      prevArticleIndex: prevIndex,
-      nextArticleIndex: nextIndex,
-      category,
-      stack,
+      title : `${article[0].title}`,
       state,
+      article,
     });
   } catch (err) {
     console.log(err);

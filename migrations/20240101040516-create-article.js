@@ -15,9 +15,6 @@ module.exports = {
       date: {
         type: Sequelize.DATE,
       },
-      category: {
-        type: Sequelize.STRING,
-      },
       images: {
         type: Sequelize.JSONB,
       },

@@ -69,15 +69,14 @@
     <h1><%= title.toUpperCase() %></h1>
 
     <div class="article-container">
-      <h2><%= article.title %></h2>
-      <p><%= article.date %></p>
-      <p><%= article.category %></p>
+      <h2><%= article[0].title %></h2>
+      <p><%= article[0].date %></p>
 
-      <% if (article.images) { %>
+      <% if (article[0].images) { %>
       <div class="article-image">
         <img
-          src="/uploads/<%= article.images.filename %>"
-          alt="<%= article.images.filename %>"
+          src="/uploads/<%= article[0].images.filename %>"
+          alt="<%= article[0].images.filename %>"
         />
       </div>
       <% } else { %>
@@ -85,22 +84,6 @@
         <span>No Image</span>
       </div>
       <% } %>
-      <div class="navigation-links">
-        <% if (prevArticleIndex !== null) { %>
-        <button>
-          <a
-            href="/<%= category %>/<%=state%>/<%= stack[prevArticleIndex].id %>"
-            >Previous</a
-          >
-        </button>
-        <% } %> <% if (nextArticleIndex !== null) { %>
-        <button>
-          <a
-            href="/<%= category %>/<%=state%>/<%= stack[nextArticleIndex].id %>"
-            >Next</a
-          >
-        </button>
-        <% } %>
       </div>
     </div>
   </body>
