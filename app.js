@@ -223,7 +223,6 @@ app.get("/magazine/:id", async (req, res) => {
 app.get("/state/:state", async (req, res) => {
   const state = req.params.state;
   const newsByState = await News.getNewsByState(state);
-  // const newsByCategory = await News.getNewsByCategory()
   switch (state) {
     case "telangana":
       res.render("stateNews", {
@@ -333,6 +332,7 @@ app.get("/:category/:state", async (req, res) => {
     state,
   });
 });
+
 
 app.get("/:category/:state/:id", async (req, res) => {
   try {
