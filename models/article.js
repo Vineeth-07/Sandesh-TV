@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
     }
 
     static getArticleById(articleId) {
-      return this.findAll({
+      return this.findOne({
         where: {
           id: articleId,
         },
