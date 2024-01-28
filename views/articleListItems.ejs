@@ -1,34 +1,67 @@
 <div class="container mx-auto px-4">
+    <!-- Telangana Section -->
     <div class="flex flex-col sm:flex-row gap-4 grid grid-cols-4 grid-rows-4">
-        <% const latestImages = {}; %>
+        <% const telanganaArticles = articles.filter(article => article.state === 'telangana'); %>
+        <% const latestTelanganaArticle = telanganaArticles.length > 0 ? telanganaArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
 
-        <% for (let i = 0; i < articles.length; i++) { %>
-            <% const category = articles[i].category; %>
-
-            <% if (!latestImages[category] || latestImages[category].date < articles[i].date) { %>
-                <% latestImages[category] = {
-                    date: articles[i].date,
-                    image: articles[i].images
-                        ? articles[i].images.filename
-                        : null
-                }; %>
-            <% } %>
-        <% } %>
-
-        <% Object.keys(latestImages).forEach(category => { %>
-            <a href="/<%= category %>">
+        <% if (latestTelanganaArticle) { %>
+            <a href="/<%= latestTelanganaArticle.id %>">
                 <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col">
-                    <h2 class="p-2 text-xl sm:text-2xl mb-2"><%= category.toUpperCase() %></h2>
+                    <h2 class="p-2 text-xl sm:text-2xl mb-2"><%= latestTelanganaArticle.title %></h2>
 
-                    <% if (latestImages[category].image) { %>
+                    <% if (latestTelanganaArticle.images && latestTelanganaArticle.images.filename) { %>
                         <div>
                             <img class="w-full"
-                                src="/uploads/<%= latestImages[category].image %>"
-                                alt="<%= latestImages[category].image %>">
+                                src="/uploads/<%= latestTelanganaArticle.images.filename %>"
+                                alt="<%= latestTelanganaArticle.images.filename %>">
                         </div>
                     <% } %>
                 </div>
             </a>
-        <% }) %>
+        <% } %>
+    </div>
+
+    <!-- Andhra Pradesh Section -->
+    <div class="flex flex-col sm:flex-row gap-4 grid grid-cols-4 grid-rows-4">
+        <% const andhraArticles = articles.filter(article => article.state === 'andhrapradesh'); %>
+        <% const latestAndhraArticle = andhraArticles.length > 0 ? andhraArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
+
+        <% if (latestAndhraArticle) { %>
+            <a href="epaper/<%= latestAndhraArticle.state %>">
+                <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col">
+                    <h2 class="p-2 text-xl sm:text-2xl mb-2"><%= latestAndhraArticle.title %></h2>
+
+                    <% if (latestAndhraArticle.images && latestAndhraArticle.images.filename) { %>
+                        <div>
+                            <img class="w-full"
+                                src="/uploads/<%= latestAndhraArticle.images.filename %>"
+                                alt="<%= latestAndhraArticle.images.filename %>">
+                        </div>
+                    <% } %>
+                </div>
+            </a>
+        <% } %>
+    </div>
+
+    <!-- Other Section -->
+    <div class="flex flex-col sm:flex-row gap-4 grid grid-cols-4 grid-rows-4">
+        <% const otherArticles = articles.filter(article => article.state === 'other'); %>
+        <% const latestOtherArticle = otherArticles.length > 0 ? otherArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
+
+        <% if (latestOtherArticle) { %>
+            <a href="/<%= latestOtherArticle.id %>">
+                <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col">
+                    <h2 class="p-2 text-xl sm:text-2xl mb-2"><%= latestOtherArticle.title %></h2>
+
+                    <% if (latestOtherArticle.images && latestOtherArticle.images.filename) { %>
+                        <div>
+                            <img class="w-full"
+                                src="/uploads/<%= latestOtherArticle.images.filename %>"
+                                alt="<%= latestOtherArticle.images.filename %>">
+                        </div>
+                    <% } %>
+                </div>
+            </a>
+        <% } %>
     </div>
 </div>

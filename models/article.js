@@ -4,11 +4,10 @@ const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Article extends Model {
-    static createArticle({ title, date, category, images, state }) {
+    static createArticle({ title, date, images, state }) {
       return this.create({
         title,
         date,
-        category,
         images,
         state,
       });
@@ -20,20 +19,19 @@ module.exports = (sequelize) => {
       });
     }
 
-    static getArticlesByCategory(selectedCategory) {
-      return this.findAll({
-        where: {
-          category: selectedCategory,
-        },
-        order: [["id", "ASC"]],
-      });
-    }
+    // static getArticlesByCategory(selectedCategory) {
+    //   return this.findAll({
+    //     where: {
+    //       category: selectedCategory,
+    //     },
+    //     order: [["id", "ASC"]],
+    //   });
+    // }
 
-    static getArticlesByStateAndCategory(selectedCategory, selectedState) {
+    static getArticlesByState(state) {
       return this.findAll({
         where: {
-          category: selectedCategory,
-          state: selectedState,
+          state: state,
         },
         order: [["id", "ASC"]],
       });
@@ -53,7 +51,6 @@ module.exports = (sequelize) => {
     {
       title: DataTypes.STRING,
       date: DataTypes.DATE,
-      category: DataTypes.STRING,
       images: DataTypes.JSONB,
       state: DataTypes.STRING,
     },
