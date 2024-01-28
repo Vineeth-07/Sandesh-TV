@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const multer = require("multer");
 const { Article, News, Videos, Magazine } = require("./models");
+const { title } = require("process");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -323,7 +324,7 @@ function mapState(state) {
 app.get("/epaper/:state", async (req, res) => {
   let state = req.params.state
   const articles = await Article.getArticlesByState(state);
-
+  console.log(articles)
   res.render("stateArticles", {
       articles,
       title: state,
@@ -336,13 +337,31 @@ app.get("/epaper/:state", async (req, res) => {
 app.get("/epaper/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
+    console.log(articleId)
     const state = req.params.state
     const article = await Article.getArticleById(articleId);
-    console.log(article[0].title)
+    const stateArticles = await Article.getArticlesByState(state)
+    console.log(article.title)
+    const stack =  stateArticles.map((article)=>({
+      title:article.dataValues.title,
+      image: article.dataValues.images ? article.dataValues.images.filename : null,
+      id: article.dataValues.id
+    }))
+    const currentIndex = stack.findIndex((item)=> item.id === article.id)
+    console.log(stack.length)
+    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 :null
+    console.log("next",nextIndex)
+    const prevIndex = currentIndex > 0 ? currentIndex -1 : null
+    console.log("prev",prevIndex)
+    console.log(currentIndex)
+    console.log("stack",stack)
     res.render("article", {
-      title : `${article[0].title}`,
+      title : `${article.title}`,
       state,
       article,
+      nextIndex,
+      prevIndex,
+      stack
     });
   } catch (err) {
     console.log(err);
