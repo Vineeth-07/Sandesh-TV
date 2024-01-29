@@ -1,0 +1,50 @@
+<!-- editNews.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit News - <%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+        <form action="/updateNews/<%= id %>" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
+                <input type="text" name="title" id="title" value="<%= news.title %>" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="state" class="block text-sm font-medium text-gray-600">Select State:</label>
+                <select id="state" name="state">
+                    <option value="telangana" <%= news.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
+                    <option value="andhrapradesh" <%= news.state === 'andhrapradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                    <option value="other" <%= news.state === 'other' ? 'selected' : '' %>>Other</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="content" class="block text-sm font-medium text-gray-600">Content</label>
+                <input type="text" name="content" id="content" value="<%= news.content %>" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="category" class="block text-sm font-medium text-gray-600">Select category:</label>
+                <select id="category" name="category">
+                    <option value="cinema" <%= news.category === 'cinema' ? 'selected' : '' %>>Cinema</option>
+                    <option value="sports" <%= news.category === 'sports' ? 'selected' : '' %>>Sports</option>
+                    <option value="business" <%= news.category === 'business' ? 'selected' : '' %>>Business</option>
+                    <option value="spirituality" <%= news.category === 'spirituality' ? 'selected' : '' %>>Spirituality</option>
+                    <option value="history" <%= news.category === 'history' ? 'selected' : '' %>>History</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="image" class="block text-sm font-medium text-gray-600">Image</label>
+                <input type="file" name="image" id="image" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" value="<%=selectedImage%>">
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300" >
+                Update News
+            </button>
+        </form>
+    </div>
+</body>
+</html>

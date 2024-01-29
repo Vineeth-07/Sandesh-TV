@@ -225,6 +225,23 @@ app.post("/createVideo", async (req, res) => {
   }
 });
 
+app.get("/editNews/:id",async(req,res)=>{
+  try {
+    const id = req.params.id;
+    const news = await News.getNewsById(id);
+    console.log(news.image.filename)
+    res.render('editNews', {
+        title: 'Edit News',
+        id,
+        news,
+        selectedImage: news.image.filename
+    });
+} catch (err) {
+    console.log(err);
+    res.status(500).send('Internal Server Error');
+}
+})
+
 app.get("/news/:id", async (req, res) => {
   try {
     const id = req.params.id;
