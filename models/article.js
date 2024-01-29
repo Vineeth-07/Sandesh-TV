@@ -19,15 +19,6 @@ module.exports = (sequelize) => {
       });
     }
 
-    // static getArticlesByCategory(selectedCategory) {
-    //   return this.findAll({
-    //     where: {
-    //       category: selectedCategory,
-    //     },
-    //     order: [["id", "ASC"]],
-    //   });
-    // }
-
     static getArticlesByState(state) {
       return this.findAll({
         where: {
