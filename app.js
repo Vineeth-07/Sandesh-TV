@@ -26,6 +26,7 @@ app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
     const news = await News.getNews();
+    console.log(news)
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
@@ -172,6 +173,35 @@ app.get("/videos", async (req, res) => {
   }
 });
 
+app.get("/allNews",async(req,res)=>{
+  const news = await News.getNews()
+  console.log(news)
+  try{
+    res.render("allNews",{
+      title:"All News",
+      todaysNews:news
+      
+    })
+  }catch(err){
+    console.log(err)
+  }
+})
+
+app.get("/allPapers",async(req,res)=>{
+  const articles = await Article.getArticles()
+  console.log(articles)
+  try{
+    res.render("allPapers",{
+      title:"All Papers",
+      articles
+      
+    })
+  }catch(err){
+    console.log(err)
+  }
+})
+
+
 app.get("/createVideo", async (req, res) => {
   try {
     res.render("createVideo", {
@@ -287,32 +317,6 @@ app.get("/category/:category", async (req, res) => {
   }
 });
 
-// app.get("/:category", async (req, res) => {
-//   try {
-//     const selectedCategory = req.params.category;
-//     const articlesInCategory = await Article.getArticlesByCategory(
-//       selectedCategory
-//     );
-//     const andhraArticles = [];
-//     const telanganaArticles = [];
-//     for (let i = 0; i < articlesInCategory.length; i++) {
-//       if (articlesInCategory[i].state === "telangana") {
-//         telanganaArticles.push(articlesInCategory[i]);
-//       } else {
-//         andhraArticles.push(articlesInCategory[i]);
-//       }
-//     }
-//     res.render("categoryArticle", {
-//       title: `${selectedCategory}`,
-//       category: selectedCategory,
-//       articles: articlesInCategory,
-//       telanganaArticles,
-//       andhraArticles,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
 function mapState(state) {
   if (state.toLowerCase() === "andhra") {
