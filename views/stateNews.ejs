@@ -31,6 +31,17 @@
 </head>
 <body>
   <%- include('header.ejs') %>
+  <div class="grid grid-cols-4">
+    <div class="col-start-2 col-span-2">
+  <% if (title === 'Telangana News') { %>
+        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">తెలంగాణ వార్తలు</span>
+<% } else if (title === 'AndhraPradesh News') { %>
+    <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">ఆంధ్రప్రదేశ్ వార్తలు</span>
+<% } else { %>
+    <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">వార్తలు</span>
+<% } %>
+</div>
+        </div>
   <% if (newsByState.length > 0) { %>
     <% newsByState.forEach(news => { %>
         <div class="grid grid-cols-4">

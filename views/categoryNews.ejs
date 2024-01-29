@@ -27,6 +27,21 @@
 </head>
 <body>
     <%- include('header.ejs') %> 
+    <div class="grid grid-cols-4">
+        <div class="col-start-2 col-span-2">
+      <% if (title === 'Sports') { %>
+            <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">స్పోర్ట్స్ ( క్రీడలు) వార్తలు</span>
+    <% } else if (title === 'History') { %>
+        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">చరిత్ర వార్తలు</span>
+    <% } else if (title === 'Cinema') { %>
+        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">సినిమా వార్తలు</span>
+    <% } else if (title === 'Spirituality') { %>
+        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">ఆధ్యాత్మికత వార్తలు</span>
+    <% } else if (title === 'Business') { %>
+        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">బిజినెస్ వార్తలు</span>
+    <% } %>
+    </div>
+</div>
     <% if (newsByCategory.length > 0) { %> 
         <% newsByCategory.forEach(news => { %>
           <div class="grid grid-cols-4">
