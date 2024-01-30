@@ -12,8 +12,6 @@ app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -32,7 +30,6 @@ app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
     const news = await News.getNews();
-    console.log(news)
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
@@ -100,7 +97,6 @@ app.get("/createarticle", async (req, res) => {
 app.post("/createArticle", upload.single("image"), async (req, res) => {
   try {
     const image = req.file;
-    console.log(req.body.title)
     const imageData = {
       filename: image.originalname,
       data: image.buffer,
@@ -179,34 +175,29 @@ app.get("/videos", async (req, res) => {
   }
 });
 
-app.get("/allNews",async(req,res)=>{
-  const news = await News.getNews()
-  console.log(news)
-  try{
-    res.render("allNews",{
-      title:"All News",
-      todaysNews:news
-      
-    })
-  }catch(err){
-    console.log(err)
+app.get("/allNews", async (req, res) => {
+  const news = await News.getNews();
+  try {
+    res.render("allNews", {
+      title: "All News",
+      todaysNews: news,
+    });
+  } catch (err) {
+    console.log(err);
   }
-})
+});
 
-app.get("/allPapers",async(req,res)=>{
-  const articles = await Article.getArticles()
-  console.log(articles)
-  try{
-    res.render("allPapers",{
-      title:"All Papers",
-      articles
-      
-    })
-  }catch(err){
-    console.log(err)
+app.get("/allPapers", async (req, res) => {
+  const articles = await Article.getArticles();
+  try {
+    res.render("allPapers", {
+      title: "All Papers",
+      articles,
+    });
+  } catch (err) {
+    console.log(err);
   }
-})
-
+});
 
 app.get("/createVideo", async (req, res) => {
   try {
@@ -231,22 +222,21 @@ app.post("/createVideo", async (req, res) => {
   }
 });
 
-app.get("/editNews/:id",async(req,res)=>{
+app.get("/editNews/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const news = await News.getNewsById(id);
-    console.log(news.image.filename)
-    res.render('editNews', {
-        title: 'Edit News',
-        id,
-        news,
-        selectedImage: news.image.filename
+    res.render("editNews", {
+      title: "Edit News",
+      id,
+      news,
+      selectedImage: news.image.filename,
     });
-} catch (err) {
+  } catch (err) {
     console.log(err);
-    res.status(500).send('Internal Server Error');
-}
-})
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.get("/news/:id", async (req, res) => {
   try {
@@ -262,27 +252,24 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
-app.put('/editNews/:id',async(req,res)=>{
-  const id = req.params.id
-  console.log(id)
-  console.log(`${req.body.title}`)
+app.put("/editNews/:id", async (req, res) => {
+  const id = req.params.id;
   try {
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
-    const newNews = await News.updateNews({
-      id: req.params.id,
-      title: req.body.title,
-      state: req.body.state,
-      content:req.body.content,
-      category: req.body.category,
-  })
-    return res.json(newNews)
-} catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-}
-
-})
+    const newNews = await News.updateNews(
+      id,
+      req.body.title,
+      req.body.state,
+      req.body.category,
+      req.body.content
+    );
+    return res.json(newNews);
+  } catch (error) {
+    console.error("Error updating news:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.get("/magazine/:id", async (req, res) => {
   try {
@@ -362,7 +349,6 @@ app.get("/category/:category", async (req, res) => {
   }
 });
 
-
 function mapState(state) {
   if (state.toLowerCase() === "andhra") {
     return "andhra pradesh";
@@ -371,46 +357,38 @@ function mapState(state) {
 }
 
 app.get("/epaper/:state", async (req, res) => {
-  let state = req.params.state
+  let state = req.params.state;
   const articles = await Article.getArticlesByState(state);
-  console.log(articles)
   res.render("stateArticles", {
-      articles,
-      title: state,
-      state,
+    articles,
+    title: state,
+    state,
   });
 });
-
-
 
 app.get("/epaper/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
-    console.log(articleId)
-    const state = req.params.state
+    const state = req.params.state;
     const article = await Article.getArticleById(articleId);
-    const stateArticles = await Article.getArticlesByState(state)
-    console.log(article.title)
-    const stack =  stateArticles.map((article)=>({
-      title:article.dataValues.title,
-      image: article.dataValues.images ? article.dataValues.images.filename : null,
-      id: article.dataValues.id
-    }))
-    const currentIndex = stack.findIndex((item)=> item.id === article.id)
-    console.log(stack.length)
-    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 :null
-    console.log("next",nextIndex)
-    const prevIndex = currentIndex > 0 ? currentIndex -1 : null
-    console.log("prev",prevIndex)
-    console.log(currentIndex)
-    console.log("stack",stack)
+    const stateArticles = await Article.getArticlesByState(state);
+    const stack = stateArticles.map((article) => ({
+      title: article.dataValues.title,
+      image: article.dataValues.images
+        ? article.dataValues.images.filename
+        : null,
+      id: article.dataValues.id,
+    }));
+    const currentIndex = stack.findIndex((item) => item.id === article.id);
+    const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
     res.render("article", {
-      title : `${article.title}`,
+      title: `${article.title}`,
       state,
       article,
       nextIndex,
       prevIndex,
-      stack
+      stack,
     });
   } catch (err) {
     console.log(err);

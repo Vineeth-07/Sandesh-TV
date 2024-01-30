@@ -2,7 +2,7 @@
 const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
-    static createNews({ title, content,state,category, date, image }) {
+    static createNews({ title, content, state, category, date, image }) {
       return this.create({
         title,
         state,
@@ -27,15 +27,18 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static updateNews(id,title,state,category,content){
-      return this.update({
-        title:title,
-        state:state,
-        category:category,
-        content:content,
-      },{
-        where:{id:id}
-      })
+    static updateNews(id, title, state, category, content) {
+      return this.update(
+        {
+          title: title,
+          state: state,
+          category: category,
+          content: content,
+        },
+        {
+          where: { id: id },
+        }
+      );
     }
 
     static getNewsById(id) {
@@ -46,20 +49,20 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static getNewsByState(state){
+    static getNewsByState(state) {
       return News.findAll({
         where: {
-          state:state
-        }
-      })
+          state: state,
+        },
+      });
     }
 
-    static getNewsByCategory(category){
+    static getNewsByCategory(category) {
       return News.findAll({
         where: {
-          category:category
-        }
-      })
+          category: category,
+        },
+      });
     }
 
     /**
@@ -74,9 +77,9 @@ module.exports = (sequelize, DataTypes) => {
   News.init(
     {
       title: DataTypes.TEXT,
-      state:DataTypes.STRING,
-      category:DataTypes.STRING,
-      content: DataTypes.TEXT,      
+      state: DataTypes.STRING,
+      category: DataTypes.STRING,
+      content: DataTypes.TEXT,
       date: DataTypes.DATE,
       image: DataTypes.JSONB,
     },
