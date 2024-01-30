@@ -12,6 +12,20 @@ module.exports = (sequelize) => {
         state,
       });
     }
+    
+    static updateArticle(id,title,state) {
+      return this.update(
+        {
+          title:title,
+          state:state
+        },
+        {
+          where: {
+            id:id
+          }
+        }
+      )
+    }
 
     static getArticles() {
       return this.findAll({

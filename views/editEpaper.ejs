@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%></title>
+    <script>
+        function updateArticle(){
+            let title = document.getElementById("title").value
+            let state = document.getElementById("state").value
+            fetch(`/editEpaper/<%=id%>`,{
+                method: "put",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    "title":title,
+                    "state":state,
+                })
+            }).then((res)=>{
+                if(res.ok){
+                    window.location.replace("/allPapers")
+                }
+            }).catch((err)=>console.error(err))
+        }
+    </script>
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+        <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
+            <input  type="text" name="title" id="title" value="<%= article.title %>" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>
+        </div>
+    
+        <div class="mb-4">
+            <label for="state" class="block text-sm font-medium text-gray-600">State</label>
+                <select name="state" id="state" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="telangana" <%= article.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
+                    <option value="andhrapradesh" <%= article.state === 'andhrapradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
+                    <option value="other" <%= article.state === 'other' ? 'selected' : '' %>>Other</option>
+                </select>
+        </div>
+        <button onclick="updateArticle()" class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+            Update Article
+        </button>
+    </div>
+</body>
+</html>
