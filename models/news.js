@@ -27,6 +27,17 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static updateNews(id,title,state,category,content){
+      return this.update({
+        title:title,
+        state:state,
+        category:category,
+        content:content,
+      },{
+        where:{id:id}
+      })
+    }
+
     static getNewsById(id) {
       return News.findOne({
         where: {
