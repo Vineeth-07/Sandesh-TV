@@ -237,19 +237,19 @@ app.get("/editNews/:id", async (req, res) => {
   }
 });
 
-app.get("/editEpaper/:id", async (req,res) => {
-  try{
-    const id = req.params.id
-    const article = await Article.getArticleById(id)
-    res.render("editEpaper",{
+app.get("/editEpaper/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const article = await Article.getArticleById(id);
+    res.render("editEpaper", {
       title: "Edit Epaper",
       id,
-      article
-    })
-  }catch(err){
-    console.log(err)
+      article,
+    });
+  } catch (err) {
+    console.log(err);
   }
-})
+});
 
 app.get("/news/:id", async (req, res) => {
   try {
@@ -265,19 +265,31 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
-app.put("/editEpaper/:id", async (req,res) => {
-  const id = req.params.id
+app.put("/editEpaper/:id", async (req, res) => {
+  const id = req.params.id;
   try {
     const updatedArticle = await Article.updateArticle(
       id,
       req.body.title,
       req.body.state
-    )
-    return res.json(updatedArticle)
-  }catch(err){
-    console.log(err)
+    );
+    return res.json(updatedArticle);
+  } catch (err) {
+    console.log(err);
   }
-})
+});
+
+app.delete("/editPaper/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = Article.deleteArticle(req.params.id);
+    return res.json({ success: result === 1 });
+  } catch (error) {
+    console.error("Error updating news:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.put("/editNews/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -291,6 +303,17 @@ app.put("/editNews/:id", async (req, res) => {
       req.body.content
     );
     return res.json(newNews);
+  } catch (error) {
+    console.error("Error updating news:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.delete("/editNews/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = News.deleteNews(req.params.id);
+    return res.json({ success: result === 1 });
   } catch (error) {
     console.error("Error updating news:", error);
     res.status(500).send("Internal Server Error");

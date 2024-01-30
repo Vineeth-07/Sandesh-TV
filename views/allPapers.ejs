@@ -53,6 +53,18 @@
           border-radius: 4px;
         }
       </style>
+      <script>
+        function deleteArticle(id) {
+            fetch(`/editPaper/${id}`, {
+                method: "delete",
+                headers: {"Content-Type":"application/json"},
+            }).then((res)=>{
+                if (res.ok) {
+                    window.location.reload();
+                }
+            }).catch((err)=> console.error(err))
+        }
+    </script>
 </head>
 <body>
     <%- include("header.ejs")%>
@@ -60,6 +72,5 @@
     <div>
         <%- include("articleListItems.ejs") %>
     </div>
-    
 </body>
 </html>

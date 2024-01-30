@@ -41,6 +41,14 @@ module.exports = (sequelize, DataTypes) => {
       );
     }
 
+    static deleteNews(id) {
+      return this.destroy({
+        where: {
+          id,
+        },
+      });
+    }
+
     static getNewsById(id) {
       return News.findOne({
         where: {

@@ -12,19 +12,27 @@ module.exports = (sequelize) => {
         state,
       });
     }
-    
-    static updateArticle(id,title,state) {
+
+    static updateArticle(id, title, state) {
       return this.update(
         {
-          title:title,
-          state:state
+          title: title,
+          state: state,
         },
         {
           where: {
-            id:id
-          }
+            id: id,
+          },
         }
-      )
+      );
+    }
+
+    static deleteArticle(id) {
+      return this.destroy({
+        where: {
+          id,
+        },
+      });
     }
 
     static getArticles() {
