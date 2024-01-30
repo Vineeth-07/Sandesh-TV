@@ -230,13 +230,26 @@ app.get("/editNews/:id", async (req, res) => {
       title: "Edit News",
       id,
       news,
-      selectedImage: news.image.filename,
     });
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
 });
+
+app.get("/editEpaper/:id", async (req,res) => {
+  try{
+    const id = req.params.id
+    const article = await Article.getArticleById(id)
+    res.render("editEpaper",{
+      title: "Edit Epaper",
+      id,
+      article
+    })
+  }catch(err){
+    console.log(err)
+  }
+})
 
 app.get("/news/:id", async (req, res) => {
   try {
@@ -252,6 +265,19 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
+app.put("/editEpaper/:id", async (req,res) => {
+  const id = req.params.id
+  try {
+    const updatedArticle = await Article.updateArticle(
+      id,
+      req.body.title,
+      req.body.state
+    )
+    return res.json(updatedArticle)
+  }catch(err){
+    console.log(err)
+  }
+})
 app.put("/editNews/:id", async (req, res) => {
   const id = req.params.id;
   try {
