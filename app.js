@@ -5,7 +5,7 @@ const multer = require("multer");
 const bodyParser = require("body-parser");
 const { Article, News, Videos, Magazine } = require("./models");
 const { title } = require("process");
-
+const fs = require("fs");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
@@ -280,13 +280,32 @@ app.put("/editEpaper/:id", async (req, res) => {
 });
 
 app.delete("/editPaper/:id", async (req, res) => {
-  const id = req.params.id;
   try {
-    const result = Article.deleteArticle(req.params.id);
-    return res.json({ success: result === 1 });
+    const article = await Article.getArticleById(req.params.id);
+    if (!article) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Article not found" });
+    }
+    const result = await Article.deleteArticle(req.params.id);
+    if (result !== 1) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete article" });
+    }
+    const imagePath = path.join(__dirname, "uploads", article.images.filename);
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error("Error deleting image:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to delete image" });
+      }
+      return res.json({ success: true });
+    });
   } catch (error) {
-    console.error("Error updating news:", error);
-    res.status(500).send("Internal Server Error");
+    console.error("Error deleting article:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
@@ -310,13 +329,32 @@ app.put("/editNews/:id", async (req, res) => {
 });
 
 app.delete("/editNews/:id", async (req, res) => {
-  const id = req.params.id;
   try {
-    const result = News.deleteNews(req.params.id);
-    return res.json({ success: result === 1 });
+    const news = await News.getNewsById(req.params.id);
+    if (!news) {
+      return res
+        .status(404)
+        .json({ success: false, message: "News not found" });
+    }
+    const result = await News.deleteNews(req.params.id);
+    if (result !== 1) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete news" });
+    }
+    const imagePath = path.join(__dirname, "uploads", news.image.filename);
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error("Error deleting image:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to delete image" });
+      }
+      return res.json({ success: true });
+    });
   } catch (error) {
-    console.error("Error updating news:", error);
-    res.status(500).send("Internal Server Error");
+    console.error("Error deleting news:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
