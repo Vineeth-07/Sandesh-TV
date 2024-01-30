@@ -68,7 +68,7 @@ app.post("/createNews", upload.single("image"), async (req, res) => {
       date: todayDate,
       image: imageData,
     });
-    return res.redirect("/");
+    return res.redirect("/allNews");
   } catch (err) {
     console.log(err);
   }

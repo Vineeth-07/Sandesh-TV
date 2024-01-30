@@ -16,6 +16,7 @@
             }).catch((err)=> console.error(err))
         }
     </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
 </head>
 <body>
     <%- include("header.ejs") %>
@@ -27,15 +28,14 @@
             <span>Add</span>
         </a>
     </div>
-    
     <div class="grid grid-cols-4">
         <% if (todaysNews.length > 0) { %>
             <% for (let i = 0; i < todaysNews.length; i++) { %>
                 <div class="py-2 px-4 grid grid-cols-6 gap-2 transition-transform duration-300 transform hover:-translate-y-1 col-start-2 col-span-2 border-b-2 border-black">
                     <div class="col-start-1 col-span-4">
                         <a href="/news/<%=todaysNews[i].id%>" style="text-decoration: none; color: inherit; font-family: 'Mandali', sans-serif;">
-                            <p class="tracking-light" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: 'Mandali', sans-serif; font-size: 24px;"> <!-- Adjust the font size here -->
-                                <span class=" col-start-1 col-span-4 font-bold" style="color: rgb(44, 52, 155); font-size: 24px;"><%= todaysNews[i].title %></span> <!-- Adjust the font size here -->
+                            <p class="tracking-light" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: 'Mandali', sans-serif; font-size: 24px;">
+                                <span class=" col-start-1 col-span-4 font-bold" style="color: rgb(44, 52, 155); font-size: 24px;"><%= todaysNews[i].title %></span>
                                 | <%= todaysNews[i].content %>...
                             </p>
                         </a>
