@@ -2,11 +2,17 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const multer = require("multer");
+const bodyParser = require("body-parser");
 const { Article, News, Videos, Magazine } = require("./models");
 const { title } = require("process");
 
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -255,6 +261,28 @@ app.get("/news/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+app.put('/editNews/:id',async(req,res)=>{
+  const id = req.params.id
+  console.log(id)
+  console.log(`${req.body.title}`)
+  try {
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
+    const newNews = await News.updateNews({
+      id: req.params.id,
+      title: req.body.title,
+      state: req.body.state,
+      content:req.body.content,
+      category: req.body.category,
+  })
+    return res.json(newNews)
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+}
+
+})
 
 app.get("/magazine/:id", async (req, res) => {
   try {
