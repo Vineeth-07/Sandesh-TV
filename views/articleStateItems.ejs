@@ -1,6 +1,6 @@
 <div class="flex justify-center">
     <div class="flex gap-10">
-    <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col ">
+    <div class="box p-4 border border-gray-300 rounded-lg h-80 w-80 flex flex-col ">
         <h2 class="text-xl mb-2">Telangana</h2>
         <% const telanganaArticles = articles.filter(article => article.state === 'telangana'); %>
         <% const latestTelanganaArticle = telanganaArticles.length > 0 ? telanganaArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
@@ -19,7 +19,7 @@
             </a>
         <% } %>
     </div>
-    <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col ">
+    <div class="box p-4 border border-gray-300 rounded-lg h-80 w-80 flex flex-col ">
         <h2 class="text-xl mb-2">Andhra Pradesh</h2>
         <% const andhraArticles = articles.filter(article => article.state === 'andhrapradesh'); %>
         <% const latestAndhraArticle = andhraArticles.length > 0 ? andhraArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
@@ -38,7 +38,7 @@
             </a>
         <% } %>
     </div>
-    <div class="p-4 border border-gray-300 h-80 w-80 flex flex-col ">
+    <div class="box p-4 border border-gray-300 rounded-lg h-80 w-80 flex flex-col ">
         <h2 class="text-xl mb-2">Other</h2>
         <% const otherArticles = articles.filter(article => article.state === 'other'); %>
         <% const latestOtherArticle = otherArticles.length > 0 ? otherArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>

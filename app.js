@@ -265,6 +265,7 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
+
 app.put("/editEpaper/:id", async (req, res) => {
   const id = req.params.id;
   try {
