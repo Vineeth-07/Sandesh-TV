@@ -265,7 +265,6 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
-
 app.put("/editEpaper/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -458,6 +457,7 @@ app.get("/epaper/:state/:id", async (req, res) => {
   try {
     const articleId = req.params.id;
     const state = req.params.state;
+    const baseUrl = req.protocol + "://" + req.get("host");
     const article = await Article.getArticleById(articleId);
     const stateArticles = await Article.getArticlesByState(state);
     const stack = stateArticles.map((article) => ({
@@ -470,6 +470,7 @@ app.get("/epaper/:state/:id", async (req, res) => {
     const currentIndex = stack.findIndex((item) => item.id === article.id);
     const nextIndex = currentIndex < stack.length - 1 ? currentIndex + 1 : null;
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : null;
+    const articleUrl = `${baseUrl}/epaper/${state}/${articleId}`;
     res.render("article", {
       title: `${article.title}`,
       state,
@@ -477,9 +478,11 @@ app.get("/epaper/:state/:id", async (req, res) => {
       nextIndex,
       prevIndex,
       stack,
+      articleUrl,
     });
   } catch (err) {
     console.log(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static getVideos() {
       return this.findAll({
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
     }
     static associate(models) {

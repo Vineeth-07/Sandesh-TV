@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
 
     static getArticles() {
       return this.findAll({
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
     }
 
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
         where: {
           state: state,
         },
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
     }
 
@@ -55,7 +55,7 @@ module.exports = (sequelize) => {
         where: {
           id: articleId,
         },
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
     }
   }

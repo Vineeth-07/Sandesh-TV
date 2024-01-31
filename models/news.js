@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static getNews() {
       return this.findAll({
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
     }
 
