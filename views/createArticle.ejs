@@ -10,10 +10,13 @@
     />
   </head>
   <body class="bg-gray-100">
-    <%- include('header.ejs') %>
+    <div class="mb-8">
+      <%- include('header.ejs') %>
+    </div>
+    
     <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
       <h2 class="text-2xl font-semibold mb-4" style="text-align: center;">Create Article</h2>
-      <form action="/createArticle" method="post" enctype="multipart/form-data">
+      <form  action="/createArticle" method="post" enctype="multipart/form-data">
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-600"
             >Title</label
@@ -57,7 +60,8 @@
 
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          class="w-full text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          style="background-color: #0d9488;"
         >
           Create Article
         </button>
