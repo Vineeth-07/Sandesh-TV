@@ -14,6 +14,8 @@
             margin: auto; /* Center the slider */
             position: relative; /* Position for absolute navigation buttons */
             overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
+            box-shadow: 5px 5px 15px #00000041, 
+            inset -5px -5px 15px #ffffff40;
         }
         @media (max-width: 640px) {
             .swiper-container {
@@ -97,7 +99,8 @@
             height: 100%;
             width: 64px; /* Set your preferred width */
             background-color: #ffffff; /* Add your preferred background color */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 20px 20px 60px #00000041, 
+            inset -20px -20px 60px #ffffff40;
             z-index: 2;
         }
         .sidebar.open{
@@ -121,10 +124,14 @@
             transform: scale(1.2); /* Zoom in by 10% on hover */
         }
         .topButton {
+            background-color: #aee9e5;;
             transition: transform 0.3s ease-in-out;
+            box-shadow: 20px 20px 60px #00000041, 
+            inset -20px -20px 60px #ffffff40;
         }
         .topButton:hover {
             transform: scale(1.1);
+            background-color: #0d9488;
         }
 
         @media (max-width: 640px) {
@@ -136,7 +143,8 @@
             height: 100%;
             width: 100%; /* Make the sidebar full width on small screens */
             background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 20px 20px 60px #00000041, 
+            inset -20px -20px 60px #ffffff40;
             z-index: 2;
         }
 
@@ -150,13 +158,13 @@
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
 </head>
-<body>
+<body class="bg-green-50">
     <%- include('header.ejs') %>
     <div class="max-w-2xl mx-auto">
         <%- include('sidebar.ejs') %>
     </div>
     <div class="content-container">
-        <div class="p-4 bg-white text-black text-sm flex border rounded-lg items-center">
+        <div class="p-4 mb-4 text-black text-sm flex border rounded-lg items-center">
             <div class="relative group flex">
                 <button id="toggleSidebar" onclick="Open()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -164,23 +172,20 @@
                     </svg>
                 </button>
             </div>
-            <div class="topButton border rounded-md p-2 mx-4">
+            <div class="topButton border rounded-lg p-2 mx-4">
                 <a href="/" class="font-bold">Home</a>
             </div>
-            <div class="topButton border rounded-md p-2 mr-4">
+            <div class="topButton border rounded-lg p-2 mr-4">
                 <a href="/allNews" class="font-bold">News</a>
             </div>
-            <div class="topButton border rounded-md p-2 mr-4">
+            <div class="topButton border rounded-lg p-2 mr-4">
                 <a href="/epaper" class="font-bold">E-Paper</a>
             </div>
-            <div class="topButton border rounded-md p-2 mr-4">
+            <div class="topButton border rounded-lg p-2 mr-4">
                 <a href="/videos" class="font-bold">Videos</a>
             </div>
         </div>
-        <div>
-            
-        </div>
-        <div class="swiper-container">
+        <div class="swiper-container mb-6">
             <div class="swiper-wrapper">
                 <% if (todaysNews.length > 0) { %>
                     <% todaysNews.forEach(news => { %>

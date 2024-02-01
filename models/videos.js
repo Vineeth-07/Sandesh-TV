@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    static deleteVideo(id){
+      return this.destroy({
+        where:{
+          id,
+        }
+      })
+    }
   }
   Videos.init(
     {
