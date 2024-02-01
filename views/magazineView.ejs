@@ -1,21 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=title%></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
+    <style>
+      /* Add custom styles for page borders */
+      #pdf-viewer canvas {
+        border: 1px solid #ccc;
+        margin-bottom: 10px; /* Adjust as needed */
+      }
+
+      /* Add margin below the download button */
+      #download-button {
+        margin-bottom: 20px; /* Adjust as needed */
+      }
+    </style>
+  </head>
+  <body>
     <%- include("header.ejs") %>
-    <%- include("navBar.ejs")%>
     <div class="grid grid-cols-6">
-        <div class="col-start-2 col-span-4">
-            <h3 class="font-bold text-4xl mb-4"><%= magazine.title %></h3>
-            <br>
-            <iframe src="/uploads/<%= magazine.pdf.filename %>" width="100%" height="800px">
+      <div class="col-start-2 col-span-4">
+        <h3 class="font-bold text-4xl mb-4"><%= magazine.title %></h3>
+        <a
+          id="download-button"
+          class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 flex"
+          download
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m9 13.5 3 3m0 0 3-3m-3 3v-6m1.06-4.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+            />
+          </svg>
+
+          Download PDF
+        </a>
+        <br />
+        <div id="pdf-viewer-container">
+          <div id="pdf-viewer" style="width: 100%; height: 800px"></div>
         </div>
+      </div>
     </div>
-</body>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "pdfjsLib": "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.mjs"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as pdfjsLib from "pdfjsLib";
+      document.addEventListener("DOMContentLoaded", function () {
+        const pdfUrl = "/uploads/<%= magazine.pdf.filename %>";
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs";
+        const pdfViewer = document.getElementById("pdf-viewer");
+        const downloadButton = document.getElementById("download-button");
+
+        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc) {
+          for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+            pdfDoc.getPage(pageNum).then(function (page) {
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
+              const viewport = page.getViewport({ scale: 1.5 });
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+              pdfViewer.appendChild(canvas);
+              page.render({
+                canvasContext: context,
+                viewport: viewport,
+              });
+            });
+          }
+        });
+
+        // Set download URL
+        downloadButton.href = pdfUrl;
+      });
+    </script>
+  </body>
 </html>

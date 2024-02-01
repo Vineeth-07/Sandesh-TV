@@ -47,6 +47,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pdfjs": "^2.5.3",
+    "pdfjs-dist": "^4.0.379",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.28.0",

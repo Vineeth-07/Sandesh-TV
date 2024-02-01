@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
+    <title><%=title%></title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
@@ -13,26 +13,25 @@
       href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
     />
     <style>
-      /* Add custom styles for the download and view links */
-      .link {
-        display: inline-block;
-        padding: 8px 16px;
-        margin-right: 10px;
-        background-color: #4caf50;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
+      .add-magazine-link {
+        text-align: right;
       }
 
-      .link:hover {
-        background-color: #388e3c;
+      .no-magazines {
+        text-align: center;
       }
     </style>
   </head>
   <body>
     <%- include("header.ejs") %> <%- include("navBar.ejs")%>
-    <a href="/createMagazine">Add magazine</a>
+    <div class="add-magazine-link mt-4">
+      <a
+        href="/createMagazine"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Add magazine
+      </a>
+    </div>
     <div class="grid grid-cols-4">
       <div
         class="col-start-2 col-span-2"
@@ -46,39 +45,26 @@
         <% if (magazines && magazines.length > 0) { %>
         <ul>
           <% magazines.forEach(magazine => { %>
-          <li
-            class="transition-transform duration-300 transform hover:-translate-y-1"
-            style="
-              border-bottom: 1px solid #ccc;
-              padding: 10px 0;
-              font-family: 'Mandali', sans-serif;
-            "
-          >
-            <h2 class="font-bold text-3xl;">Title : <%= magazine.title %></h2>
-            <p>
-              Published on : <%= new
-              Date(magazine.date).toLocaleDateString('en-GB') %>
-            </p>
-            <% var baseUrl = protocol + '://' + host + '/uploads/'; %>
-            <!-- Download link -->
-            <a
-              href="<%= baseUrl + magazine.pdf.filename %>"
-              class="link"
-              download
-              >Download</a
+          <a href="/magazine/<%= magazine.id %>">
+            <li
+              class="transition-transform duration-300 transform hover:-translate-y-1"
+              style="
+                border-bottom: 1px solid #ccc;
+                padding: 10px 0;
+                font-family: 'Mandali', sans-serif;
+              "
             >
-            <!-- View link -->
-            <a
-              href="https://drive.google.com/viewerng/viewer?embedded=true&url=<%= baseUrl + magazine.pdf.filename %>"
-              class="link"
-              target="_blank"
-              >View</a
-            >
-          </li>
+              <h2 class="font-bold text-3xl;">Title : <%= magazine.title %></h2>
+              <p>
+                Published on : <%= new
+                Date(magazine.date).toLocaleDateString('en-GB') %>
+              </p>
+            </li>
+          </a>
           <% }) %>
         </ul>
         <% } else { %>
-        <p>No magazines available</p>
+        <p class="no-magazines">No magazines available</p>
         <% } %>
       </div>
     </div>
