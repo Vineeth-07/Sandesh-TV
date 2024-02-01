@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
   },
 });
 
+
 const upload = multer({ storage: storage });
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -442,6 +443,30 @@ function mapState(state) {
   }
   return state;
 }
+
+app.delete("/deleteVideo/:id", async (req, res) => {
+  try {
+    const video = await Videos.getVideoById(req.params.id);
+    if (!video) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+    }
+
+    const result = await Videos.deleteVideo(req.params.id);
+    if (result !== 1) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete video" });
+    }
+
+    return res.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting video:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 
 app.get("/epaper/:state", async (req, res) => {
   let state = req.params.state;
