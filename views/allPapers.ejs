@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
     <style>
       body {
         margin: 0;
         padding: 0;
       }
-  
+
       .flex-container {
         display: flex;
         flex-wrap: wrap;
         gap: 16px;
         justify-content: center;
       }
-  
+
       .article-box {
         width: 300px; /* Set your preferred width */
         border: 1px solid #ddd;
@@ -31,30 +31,30 @@
         border-radius: 8px; /* Border radius */
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow */
       }
-  
+
       .article-box h2 {
         font-size: 17px; /* Font size */
         font-weight: 600; /* Font weight */
         margin-bottom: 16px;
       }
-  
+
       .article-date {
         font-size: 14px;
         margin-bottom: 8px;
         color: white; /* White color */
       }
-  
+
       .article-image {
         flex-grow: 1;
       }
-  
+
       .article-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 4px;
       }
-  
+
       .no-image {
         flex-grow: 1;
         background-color: #eee;
@@ -69,60 +69,60 @@
         align-items: center;
         padding: 10px;
         border-bottom: 1px solid #ddd;
-    }
-    
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-  }
-  
-  .title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      margin-right: auto; /* Pushes the title to the left */
-      text-align: center; /* Centers the text horizontally */
-  }
-  
-  .button {
-      padding: 10px 20px;
-      background-color: #3498db;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-      background-color: #297fb8;
-  }
-  
-      </style>
-      <script>
-        function deleteArticle(id) {
-            if (confirm("Are you sure you want to delete this paper?")) {
-                fetch(`/editPaper/${id}`, {
-                    method: "delete",
-                    headers: {"Content-Type":"application/json"},
-                }).then((res)=>{
-                    if (res.ok) {
-                        window.location.reload();
-                    }
-                }).catch((err)=> console.error(err))
-            }
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        margin-right: auto; /* Pushes the title to the left */
+        text-align: center; /* Centers the text horizontally */
+      }
+
+      .button {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #297fb8;
+      }
+    </style>
+    <script>
+      function deleteArticle(id) {
+        if (confirm("Are you sure you want to delete this paper?")) {
+          fetch(`/editPaper/${id}`, {
+            method: "delete",
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((res) => {
+              if (res.ok) {
+                window.location.reload();
+              }
+            })
+            .catch((err) => console.error(err));
         }
+      }
     </script>
-    
-</head>
-<body>
-  <%- include("header.ejs")%>
-  <div class="header">
-    <h1 class="title">Edit Papers</h1>
-    <a href="/createArticle" class="button">Add Paper</a>
-</div>
-        <%- include("articleListItems.ejs") %>
-</body>
+  </head>
+  <body>
+    <%- include("header.ejs")%>
+    <div class="header">
+      <h1 class="title">Edit Papers</h1>
+      <a href="/createArticle" class="button">Add Paper</a>
+    </div>
+    <%- include("articleListItems.ejs") %>
+  </body>
 </html>

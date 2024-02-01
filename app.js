@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
   },
 });
 
-
 const upload = multer({ storage: storage });
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -466,7 +465,6 @@ app.delete("/deleteVideo/:id", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
-
 
 app.get("/epaper/:state", async (req, res) => {
   let state = req.params.state;

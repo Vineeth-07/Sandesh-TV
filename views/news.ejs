@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
     <style>
-        /* Custom styles for centering and resizing the slider */
-.container {
-    display: flex;
-    width: 100%; /* Adjust as needed */
-    /* height: 300px; Adjust the height as needed */
-    margin: auto; /* Center the slider */
-    /* position: relative; Position for absolute navigation buttons */
-    overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
-}
+      /* Custom styles for centering and resizing the slider */
+      .container {
+        display: flex;
+        width: 100%; /* Adjust as needed */
+        /* height: 300px; Adjust the height as needed */
+        margin: auto; /* Center the slider */
+        /* position: relative; Position for absolute navigation buttons */
+        overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
+      }
 
-.container img {
-    width: 100%; /* Make the image fill the container */
-    height: 220px; /* Make the image fill the container */
-    object-fit: contain; /* Maintain aspect ratio and cover the container */
-    object-position: center; /* Center the image within the container */
-}
-.content {
-    flex: 1;
-}
-
+      .container img {
+        width: 100%; /* Make the image fill the container */
+        height: 220px; /* Make the image fill the container */
+        object-fit: contain; /* Maintain aspect ratio and cover the container */
+        object-position: center; /* Center the image within the container */
+      }
+      .content {
+        flex: 1;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <%- include("header.ejs") %>
-    <div class="max-w-2xl mx-auto">
-        <%- include('sidebar.ejs') %>
-    </div>
+    <div class="max-w-2xl mx-auto"><%- include('sidebar.ejs') %></div>
     <div class="grid grid-cols-5">
-        <div class="col-start-2 col-span-3 py-4" style="font-family: 'Mandali', sans-serif;">
-            <h3 class="font-bold text-2xl"><span class="font-bold" style="color: rgb(44, 52, 155); font-size: 40px;"><%= news.title %></span></h3>
+      <div
+        class="col-start-2 col-span-3 py-4"
+        style="font-family: 'Mandali', sans-serif"
+      >
+        <h3 class="font-bold text-2xl">
+          <span
+            class="font-bold"
+            style="color: rgb(44, 52, 155); font-size: 40px"
+            ><%= news.title %></span
+          >
+        </h3>
+      </div>
+      <div class="col-start-2 col-span-3">
+        <div class="container p-3">
+          <img
+            class="image"
+            src="/uploads/<%=news.image.filename%>"
+            alt="news.title"
+          />
         </div>
-        <div class="col-start-2 col-span-3">
-            <div class="container p-3">
-                <img class="image" src="/uploads/<%=news.image.filename%>" alt="news.title">
-            </div>
-        </div>
-            
-            <div class="col-start-2 col-span-3" style="font-family: 'Mandali', sans-serif; font-size: 18px;">
-                <p><%=news.content%></p>
-            </div>
-    </div> 
-</body>
+      </div>
+
+      <div
+        class="col-start-2 col-span-3"
+        style="font-family: 'Mandali', sans-serif; font-size: 18px"
+      >
+        <p><%=news.content%></p>
+      </div>
+    </div>
+  </body>
 </html>

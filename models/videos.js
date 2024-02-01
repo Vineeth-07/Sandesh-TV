@@ -20,16 +20,24 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "DESC"]],
       });
     }
-    static associate(models) {
-      // define association here
+    static getVideoById(id) {
+      return Videos.findOne({
+        where: {
+          id: id,
+        },
+      });
     }
 
-    static deleteVideo(id){
+    static deleteVideo(id) {
       return this.destroy({
-        where:{
+        where: {
           id,
-        }
-      })
+        },
+      });
+    }
+
+    static associate(models) {
+      // define association here
     }
   }
   Videos.init(

@@ -1,79 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
     <style>
-        .news-container {
-            display: flex;
-            align-items: center;
-        }
-        .news-image {
-            width: 100px; 
-            margin-right: 20px; 
-            border: 3px solid #ccc; 
-            border-radius: 4px; 
-        }
-        .news-content {
-            flex: 1;
-        }
-        .bold {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+      .news-container {
+        display: flex;
+        align-items: center;
+      }
+      .news-image {
+        width: 100px;
+        margin-right: 20px;
+        border: 3px solid #ccc;
+        border-radius: 4px;
+      }
+      .news-content {
+        flex: 1;
+      }
+      .bold {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
     </style>
-</head>
-<body>
-  <%- include('header.ejs') %>
-  <div class="grid grid-cols-4">
-    <div class="col-start-2 col-span-2">
-  <% if (title === 'Telangana News') { %>
-        <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">తెలంగాణ వార్తలు</span>
-<% } else if (title === 'AndhraPradesh News') { %>
-    <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">ఆంధ్రప్రదేశ్ వార్తలు</span>
-<% } else { %>
-    <span class="font-bold" style="color: rgb(44, 52, 155); font-family: 'Mandali', sans-serif; font-size: 60px;">వార్తలు</span>
-<% } %>
-</div>
-        </div>
-  <% if (newsByState.length > 0) { %>
-    <% newsByState.forEach(news => { %>
-        <div class="grid grid-cols-4">
-            <div class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1 col-start-2 col-span-2 border-b-2 border-black">
-                <a href="/news/<%=news.id%>" style="text-decoration: none; color: inherit; font-family: 'Mandali', sans-serif;">
-                    <% let date = new Date(news.date); %>
-                    <% let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }); %>
-                    <div class="flex">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                      </svg>                    
-                      <p class="bold date-space"><%= formattedDate %></p>
-                    </div>
-                    <div class="news-container">
-                        <img class="news-image" src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>">
-                        <div class="news-content">
-                            <p class="tracking-light" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: 'Mandali', sans-serif; font-size: 24px;">
-                                <span class="font-bold" style="color: rgb(44, 52, 155); font-size: 24px;"><%= news.title %></span>
-                                | <%= news.content %>...
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    <% }) %>
-<% } else { %>
+  </head>
+  <body>
+    <%- include('header.ejs') %>
     <div class="grid grid-cols-4">
-        <div class="col-start-2 col-span-2">
-            <p>No news available</p>
-        </div>
+      <div class="col-start-2 col-span-2">
+        <% if (title === 'Telangana News') { %>
+        <span
+          class="font-bold"
+          style="
+            color: rgb(44, 52, 155);
+            font-family: 'Mandali', sans-serif;
+            font-size: 60px;
+          "
+          >తెలంగాణ వార్తలు</span
+        >
+        <% } else if (title === 'AndhraPradesh News') { %>
+        <span
+          class="font-bold"
+          style="
+            color: rgb(44, 52, 155);
+            font-family: 'Mandali', sans-serif;
+            font-size: 60px;
+          "
+          >ఆంధ్రప్రదేశ్ వార్తలు</span
+        >
+        <% } else { %>
+        <span
+          class="font-bold"
+          style="
+            color: rgb(44, 52, 155);
+            font-family: 'Mandali', sans-serif;
+            font-size: 60px;
+          "
+          >వార్తలు</span
+        >
+        <% } %>
+      </div>
     </div>
-<% } %>
-</body>
+    <% if (newsByState.length > 0) { %> <% newsByState.forEach(news => { %>
+    <div class="grid grid-cols-4">
+      <div
+        class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1 col-start-2 col-span-2 border-b-2 border-black"
+      >
+        <a
+          href="/news/<%=news.id%>"
+          style="
+            text-decoration: none;
+            color: inherit;
+            font-family: 'Mandali', sans-serif;
+          "
+        >
+          <% let date = new Date(news.date); %> <% let formattedDate =
+          date.toLocaleDateString('en-US', { month: 'long', day: 'numeric',
+          year: 'numeric' }); %>
+          <div class="flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 mr-2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+              />
+            </svg>
+            <p class="bold date-space"><%= formattedDate %></p>
+          </div>
+          <div class="news-container">
+            <img
+              class="news-image"
+              src="/uploads/<%= news.image.filename %>"
+              alt="<%= news.title %>"
+            />
+            <div class="news-content">
+              <p
+                class="tracking-light"
+                style="
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+                  font-family: 'Mandali', sans-serif;
+                  font-size: 24px;
+                "
+              >
+                <span
+                  class="font-bold"
+                  style="color: rgb(44, 52, 155); font-size: 24px"
+                  ><%= news.title %></span
+                >
+                | <%= news.content %>...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <% }) %> <% } else { %>
+    <div class="grid grid-cols-4">
+      <div class="col-start-2 col-span-2">
+        <p>No news available</p>
+      </div>
+    </div>
+    <% } %>
+  </body>
 </html>

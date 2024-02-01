@@ -1,71 +1,113 @@
 <div class="flex justify-center">
-    <div class="flex gap-10">
-        <div class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col" style="background-color: #0d9488;">
-            <h2 class="text-xl mb-2 text-white" style="font-size: 17px; font-weight: 600;">TELANGANA</h2>
-            <% const telanganaArticles = articles.filter(article => article.state === 'telangana'); %>
-            <% const latestTelanganaArticle = telanganaArticles.length > 0 ? telanganaArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
-            <% if (latestTelanganaArticle) { %>
-                <a href="/epaper/<%= latestTelanganaArticle.state %>">
-                    <div class="article-image flex-grow overflow-hidden h-90">
-                        <% if (latestTelanganaArticle.images && latestTelanganaArticle.images.filename) { %>
-                            <img class="w-full h-full object-cover" src="/uploads/<%= latestTelanganaArticle.images.filename %>" alt="<%= latestTelanganaArticle.images.filename %>">
-                        <% } else { %>
-                            <div class="flex items-center justify-center h-full bg-gray-200">
-                                <span>No Image</span>
-                            </div>
-                        <% } %>
-                    </div>
-                </a>
-            <% } else { %>
-                <div class="flex items-center justify-center h-full bg-gray-200">
-                    <span>No Article Available</span>
-                </div>
-            <% } %>
+  <div class="flex gap-10">
+    <div
+      class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col"
+      style="background-color: #0d9488"
+    >
+      <h2
+        class="text-xl mb-2 text-white"
+        style="font-size: 17px; font-weight: 600"
+      >
+        TELANGANA
+      </h2>
+      <% const telanganaArticles = articles.filter(article => article.state ===
+      'telangana'); %> <% const latestTelanganaArticle =
+      telanganaArticles.length > 0 ? telanganaArticles.reduce((prev, current) =>
+      (prev.date > current.date) ? prev : current) : null; %> <% if
+      (latestTelanganaArticle) { %>
+      <a href="/epaper/<%= latestTelanganaArticle.state %>">
+        <div class="article-image flex-grow overflow-hidden h-90">
+          <% if (latestTelanganaArticle.images &&
+          latestTelanganaArticle.images.filename) { %>
+          <img
+            class="w-full h-full object-cover"
+            src="/uploads/<%= latestTelanganaArticle.images.filename %>"
+            alt="<%= latestTelanganaArticle.images.filename %>"
+          />
+          <% } else { %>
+          <div class="flex items-center justify-center h-full bg-gray-200">
+            <span>No Image</span>
+          </div>
+          <% } %>
         </div>
-    <div class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col" style="background-color: #0d9488;">
-        <h2 class="text-xl mb-2 text-white" style="font-size: 17px; font-weight: 600;">ANDHRA PRADESH</h2>
-        <% const andhraArticles = articles.filter(article => article.state === 'andhrapradesh'); %>
-        <% const latestAndhraArticle = andhraArticles.length > 0 ? andhraArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
-        <% if (latestAndhraArticle) { %>
-            <a href="/epaper/<%= latestAndhraArticle.state %>">
-                <div class="article-image flex-grow overflow-hidden h-90">
-                    <% if (latestAndhraArticle.images && latestAndhraArticle.images.filename) { %>
-                        <img class="w-full h-full object-cover" src="/uploads/<%= latestAndhraArticle.images.filename %>" alt="<%= latestAndhraArticle.images.filename %>">
-                    <% } else { %>
-                        <div class="flex items-center justify-center h-full bg-gray-200">
-                            <span>No Image</span>
-                        </div>
-                    <% } %>
-                </div>
-            </a>
-        <% } else { %>
-            <div class="flex items-center justify-center h-full bg-gray-200">
-                <span>No Paper Available</span>
-            </div>
-        <% } %>
-    </div>    
-    <div class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col" style="background-color: #0d9488;">
-        <h2 class="text-xl mb-2 text-white" style="font-size: 17px; font-weight: 600;">OTHER</h2>
-        <% const otherArticles = articles.filter(article => article.state === 'other'); %>
-        <% const latestOtherArticle = otherArticles.length > 0 ? otherArticles.reduce((prev, current) => (prev.date > current.date) ? prev : current) : null; %>
-        <% if (latestOtherArticle) { %>
-            <a href="/epaper/<%= latestOtherArticle.state %>">
-                <div class="article-image flex-grow overflow-hidden h-90">
-                    <% if (latestOtherArticle.images && latestOtherArticle.images.filename) { %>
-                        <img class="w-full h-full object-cover" src="/uploads/<%= latestOtherArticle.images.filename %>" alt="<%= latestOtherArticle.images.filename %>">
-                    <% } else { %>
-                        <div class="flex items-center justify-center h-full bg-gray-200">
-                            <span>No Image</span>
-                        </div>
-                    <% } %>
-                </div>
-            </a>
-        <% } else { %>
-            <div class="flex items-center justify-center h-full bg-gray-200">
-                <span>No Paper Available</span>
-            </div>
-        <% } %>
+      </a>
+      <% } else { %>
+      <div class="flex items-center justify-center h-full bg-gray-200">
+        <span>No Article Available</span>
+      </div>
+      <% } %>
     </div>
-    
+    <div
+      class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col"
+      style="background-color: #0d9488"
+    >
+      <h2
+        class="text-xl mb-2 text-white"
+        style="font-size: 17px; font-weight: 600"
+      >
+        ANDHRA PRADESH
+      </h2>
+      <% const andhraArticles = articles.filter(article => article.state ===
+      'andhrapradesh'); %> <% const latestAndhraArticle = andhraArticles.length
+      > 0 ? andhraArticles.reduce((prev, current) => (prev.date > current.date)
+      ? prev : current) : null; %> <% if (latestAndhraArticle) { %>
+      <a href="/epaper/<%= latestAndhraArticle.state %>">
+        <div class="article-image flex-grow overflow-hidden h-90">
+          <% if (latestAndhraArticle.images &&
+          latestAndhraArticle.images.filename) { %>
+          <img
+            class="w-full h-full object-cover"
+            src="/uploads/<%= latestAndhraArticle.images.filename %>"
+            alt="<%= latestAndhraArticle.images.filename %>"
+          />
+          <% } else { %>
+          <div class="flex items-center justify-center h-full bg-gray-200">
+            <span>No Image</span>
+          </div>
+          <% } %>
+        </div>
+      </a>
+      <% } else { %>
+      <div class="flex items-center justify-center h-full bg-gray-200">
+        <span>No Paper Available</span>
+      </div>
+      <% } %>
     </div>
+    <div
+      class="box responsive-box p-4 border border-gray-300 rounded-lg h-800 w-80 flex flex-col"
+      style="background-color: #0d9488"
+    >
+      <h2
+        class="text-xl mb-2 text-white"
+        style="font-size: 17px; font-weight: 600"
+      >
+        OTHER
+      </h2>
+      <% const otherArticles = articles.filter(article => article.state ===
+      'other'); %> <% const latestOtherArticle = otherArticles.length > 0 ?
+      otherArticles.reduce((prev, current) => (prev.date > current.date) ? prev
+      : current) : null; %> <% if (latestOtherArticle) { %>
+      <a href="/epaper/<%= latestOtherArticle.state %>">
+        <div class="article-image flex-grow overflow-hidden h-90">
+          <% if (latestOtherArticle.images &&
+          latestOtherArticle.images.filename) { %>
+          <img
+            class="w-full h-full object-cover"
+            src="/uploads/<%= latestOtherArticle.images.filename %>"
+            alt="<%= latestOtherArticle.images.filename %>"
+          />
+          <% } else { %>
+          <div class="flex items-center justify-center h-full bg-gray-200">
+            <span>No Image</span>
+          </div>
+          <% } %>
+        </div>
+      </a>
+      <% } else { %>
+      <div class="flex items-center justify-center h-full bg-gray-200">
+        <span>No Paper Available</span>
+      </div>
+      <% } %>
+    </div>
+  </div>
 </div>

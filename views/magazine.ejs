@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
+  </head>
+  <body>
     <%- include("header.ejs") %>
     <a href="/createMagazine">Add magazine</a>
     <div class="grid grid-cols-4">
-        <div class="col-start-2 col-span-2" style="padding: 20px; border-radius:8px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-            <% if (magazines && magazines.length > 0) { %>
-                <ul>
-                    <% magazines.forEach(magazine => { %>
-                        <a href="/magazine/<%= magazine.id %>">
-                            <li class="transition-transform duration-300 transform hover:-translate-y-1" style="border-bottom: 1px solid #ccc; padding: 10px 0; font-family: 'Mandali', sans-serif; ">
-                                <h2 class="font-bold text-3xl;">Title : <%= magazine.title %></h2>
-                                <p>Published on : <%= new Date(magazine.date).toLocaleDateString('en-GB') %></p>
-                            </li>
-                        <% }) %>
-                        </a>
-                </ul>
-            <% } else { %>
-                <p>No magazines available</p>
-            <% } %>
-        </div>
+      <div
+        class="col-start-2 col-span-2"
+        style="
+          padding: 20px;
+          border-radius: 8px;
+          background-color: #fff;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        "
+      >
+        <% if (magazines && magazines.length > 0) { %>
+        <ul>
+          <% magazines.forEach(magazine => { %>
+          <a href="/magazine/<%= magazine.id %>">
+            <li
+              class="transition-transform duration-300 transform hover:-translate-y-1"
+              style="
+                border-bottom: 1px solid #ccc;
+                padding: 10px 0;
+                font-family: 'Mandali', sans-serif;
+              "
+            >
+              <h2 class="font-bold text-3xl;">Title : <%= magazine.title %></h2>
+              <p>
+                Published on : <%= new
+                Date(magazine.date).toLocaleDateString('en-GB') %>
+              </p>
+            </li>
+            <% }) %>
+          </a>
+        </ul>
+        <% } else { %>
+        <p>No magazines available</p>
+        <% } %>
+      </div>
     </div>
-</body>
+  </body>
 </html>

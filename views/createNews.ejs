@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
@@ -10,37 +10,47 @@
     />
     <style>
       #content {
-          width: 100%;
-          padding: 0.5rem;
-          border: 1px solid #ccc;
-          border-radius: 0.25rem;
-          font-size: 16px;
-          line-height: 1.5;
-          resize: vertical;
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        font-size: 16px;
+        line-height: 1.5;
+        resize: vertical;
       }
 
       label {
-          display: block;
-          margin-bottom: 0.5rem;
-          font-size: 14px;
-          color: #333;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+        color: #333;
       }
       h1 {
         text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <%- include('header.ejs') %>
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('header.ejs') %>
     <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-        <h1 class="text-xl font-bold mb-4">Add News</h1>
-        <form action="/createNews" method="post" enctype="multipart/form-data">
+      <h1 class="text-xl font-bold mb-4">Add News</h1>
+      <form action="/createNews" method="post" enctype="multipart/form-data">
         <div class="mb-4">
-            <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
-            <input type="text" name="title" id="title" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+          <label for="title" class="block text-sm font-medium text-gray-600"
+            >Title</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
         </div>
         <div class="mb-4">
-          <label for="state" class="block text-sm font-medium text-gray-600">Select State:</label>
+          <label for="state" class="block text-sm font-medium text-gray-600"
+            >Select State:</label
+          >
           <select id="state" name="state">
             <option value="telangana">Telangana</option>
             <option value="andhrapradesh">Andhra Pradesh</option>
@@ -48,22 +58,40 @@
           </select>
         </div>
         <div class="mb-4">
-          <label for="content" class="block text-sm font-medium text-gray-600">Content:</label>
-          <textarea id="content" name="content" rows="10" cols="50" class="focus:outline-none focus:ring focus:border-blue-300"></textarea>
+          <label for="content" class="block text-sm font-medium text-gray-600"
+            >Content:</label
+          >
+          <textarea
+            id="content"
+            name="content"
+            rows="10"
+            cols="50"
+            class="focus:outline-none focus:ring focus:border-blue-300"
+          ></textarea>
         </div>
         <div class="mb-4">
-            <label for="category" class="block text-sm font-medium text-gray-600">Select category:</label>
-            <select id="category" name="category">
-              <option value="cinema">Cinema</option>
-              <option value="sports">Sports</option>
-              <option value="business">Business</option>
-              <option value="spirituality">Spirituality</option>
-              <option value="history">History</option>
-            </select>
+          <label for="category" class="block text-sm font-medium text-gray-600"
+            >Select category:</label
+          >
+          <select id="category" name="category">
+            <option value="cinema">Cinema</option>
+            <option value="sports">Sports</option>
+            <option value="business">Business</option>
+            <option value="spirituality">Spirituality</option>
+            <option value="history">History</option>
+          </select>
         </div>
         <div class="mb-4">
-            <label for="image" class="block text-sm font-medium text-gray-600">Image</label>
-            <input type="file" name="image" id="image" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+          <label for="image" class="block text-sm font-medium text-gray-600"
+            >Image</label
+          >
+          <input
+            type="file"
+            name="image"
+            id="image"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
         </div>
         <button
           type="submit"
@@ -71,7 +99,7 @@
         >
           Create News
         </button>
-    </form>
+      </form>
     </div>
-</body>
+  </body>
 </html>

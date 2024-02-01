@@ -19,25 +19,26 @@
           videoId: videoId_<%= index %>,
         });
       <% }); %>
+    }
 
-      function getYouTubeVideoId(url) {
-        var regex = /[?&]v=([^&#]*)/;
-        var match = url.match(regex);
-        return match && match[1] ? match[1] : null;
-      }
+    function getYouTubeVideoId(url) {
+      var regex = /[?&]v=([^&#]*)/;
+      var match = url.match(regex);
+      return match && match[1] ? match[1] : null;
+    }
 
-      function deleteVideo(id) {
-          fetch(`/deleteVideo/${id}`, {
-            method: "delete",
-            headers: { "Content-Type": "application/json" },
-          }).then((res) => {
-            if (res.ok) {
-              window.location.reload();
-            }
-          }).catch((err) => console.error(err))
+    function deleteVideo(id) {
+      fetch(`/deleteVideo/${id}`, {
+        method: "delete",
+        headers: { "Content-Type": "application/json" },
+      }).then((res) => {
+        if (res.ok) {
+          window.location.reload();
         }
-      }
-  </script>
+      }).catch((err) => console.error(err))
+    }
+</script>
+
 </head>
 
 <body>

@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      .box {
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      }
+      @media screen and (max-width: 768px) {
+        .responsive-box {
+          width: 100%;
+          max-width: 100%;
+        }
+        .flex {
+          flex-direction: column; /* Change flex direction to column for smaller screens */
+        }
+        .gap-10 {
+          gap: 1rem; /* Reduce the gap between boxes on smaller screens */
+        }
         .box {
-            box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+          width: 100%; /* Make the boxes take the full width of the screen */
+          margin-bottom: 1rem; /* Add space between boxes on smaller screens */
         }
-        @media screen and (max-width: 768px) {
-            .responsive-box {
-                width: 100%;
-                max-width: 100%;
-            }
-            .flex {
-                flex-direction: column; /* Change flex direction to column for smaller screens */
-            }
-            .gap-10 {
-                gap: 1rem; /* Reduce the gap between boxes on smaller screens */
-            }
-            .box {
-                width: 100%; /* Make the boxes take the full width of the screen */
-                margin-bottom: 1rem; /* Add space between boxes on smaller screens */
-            }
+      }
+      @media screen and (max-width: 480px) {
+        .gap-10 {
+          gap: 1rem; /* Reduce the gap between boxes on even smaller screens */
         }
-        @media screen and (max-width: 480px) {
-            .gap-10 {
-                gap: 1rem; /* Reduce the gap between boxes on even smaller screens */
-            }
 
-            .box {
-                padding: 2rem; /* Increase padding for better spacing on smaller screens */
-            }
+        .box {
+          padding: 2rem; /* Increase padding for better spacing on smaller screens */
         }
+      }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <%- include('header.ejs') %>
     <div class="flex p-2 space-x-4 justify-end">
-        <a href="/allPapers" class="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded">
-            <span>All epapers</span>
-        </a>
+      <a
+        href="/allPapers"
+        class="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        <span>All epapers</span>
+      </a>
     </div>
-    <div>
-        <%- include('articleStateItems.ejs') %>
-    </div>
-</body>
-
+    <div><%- include('articleStateItems.ejs') %></div>
+  </body>
 </html>

@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
+  </head>
+  <body>
     <%- include("header.ejs") %>
     <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-        <form action="/createMagazine" method="post" enctype="multipart/form-data">
+      <form
+        action="/createMagazine"
+        method="post"
+        enctype="multipart/form-data"
+      >
         <div class="mb-4">
-            <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
-            <input type="text" name="title" id="title" required class="mt-1 p-2 w-full border rounded-md  focus:outline-none focus:ring focus:border-blue-300">
+          <label for="title" class="block text-sm font-medium text-gray-600"
+            >Title</label
+          >
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
         </div>
         <div class="mb-4">
-            <label for="pdf" class="block text-sm font-medium text-gray-600">Choose Pdf</label>
-            <input type="file" name="pdf" id="pdf" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+          <label for="pdf" class="block text-sm font-medium text-gray-600"
+            >Choose Pdf</label
+          >
+          <input
+            type="file"
+            name="pdf"
+            id="pdf"
+            required
+            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
         </div>
         <button
           type="submit"
@@ -24,7 +47,7 @@
         >
           Publish
         </button>
-    </form>
+      </form>
     </div>
-</body>
+  </body>
 </html>

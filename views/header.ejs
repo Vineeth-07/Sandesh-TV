@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-  />
-  <style>
-    @media screen and (max-width: 640px) {
-      .p-4 {
-        padding: 2rem;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      @media screen and (max-width: 640px) {
+        .p-4 {
+          padding: 2rem;
+        }
+        .text-sm {
+          font-size: 0.875rem;
+        }
+        .rounded-md img {
+          max-width: 100%;
+          height: auto;
+        }
       }
-      .text-sm {
-        font-size: 0.875rem;
-      }
-      .rounded-md img {
-        max-width: 100%;
-        height: auto;
-      }
-    }
-  </style>
-</head>
-<body>
-  <% const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" } %> 
-  <% const todayDate = new Date().toLocaleDateString(undefined, options) %>
-  <div class="p-4 rounded-lg text-white text-sm" style="background-color: #0d9488;">
-    <%= todayDate %> | Sandesh TV Daily News
-  </div>
-  <div class="rounded-lg" style="background-color: #aee9e5;">
-    <a href="/">
-      <img
-        class="rounded-md"
-        src="/images/sandesh-tv-logo.png"
-        alt="Logo"
-        style="width: 200px; height: auto"
-      />
-    </a>
-  </div>
-</body>
+    </style>
+  </head>
+  <body>
+    <% const options = { weekday: "long", year: "numeric", month: "long", day:
+    "numeric" } %> <% const todayDate = new Date().toLocaleDateString(undefined,
+    options) %>
+    <div
+      class="p-4 rounded-lg text-white text-sm"
+      style="background-color: #0d9488"
+    >
+      <%= todayDate %> | Sandesh TV Daily News
+    </div>
+    <div class="rounded-lg" style="background-color: #aee9e5">
+      <a href="/">
+        <img
+          class="rounded-md"
+          src="/images/sandesh-tv-logo.png"
+          alt="Logo"
+          style="width: 200px; height: auto"
+        />
+      </a>
+    </div>
+  </body>
 </html>
