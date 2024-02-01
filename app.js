@@ -119,10 +119,14 @@ app.post("/createArticle", upload.single("image"), async (req, res) => {
 
 app.get("/magazine", async (req, res) => {
   try {
+    const protocol = req.protocol;
+    const host = req.get("host");
     let magazines = await Magazine.getMagazines();
     res.render("magazine", {
       title: "Sandesh TV magazines",
       magazines: magazines,
+      protocol,
+      host,
     });
   } catch (err) {
     console.log(err);

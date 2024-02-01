@@ -1,78 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    var players = {}; 
-
-    function onYouTubeIframeAPIReady() {
-      <% videos.forEach((video, index) => { %>
-        var videoId_<%= index %> = getYouTubeVideoId('<%= video.url %>');
-        players[<%= index %>] = new YT.Player('player_<%= index %>', {
-          height: '360',
-          width: '640',
-          videoId: videoId_<%= index %>,
-        });
-      <% }); %>
-    }
-
-    function getYouTubeVideoId(url) {
-      var regex = /[?&]v=([^&#]*)/;
-      var match = url.match(regex);
-      return match && match[1] ? match[1] : null;
-    }
-
-    function deleteVideo(id) {
-      fetch(`/deleteVideo/${id}`, {
-        method: "delete",
-        headers: { "Content-Type": "application/json" },
-      }).then((res) => {
-        if (res.ok) {
-          window.location.reload();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      /* Additional custom styles can be added here */
+    </style>
+    <script>
+      function getYouTubeID(url) {
+        console.log("test");
+        var video_id = url.split("v=")[1];
+        var ampersandPosition = video_id.indexOf("&");
+        if (ampersandPosition != -1) {
+          video_id = video_id.substring(0, ampersandPosition);
         }
-      }).catch((err) => console.error(err))
-    }
-</script>
+        console.log(video_id);
+        return video_id;
+      }
 
-</head>
+      function deleteVideo(id) {
+        fetch(`/deleteVideo/${id}`, {
+          method: "delete",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => {
+            if (res.ok) {
+              window.location.reload();
+            }
+          })
+          .catch((err) => console.error(err));
+      }
+    </script>
+  </head>
 
-<body>
-  <%- include('header.ejs') %>
-  <%- include("navBar.ejs")%>
-  <a href="/createVideo">Add video</a>
-  <div class="container mx-auto mt-8">
-    <% if (videos && videos.length > 0) { %> 
-      <% videos.forEach((video, index) => { %>
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold mb-4 text-center"><%= video.title %></h2>
-          <div>
-            <button onclick="deleteVideo('<%= video.id %>')" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+  <body class="bg-gray-100">
+    <% include('header.ejs') %> <% include('navBar.ejs') %>
+    <div class="container mx-auto px-4 py-8">
+      <a href="/createVideo" class="block mb-4 text-blue-500">Add video</a>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% if (videos && videos.length > 0) { %> <%
+        videos.forEach((video,index)=> { %>
+        <div class="border rounded-lg p-4 bg-white">
+          <h2 class="text-xl font-semibold mb-2"><%= video.title %></h2>
+          <div class="relative aspect-w-16 aspect-h-9 mb-4">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/<%= getYouTubeID(video.url) %>"
+              title="<%= video.title %>"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
           </div>
-          <div class="aspect-w-16 aspect-h-9 flex items-center justify-center">
-            <% if (video.url.includes('youtube.com/embed')) { %>
-              <iframe
-                width="640"
-                height="360"
-                src="<%= video.url %>"
-                frameborder="0"
-                allowfullscreen
-              >
-            <% } else { %>
-              <div id="player_<%= index %>"></div>
-            <% } %>
-          </div>
-          
+          <button
+            onclick="deleteVideo('<%= video.id %>')"
+            class="block w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Delete
+          </button>
         </div>
-      <% }); %> 
-    <% } else { %>
-      <p>No videos available</p>
-    <% } %>
-  </div>
-</body>
-
+        <% })} %>
+      </div>
+    </div>
+  </body>
 </html>
