@@ -21,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static deleteMagazine(id) {
+      return this.destroy({
+        where: {
+          id,
+        },
+      });
+    }
+
     static getMagazineById(id) {
       return Magazine.findOne({
         where: {

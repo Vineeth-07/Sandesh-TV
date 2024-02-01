@@ -269,6 +269,36 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
+app.delete("/deleteMagazine/:id", async (req, res) => {
+  try {
+    const magazine = await Magazine.getMagazineById(req.params.id);
+    if (!magazine) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Magazine not found" });
+    }
+    const result = await Magazine.deleteMagazine(req.params.id);
+    if (result !== 1) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete magazine" });
+    }
+    const pdfPath = path.join(__dirname, "uploads", magazine.pdf.filename);
+    fs.unlink(pdfPath, (err) => {
+      if (err) {
+        console.error("Error deleting pdf:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to delete pdf" });
+      }
+      return res.json({ success: true });
+    });
+  } catch (error) {
+    console.error("Error deleting magazine:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 app.put("/editEpaper/:id", async (req, res) => {
   const id = req.params.id;
   try {
