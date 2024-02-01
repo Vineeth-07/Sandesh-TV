@@ -38,6 +38,9 @@
       #closeSidebar {
         transition: transform 0.3s; /* Add a transition effect for the transform property */
       }
+      .group:hover .hidden {
+        display: block;
+      }
       @media (max-width: 640px) {
         .sidebar {
           display: none; /* Hide the sidebar on small screens by default */
@@ -402,14 +405,28 @@
         const sidebar = document.querySelector(".sidebar");
         const toggleButton = document.getElementById("toggleSidebar");
         const closeSidebarbutton = document.getElementById("closeSidebar");
+        const dropdown = document.getElementById("dropdown-example")
+        const newsButton = document.querySelector('[data-collapse-toggle="dropdown-example"]')
 
         toggleButton.addEventListener("click", function () {
         sidebar.classList.toggle("open");
+        
         });
 
         closeSidebarbutton.addEventListener("click", function () {
         sidebar.classList.remove("open");
+        dropdown.classList.add("hidden");
         });
+        
+        dropdown.classList.add("hidden");
+
+        function updateDropdownVisibility() {
+        dropdown.classList.toggle("hidden");
+        }
+        
+        newsButton.addEventListener("click", function () {
+        dropdown.classList.toggle("hidden");
+      });
     });
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
