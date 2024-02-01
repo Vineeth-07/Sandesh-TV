@@ -14,16 +14,22 @@
           width: 100%;
           max-width: 100%;
         }
-        .flex {
-          flex-direction: column; /* Change flex direction to column for smaller screens */
+        .articleflex .flex{
+          flex-direction: column; 
         }
         .gap-10 {
-          gap: 1rem; /* Reduce the gap between boxes on smaller screens */
+          gap: 1rem;
         }
         .box {
-          width: 100%; /* Make the boxes take the full width of the screen */
-          margin-bottom: 1rem; /* Add space between boxes on smaller screens */
+          width: 100%;
+          margin-bottom: 1rem; 
         }
+        .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+      }
       }
       @media screen and (max-width: 480px) {
         .gap-10 {
