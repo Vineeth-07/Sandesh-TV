@@ -1,63 +1,66 @@
 <style>
   .sidebar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 200px; /* Set your preferred width */
-    background-color: #ffffff; /* Add your preferred background color */
-    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-    z-index: 2;
-  }
-  .sidebar.open {
-    display: block;
-  }
-  .content-container {
-    transition: margin-left 0.3s ease;
-    margin-left: 0;
-    z-index: 1; /* Adjust the margin to match the sidebar width */
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    /* overflow: hidden; */
-  }
-  #closeSidebar:hover {
-    transform: scale(1.2); /* Zoom in by 10% on hover */
-  }
-  .topButton {
-    background-color: #aee9e5;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-  }
-  .topButton:hover {
-    transform: scale(1.1);
-    background-color: #0d9488;
-  }
-  #closeSidebar {
-    transition: transform 0.3s; /* Add a transition effect for the transform property */
-  }
-  @media (max-width: 640px) {
-    .sidebar {
-      display: none; /* Hide the sidebar on small screens by default */
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 60%; /* Make the sidebar full width on small screens */
-      background-color: #ffffff;
-      box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-      z-index: 2;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 200px; /* Set your preferred width */
+        background-color: #ffffff; /* Add your preferred background color */
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+        z-index: 2;
+      }
+      .sidebar.open {
+        display: block;
+      }
+      .content-container {
+        transition: margin-left 0.3s ease;
+        margin-left: 0;
+        z-index: 1; /* Adjust the margin to match the sidebar width */
     }
+    body {
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+      }
+      #closeSidebar:hover {
+        transform: scale(1.2); /* Zoom in by 10% on hover */
+      }
+      .topButton {
+        background-color: #aee9e5;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      }
+      .topButton:hover {
+        transform: scale(1.1);
+        background-color: #0d9488;
+      }
+      #closeSidebar {
+        transition: transform 0.3s; /* Add a transition effect for the transform property */
+      }
+      .group:hover .hidden {
+        display: block;
+      }
+      @media (max-width: 640px) {
+        .sidebar {
+          display: none; /* Hide the sidebar on small screens by default */
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 60%; /* Make the sidebar full width on small screens */
+          background-color: #ffffff;
+          box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+          z-index: 2;
+        }
 
-    .sidebar.open {
-      display: block;
+        .sidebar.open {
+        display: block;
+        }
+        .content-container {
+        margin-left: 0;
+        }
     }
-    .content-container {
-      margin-left: 0;
-    }
-  }
 </style>
 <div class="max-w-2xl mx-auto">
   <aside class="sidebar w-64 hidden" aria-label="Sidebar">
@@ -377,53 +380,54 @@
 <div class="content-container">
   <div class="p-4 mb-4 text-black text-sm flex border rounded-lg items-center">
     <div class="relative group flex">
-      <button id="toggleSidebar" onclick="Open()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
+        <button id="toggleSidebar" onclick="Open()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+            </svg>
+        </button>
     </div>
     <div class="topButton border rounded-lg p-2 mx-4">
-      <a href="/" class="font-bold">Home</a>
+        <a href="/" class="font-bold">Home</a>
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-      <a href="/allNews" class="font-bold">News</a>
+        <a href="/allNews" class="font-bold">News</a>
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-      <a href="/epaper" class="font-bold">E-Paper</a>
+        <a href="/epaper" class="font-bold">EPaper</a>
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-      <a href="/videos" class="font-bold">Videos</a>
+        <a href="/videos" class="font-bold">Videos</a>
     </div>
   </div>
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.querySelector(".sidebar");
-    const toggleButton = document.getElementById("toggleSidebar");
-    const closeSidebarbutton = document.getElementById("closeSidebar");
+        const sidebar = document.querySelector(".sidebar");
+        const toggleButton = document.getElementById("toggleSidebar");
+        const closeSidebarbutton = document.getElementById("closeSidebar");
+        const dropdown = document.getElementById("dropdown-example")
+        const newsButton = document.querySelector('[data-collapse-toggle="dropdown-example"]')
 
-    toggleButton.addEventListener("click", function () {
-      sidebar.classList.toggle("open");
-    });
+        toggleButton.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+        
+        });
 
-    closeSidebarbutton.addEventListener("click", function () {
-      sidebar.classList.remove("open");
+        closeSidebarbutton.addEventListener("click", function () {
+        sidebar.classList.remove("open");
+        dropdown.classList.add("hidden");
+        });
+        
+        dropdown.classList.add("hidden");
+
+        function updateDropdownVisibility() {
+        dropdown.classList.toggle("hidden");
+        }
+        
+        newsButton.addEventListener("click", function () {
+        dropdown.classList.toggle("hidden");
+      });
     });
-  });
 </script>
-<script
-  type="module"
-  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
