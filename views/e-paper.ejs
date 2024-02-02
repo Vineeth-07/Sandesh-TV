@@ -14,22 +14,22 @@
           width: 100%;
           max-width: 100%;
         }
-        .articleflex .flex{
-          flex-direction: column; 
+        .articleflex .flex {
+          flex-direction: column;
         }
         .gap-10 {
           gap: 1rem;
         }
         .box {
           width: 100%;
-          margin-bottom: 1rem; 
+          margin-bottom: 1rem;
         }
         .flex-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        justify-content: center;
-      }
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          justify-content: center;
+        }
       }
       @media screen and (max-width: 480px) {
         .gap-10 {
@@ -46,10 +46,8 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
   </head>
-
   <body>
-    <%- include('header.ejs') %>
-    <%- include("navBar.ejs")%>
+    <%- include('header.ejs') %> <%- include("navBar.ejs")%>
     <div class="flex p-2 space-x-4 justify-end">
       <a
         href="/allPapers"

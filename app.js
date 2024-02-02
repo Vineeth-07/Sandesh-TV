@@ -226,6 +226,16 @@ app.post("/createVideo", async (req, res) => {
   }
 });
 
+app.get("/aboutus", async (req, res) => {
+  try {
+    res.render("aboutus", {
+      title: "About us",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get("/editNews/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -541,6 +551,10 @@ app.get("/epaper/:state/:id", async (req, res) => {
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
+});
+
+app.use(function (request, response) {
+  response.status(404).render("pageNotFound");
 });
 
 module.exports = app;

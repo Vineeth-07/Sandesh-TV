@@ -1,66 +1,66 @@
 <style>
   .sidebar {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 200px; /* Set your preferred width */
-        background-color: #ffffff; /* Add your preferred background color */
-        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-        z-index: 2;
-      }
-      .sidebar.open {
-        display: block;
-      }
-      .content-container {
-        transition: margin-left 0.3s ease;
-        margin-left: 0;
-        z-index: 1; /* Adjust the margin to match the sidebar width */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px; /* Set your preferred width */
+    background-color: #ffffff; /* Add your preferred background color */
+    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+    z-index: 2;
+  }
+  .sidebar.open {
+    display: block;
+  }
+  .content-container {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+    z-index: 1; /* Adjust the margin to match the sidebar width */
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+  }
+  #closeSidebar:hover {
+    transform: scale(1.2); /* Zoom in by 10% on hover */
+  }
+  .topButton {
+    background-color: #aee9e5;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+  }
+  .topButton:hover {
+    transform: scale(1.1);
+    background-color: #0d9488;
+  }
+  #closeSidebar {
+    transition: transform 0.3s; /* Add a transition effect for the transform property */
+  }
+  .group:hover .hidden {
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .sidebar {
+      display: none; /* Hide the sidebar on small screens by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 60%; /* Make the sidebar full width on small screens */
+      background-color: #ffffff;
+      box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      z-index: 2;
     }
-    body {
-        margin: 0;
-        padding: 0;
-        /* overflow: hidden; */
-      }
-      #closeSidebar:hover {
-        transform: scale(1.2); /* Zoom in by 10% on hover */
-      }
-      .topButton {
-        background-color: #aee9e5;
-        transition: transform 0.3s ease-in-out;
-        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-      }
-      .topButton:hover {
-        transform: scale(1.1);
-        background-color: #0d9488;
-      }
-      #closeSidebar {
-        transition: transform 0.3s; /* Add a transition effect for the transform property */
-      }
-      .group:hover .hidden {
-        display: block;
-      }
-      @media (max-width: 640px) {
-        .sidebar {
-          display: none; /* Hide the sidebar on small screens by default */
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 60%; /* Make the sidebar full width on small screens */
-          background-color: #ffffff;
-          box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
-          z-index: 2;
-        }
 
-        .sidebar.open {
-        display: block;
-        }
-        .content-container {
-        margin-left: 0;
-        }
+    .sidebar.open {
+      display: block;
     }
+    .content-container {
+      margin-left: 0;
+    }
+  }
 </style>
 <div class="max-w-2xl mx-auto">
   <aside class="sidebar w-64 hidden" aria-label="Sidebar">
@@ -350,7 +350,7 @@
           class="transition-transform duration-300 transform hover:-translate-y-1"
         >
           <a
-            href="#"
+            href="/aboutus"
             class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg"
             style="background-color: #aee9e5"
             onmouseover="this.style.backgroundColor='#0d9488'"
@@ -374,60 +374,119 @@
           </a>
         </li>
       </ul>
+      <p
+        style="
+          font-family: 'Roboto', sans-serif;
+          font-size: 1.2rem;
+          font-weight: bold;
+          margin-bottom: 20px;
+          color: #121213;
+        "
+      >
+        Follow us on:
+      </p>
+      <div class="flex">
+        <a href="https://www.facebook.com/sandesh.televison?hc_location=stream">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE1klEQVR4nO2Z609bZRzHT7ht64DJdWNlzA7GWoyvjIv+FZqomZkvJJkvfa8hjsNt0DEqQ2DQcqczJijgBXDqFuOyxPhCsxBMHPSyXg6l7WnP6SnQnkL5maeoYeG05zx9oGrCN/m9/3xPn9/v+T3fUtSRjnQkck1BtnYi9OqlcaGhdjw0XTvO/35xNBSsGeNi1aNcrHqED2qGuSXNcHBaYwo2nDexr1A0ZFH/tl74bPOczhzWaycF96UJAVDVjofg4hgqHmpGeage4eHCMJcozVAQnjehCsD5wYCraoDtUJvYyoyD10wJZTpz2KidFETtZBiw4Y0BqBpkE1V5xy9W3vENVBiZ0ozA190NX9VOrgd05jCQwp8bSBhIlLrfx57t9b19aOAvGSG37m54SGdeh0OAh7N9qLxQ0esdpIyQe9DwqjpzeCED8HDmEy+U96zNVxgZ1UHB52YS/nTPWqLKbq/+QNFLecQGMnRsYC98+W0PlHV7oLSbGSCD/zT8Dim8xsjCtXsCjC5G4IFDhF/XtuBnJgYPnSLMWaLw0UNBEr6sexVKP16Foi73lbTgtROhEt3kup8E/rVZHmz8NqTSI5eYFL7EwEBJFxPI70pjxKI5TwL/+iwP4vZOSvi9BiThDQwUdzFQ1Onqx4J/0bxRSXJJXTCx4BLioESPXGJq+FtuVGKRnqnC+fp6koZ9/35YEfzfBmTg4blOF5y66exQRk9DlnZCcJFMm+knUZCSI7QNb85wUDvo260BL2j61xTAu6BQ73CjpVGWP7FVEo7K5aB0474xw6VuWIM0/KmbTijUJ+qyrAG0EpPO+WBkf/N61uNwhgC+oMMB+XrHh/IGJkIzpJfUlkT//rIaI4Iv6HDAyXbH57IGasf4JdIbNi4xPe/bo0Tw+e0OUN2wL8oaqBkLBUjXAykD39uiRPAnbzyFE212v7yBUU4k3W2SG0gfXtX2FFSt9qisgeoRTsSBRxcWH915pqQUiwNwkfi+Mv22rgy+zQ4nWpQZCOB8eUGUXxdSqeknXhl8qx2OtdjkjxBKD3CODamBqzOsIvjjLTY43myTb2LNUHAG58yTGrg87FEG32KDY802+TGKchuchg0RGNiKA5TecimFh7wmyweyBlDohPOSqp/j4b2Fv2qeg2tzHEhZerwWg/qvA1D/FQvvfrlbV77wY8BbIafZ+rKiZa7KyDrTfQaiUSk1Rr+zRpRPm9b98LlNVofiNA8lZunCozmfzEC68HnIAG1pp5QKxX27iRk+PLqgpAzcs0RI4KNUwxM1hSMU96UDn9zAZrrwkN1o6cWCTxgY4ovVfT4/LjxaD5IZSAc+p9HCUvQf6eWmKKvEhUd7TSoDmPCQ3bjyFkUilFXiwKcygA1/fbmPItYUZJ/u8cziPEYkDaxsYsHnNK7MUfSPOeQG0K9gZFTl3Z55pfu8lIFvVzaVw19f+YaiDyjc/UdGyEVZpZJ9PrkBhceGPqAvLyWUVZYY3P5Uj5FkBmTgfcQNq1QF7e4SFPcVdbqjUutBMgPJLqlsNOfppWIq0yo2ONUoMSvUO5x7LykpAwvLG8/uNrTVmVgPcG/YQxENWSh0QrkNij4WveKGi4/FN2I7sLm1A0xoK25+LLBon0crcWKr/C/8zXqkI1H/f/0JPDNnaCVeJTwAAAAASUVORK5CYII="
+          />
+        </a>
+        <a href="https://twitter.com/SandeshTv"
+          ><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADFklEQVR4nO1ZS0vjUBTOD5mBXJtWRFs3Yg10UVAXBd3YKl20C920iH9AsBTXbnzWhT9A+qCCoHRVsUW6bSmKdNOHC0E6pY74AB9nOGcmmaidcZrBJIscOIvc3LTfl3u+e74kHGeGGWaYYdiwWCxfeZ5P8Tz/nTEGWib/8z/3eJ7vVQ2eMfZNa+DsfbYQS9cE8M4bADz8yoQaApqXDftzOV13TUBv0OxNmgSYuQLMOCUkCAIUi0XoFIlE4p8Azc3NwdPTE2SzWfo9zTUwPj4O9/f38PLyAplMBg4ODqBcLhOJcDj812snJyfh9vaW5vf39+sn4mg0SoBXV1fp2OFwwMXFBbRaLXA6nR2vEUURLi8vKUVR1HcX6unpgaOjIyoFr9dLY9PT03Scy+XovHK+3W6H8/NzuLm5AY/HY4xtdGhoCJrNJtTrdRgYGKCx7e1tWplIJCLPs1qtkM/n4fHxEYLBoL4iZm8yFAoR4N3dXRlsqVSCu7s7GBsbo5VIJpM0Z2lpqWvwTItGJgGcn59/JXIU6traGp3b2tpSBZ5pQQB3k1qtRgIeHh6mseXlZXl73d/ff6cJZiQCmD6fjwR8fHxMYDFPTk5oqw0EAqrBMy29UCwWe1XrIyMjtCqNRkMWuaEJCIIAp6en8PDwQAJWijwejxufQF9fH5ydnVHZoIBtNltHkRuSgMViIVuB4NPpNAHe2NiQRV6tVl+JnBmNwM7ODoFeWVmRu/Tz8zP4/X46j91aKXJmJAKLi4sEHktFGlMKGG0Ejm1ubqpqaNxnEpidnaU7WygU5JqXUhKwREyy4tilR0dH9ScwMTFB1rhSqcDg4GDHOalUikgsLCzQsdvtlu201WrVjwCWCNriq6srcLlcH3bpdrstW2g0ehjr6+v6EMCmhNsl+p2pqakPAczMzFCZ4Urhw8/h4SE5U6UV14wA1jH6fdxhPnr6UqZks99GXWHFdRGxFsmZBJi5AqBpCfHGernbVqOBPb2Bs98ZV7MCvfhxwQDgm4IgfOH+4ytNAt/P61A213jnVYM3wwwzzOC0iB9GnyQ6otH+2wAAAABJRU5ErkJggg=="
+        /></a>
+        <a href="https://www.youtube.com/@stvhyd">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE8klEQVR4nO2XyW8bZRjGc2MR3KlUCbIvzerxvo1nscfrTJzESexItOqhEhKXiiLUQlt6CydOgOAfgEZcWRTCJhC0BdETlUgc0ibx2LPbHieBBPKicUiENM4y40SNhB/puf+e932/9/u+pqaGGmqooYYaOkQCffHZMj3VU2HSVIWevFihJ2+qiYkP1NjEx+XY+Fw5Nv5zOZrKlqIprhwek8vUqFyiRv8oUaNQCo1AMZRcL5FJuUgkZYVk8grOzCs4c0/B6Fk5QM8oWOIdGY2/IftjLyq+CC64qc5lZ+qpJrMqxdLtKp1+S6XT9yt0plhhMlA1na5aTUyCGtc8AWpsHMpRzSkoR1JQDo9BOTwKu/BVB5NQJDUPQ5FgdozToGCaE6AEEqCgcVDQGMj+GMi+aNWSNyJKnvBdyUXd4n3UmSPBV5jMBZVJr+1BPyZ42RsByRMGyU2B5KJAdAQl3k7GDoRXmSlCpTN/nTZ4yRkC0RkE0UFUZCfZd0CA9I+nF54E0U6CYMVv14RfS06dVZnM9mmGF20ECAi+sYSiT+qrT2dIc/BjVfhiaATE4DBIGvRJwVtxEKwYiEP+bn0HhjOX6qk8S9CwevVNWLl8DVaxOMg4fSLwAoKBMBhganVg2kzld8dmKRCD7c1N0FT8fA6W4ingAvHjh7cEgBtEr9RanzNm4bWZX0Sj8F9tSTKsXr0FK/4ISFXw44Hnh1AtwPv6APTk92bhtZlfRCNQS6Uvv4XfI6NQ8EeOBZ4fRIEb8H2qD5BIPzALrx3YRX+4ZoDdbqy8dhOW3SEQfZG64PkBP3D9vp90AcrxCdYsvHZYDwqw1425b2CRGgHWHTINzw/4gOvzLOkPcXyiZBa+GsBHHRpgrxuvXodHdgIEDdwofL8XuF6PUKMD4xtm4bVVmfUeLcCuirNfQ5ZgIG8njMH3eaHQ61b1AaKpv83Ca6sy6w2BUW1yPCwGEiAYgOd6PZDvcW3pApQiWgBz8Nqez3rMBogDbwC+cM4NhR7Xuj5AdGzDLLx2SWXdQUPwxdmvIIslgNWgjcFDvsfJ6kcoMlYyC69dUlk3eSTwLVGC5Vdeh4fajWo1Dl91l/OBvgPhMdYsvHbDLrjII1V9AUtArgpueGyg6m4nsJ32O/oA1Oiv9TyJF5z7B9gS5Z2qIxjwNrwu+HyXA/Kd9s90AYqhke/qec/vF0Bblwt4AnI23NCq5PaHB7bD9qG+A8Hk7Xo+IwsOsnbVrRjw2q4/Jvh8hx3y7ba3awQYma7nJ7VgJ2D7z53ntPLJbHXD5Oy44UuKOxwecu3IyzVGaPhSPT+pVScJy5evwaOXrsBDGw68gzgReLbdCmwLEtUHIEbIer6BoouCgiMIBe1dY/Rt02cAvg2B1ResnboAIpo8qxDM9ol9A48Jnm21bMy3tT3RVEsKTv9wuuERYJstH9WE/zcAJmP01mmFzzVb1HxLf2/TQZIDifMKmlg7bfBs85C40jKoP7y1VMTCrTIam5Z8sV9kb7T42OBbLVKuBbnDtlhucM/bnmsyKw5FnxG94R7REwqKDuqC6AzdEB3B9wQHMSPYyS9EG35PQLB5HsFWeASTeUtA5gfR9T34ft9aod8rF/q8MtfrXs6fc/1W6Hbdzfe4Zgtdjpl8l/1dtsN2nW23nS902IhcB9KVO4M8bRq4oYYaaqih/43+AQy0b09LS6azAAAAAElFTkSuQmCC"
+          />
+        </a>
+      </div>
     </div>
   </aside>
 </div>
 <div class="content-container">
   <div class="p-4 mb-4 text-black text-sm flex border rounded-lg items-center">
     <div class="relative group flex">
-        <button id="toggleSidebar" onclick="Open()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-            </svg>
-        </button>
+      <button id="toggleSidebar" onclick="Open()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
     </div>
     <div class="topButton border rounded-lg p-2 mx-4">
-        <a href="/" class="font-bold">Home</a>
+      <a href="/" class="text-xl mb-2" style="font-size: 14px; font-weight: 600"
+        >HOME</a
+      >
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-        <a href="/allNews" class="font-bold">News</a>
+      <a
+        href="/allNews"
+        class="text-xl mb-2"
+        style="font-size: 14px; font-weight: 600"
+        >NEWS</a
+      >
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-        <a href="/epaper" class="font-bold">EPaper</a>
+      <a
+        href="/epaper"
+        class="text-xl mb-2"
+        style="font-size: 14px; font-weight: 600"
+        >E-PAPER</a
+      >
     </div>
     <div class="topButton border rounded-lg p-2 mr-4">
-        <a href="/videos" class="font-bold">Videos</a>
+      <a
+        href="/videos"
+        class="text-xl mb-2"
+        style="font-size: 14px; font-weight: 600"
+        >VIDEOS</a
+      >
     </div>
   </div>
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-        const sidebar = document.querySelector(".sidebar");
-        const toggleButton = document.getElementById("toggleSidebar");
-        const closeSidebarbutton = document.getElementById("closeSidebar");
-        const dropdown = document.getElementById("dropdown-example")
-        const newsButton = document.querySelector('[data-collapse-toggle="dropdown-example"]')
+    const sidebar = document.querySelector(".sidebar");
+    const toggleButton = document.getElementById("toggleSidebar");
+    const closeSidebarbutton = document.getElementById("closeSidebar");
+    const dropdown = document.getElementById("dropdown-example");
+    const newsButton = document.querySelector(
+      '[data-collapse-toggle="dropdown-example"]'
+    );
 
-        toggleButton.addEventListener("click", function () {
-        sidebar.classList.toggle("open");
-        // updateDropdownVisibility()
-        });
-
-        closeSidebarbutton.addEventListener("click", function () {
-        sidebar.classList.remove("open");
-        dropdown.classList.add("hidden");
-        });
-        
-        dropdown.classList.add("hidden");
-
-        function updateDropdownVisibility() {
-        dropdown.classList.toggle("hidden");
-        }
-        
-        newsButton.addEventListener("click", function () {
-        dropdown.classList.toggle("hidden");
-      });
+    toggleButton.addEventListener("click", function () {
+      sidebar.classList.toggle("open");
+      // updateDropdownVisibility()
     });
-</script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 
+    closeSidebarbutton.addEventListener("click", function () {
+      sidebar.classList.remove("open");
+      dropdown.classList.add("hidden");
+    });
+
+    dropdown.classList.add("hidden");
+
+    function updateDropdownVisibility() {
+      dropdown.classList.toggle("hidden");
+    }
+
+    newsButton.addEventListener("click", function () {
+      dropdown.classList.toggle("hidden");
+    });
+  });
+</script>
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
