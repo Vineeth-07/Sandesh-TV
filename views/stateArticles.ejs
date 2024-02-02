@@ -18,7 +18,7 @@
       }
 
       .article-box {
-        width: 300px; /* Set your preferred width */
+        width: 300px;
         border: 1px solid #ddd;
         padding: 16px;
         margin: 16px;
@@ -63,17 +63,52 @@
         align-items: center;
         border-radius: 4px;
       }
+
+      #noPapersMessage {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+      }
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 1;
+        display: block;
+        background: "mdi mdi-24px mdi-clock-outline" no-repeat;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+      .custom-date-input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 150px;
+        transition: border-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .custom-date-input:hover {
+        border-color: #999;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
-    <%- include('header.ejs') %>
-    <%- include("navBar.ejs")%>
+    <%- include('header.ejs') %> <%- include("navBar.ejs")%>
     <h1
       class="text-3xl mb-2"
       style="font-size: 24px; font-weight: bold; text-align: center"
     >
       <%= state.toUpperCase() %> PAPERS
     </h1>
+    <input
+      type="date"
+      id="dateInput"
+      onchange="displaySelectedDate()"
+      class="custom-date-input"
+    />
     <div class="flex-container gap-4 p-4">
       <% for (let i = 0; i < articles.length; i++) { %>
       <div class="article-box rounded-lg">
@@ -116,5 +151,66 @@
       </div>
       <% } %>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const dateInput = document.querySelector('input[type="date"]');
+        const articleBoxes = document.querySelectorAll(".article-box");
+        const noPapersMessage = document.createElement("div");
+        noPapersMessage.textContent = "No papers available";
+        noPapersMessage.style.display = "none";
+        noPapersMessage.style.color = "red";
+        noPapersMessage.id = "noPapersMessage";
+        dateInput.addEventListener("change", function () {
+          const selectedDate = new Date(this.value);
+          let papersFound = false;
+
+          articleBoxes.forEach(function (articleBox) {
+            const articleDateElement =
+              articleBox.querySelector(".article-date");
+            const articleDateString = articleDateElement
+              .querySelector("div")
+              .innerText.trim();
+            const articleDate = new Date(articleDateString);
+
+            if (
+              articleDate.getDate() === selectedDate.getDate() &&
+              articleDate.getMonth() === selectedDate.getMonth() &&
+              articleDate.getFullYear() === selectedDate.getFullYear()
+            ) {
+              articleBox.style.display = "block";
+              papersFound = true;
+            } else {
+              articleBox.style.display = "none";
+            }
+          });
+
+          const noPapersMessageElement =
+            document.getElementById("noPapersMessage");
+          if (!papersFound) {
+            noPapersMessageElement.style.display = "block";
+          } else {
+            noPapersMessageElement.style.display = "none";
+          }
+        });
+        document.body.appendChild(noPapersMessage);
+      });
+      function displaySelectedDate() {
+        var input = document.getElementById("dateInput");
+        var selectedDate = input.value;
+        var dateArray = selectedDate.split("-");
+        var formattedDate =
+          dateArray[1] + "/" + dateArray[2] + "/" + dateArray[0];
+        input.setAttribute("value", formattedDate);
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date();
+        var month = String(today.getMonth() + 1).padStart(2, "0");
+        var day = String(today.getDate()).padStart(2, "0");
+        var year = today.getFullYear();
+        var formattedTodayDate = year + "-" + month + "-" + day;
+        var input = document.getElementById("dateInput");
+        input.value = formattedTodayDate;
+      });
+    </script>
   </body>
 </html>
