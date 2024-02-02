@@ -28,8 +28,8 @@
         height: 500px; /* Set your preferred height */
         background-color: #0d9488; /* Background color */
         color: white; /* Text color */
-        border-radius: 8px; /* Border radius */
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+        border-radius: 8px;
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
       }
 
       .article-box h2 {
@@ -87,6 +87,8 @@
         width: 150px;
         transition: border-color 0.3s ease;
         cursor: pointer;
+        background-color: #aee9e5;
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
       }
 
       .custom-date-input:hover {
@@ -103,12 +105,15 @@
     >
       <%= state.toUpperCase() %> PAPERS
     </h1>
-    <input
+    <div class="pl-3">
+      <input
       type="date"
       id="dateInput"
       onchange="displaySelectedDate()"
       class="custom-date-input"
     />
+    </div>
+    
     <div class="flex-container gap-4 p-4">
       <% for (let i = 0; i < articles.length; i++) { %>
       <div class="article-box rounded-lg">
