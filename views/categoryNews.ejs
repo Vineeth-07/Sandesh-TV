@@ -6,22 +6,68 @@
     <title><%= title %></title>
     <style>
       .news-container {
+      display: flex;
+      align-items: center;
+      width: 360px
+    }
+
+    .news-image {
+      width: 100px; 
+      height: 60px;
+      margin-right: 20px;
+      border: 1px solid #0d9488;
+      border-radius: 4px;
+    }
+
+    .news-content {
+      flex: 1;
+      flex-direction: row;
+    }
+    .font-bold {
+        font-size: 60px; /* Adjust the font size as needed */
+      }
+    .bold {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .centertitle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .center-content {
+      display: grid;
+      grid-template-rows: 1fr;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      
+    }
+
+    @media screen and (max-width: 768px) {
+      .font-bold {
+        font-size: 35px; /* Adjust the font size as needed */
+      }
+
+      .centertitle {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      .news-container {
         display: flex;
         align-items: center;
-      }
-      .news-image {
-        width: 100px;
-        margin-right: 20px;
-        border: 3px solid #ccc;
-        border-radius: 4px;
+        width: 280px; /* Set your desired fixed width */
+        margin: 0 auto; /* Center the container */
       }
       .news-content {
         flex: 1;
+        flex-direction: row;
       }
-      .bold {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
+    }
+  </style>
     </style>
     <link
       rel="stylesheet"
@@ -30,17 +76,16 @@
   </head>
   <body>
     <%- include('header.ejs') %> <%- include("navBar.ejs")%>
-    <div class="grid grid-cols-4">
-      <div class="col-start-2 col-span-2">
+    <div class="row-start-1 centertitle">
         <% if (title === 'Sports') { %>
         <span
           class="font-bold"
           style="
             color: rgb(44, 52, 155);
             font-family: 'Mandali', sans-serif;
-            font-size: 60px;
+            font-size: 55px;
           "
-          >స్పోర్ట్స్ ( క్రీడలు) వార్తలు</span
+          >స్పోర్ట్స్ వార్తలు</span
         >
         <% } else if (title === 'History') { %>
         <span
@@ -48,7 +93,7 @@
           style="
             color: rgb(44, 52, 155);
             font-family: 'Mandali', sans-serif;
-            font-size: 60px;
+            font-size: 55px;
           "
           >చరిత్ర వార్తలు</span
         >
@@ -58,7 +103,7 @@
           style="
             color: rgb(44, 52, 155);
             font-family: 'Mandali', sans-serif;
-            font-size: 60px;
+            font-size: 55px;
           "
           >సినిమా వార్తలు</span
         >
@@ -68,7 +113,7 @@
           style="
             color: rgb(44, 52, 155);
             font-family: 'Mandali', sans-serif;
-            font-size: 60px;
+            font-size: 55px;
           "
           >ఆధ్యాత్మికత వార్తలు</span
         >
@@ -78,16 +123,15 @@
           style="
             color: rgb(44, 52, 155);
             font-family: 'Mandali', sans-serif;
-            font-size: 60px;
+            font-size: 55px;
           "
           >బిజినెస్ వార్తలు</span
         >
         <% } %>
       </div>
-    </div>
     <% if (newsByCategory.length > 0) { %> <% newsByCategory.forEach(news => {
     %>
-    <div class="grid grid-cols-4">
+    <div class="center-content">
       <div
         class="py-2 px-4 transition-transform duration-300 transform hover:-translate-y-1 col-start-2 col-span-2 border-b-2 border-black"
       >
@@ -139,8 +183,8 @@
               >
                 <span
                   class="font-bold"
-                  style="color: rgb(44, 52, 155); font-size: 24px"
-                  ><%= news.title.substring(0, 55) + '...' %></span
+                  style="color: rgb(44, 52, 155); font-size: 20px"
+                  ><%= news.title.substring(0, 15) + '...' %></span
                 >
               </p>
             </div>
@@ -149,7 +193,7 @@
       </div>
     </div>
     <% }) %> <% } else { %>
-    <div class="grid grid-cols-4">
+    <div class="m-2 grid grid-cols-4">
       <div class="col-start-2 col-span-2">
         <p>No news available</p>
       </div>
