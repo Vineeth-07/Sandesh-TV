@@ -21,24 +21,76 @@
                 }
             }).catch((err)=>console.error(err))
         }
+        function goBack() {
+        window.history.back();
+      }
     </script>
+    <style>
+        label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+      }
+
+      .formInput:focus {
+        outline: none;
+        border: 2px solid #0d9488;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
+        
+      }
+      .backButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .backButton:hover {
+        background-color: #075e54; 
+      }
+      .editButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s; 
+        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40; 
+      }
+
+      .editButton:hover {
+        background-color: #075e54;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40; 
+      }
+    </style>
 </head>
 <body>
-    <%- include('header.ejs') %>
-    <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+    <div class="mb-2">
+        <%- include('header.ejs') %>
+    </div>
+    <div class="ml-6 mb-2">
+        <button class="backButton rounded-lg shadow-md" onclick="goBack()">Go Back</button>
+    </div>
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg shadow-md" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-600">Title</label>
-            <input  type="text" name="title" id="title" value="<%= article.title %>" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"/>
+            <input  type="text" name="title" id="title" value="<%= article.title %>" class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"/>
         </div>
         <div class="mb-4">
             <label for="state" class="block text-sm font-medium text-gray-600">State</label>
-                <select name="state" id="state" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                <select name="state" id="state" class="p-2 m-1 border rounded-lg shadow-md formInput">
                     <option value="telangana" <%= article.state === 'telangana' ? 'selected' : '' %>>Telangana</option>
                     <option value="andhrapradesh" <%= article.state === 'andhrapradesh' ? 'selected' : '' %>>Andhra Pradesh</option>
                     <option value="other" <%= article.state === 'other' ? 'selected' : '' %>>Other</option>
                 </select>
         </div>
-        <button onclick="updateArticle()" class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+        <button onclick="updateArticle()" class="w-full text-white p-3 rounded-lg editButton">
             Update Paper
         </button>
     </div>
