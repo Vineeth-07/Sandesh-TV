@@ -8,10 +8,54 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <style>
+      .backButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+        color: #333;
+      }
+      .backButton:hover {
+        background-color: #075e54;
+      }
+      .formInput:focus {
+        outline: none;
+        border: 2px solid #0d9488;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
+      }
+      .createButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40;
+      }
+
+      .createButton:hover {
+        background-color: #075e54;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
+      }
+    </style>
   </head>
-  <body>
-    <%- include('header.ejs') %>
-    <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+  <body class="bg-gray-50">
+    <div class="mb-2"><%- include('header.ejs') %></div>
+    <div class="ml-6 mb-2">
+      <button class="backButton shadow-md rounded-lg" onclick="goBack()">
+        Go Back
+      </button>
+    </div>
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
       <h2 class="text-2xl font-semibold mb-4" style="text-align: center">
         Add Video
       </h2>
@@ -29,7 +73,7 @@
             name="title"
             id="title"
             required
-            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
           />
         </div>
         <div class="mb-4">
@@ -41,7 +85,7 @@
             name="url"
             id="url"
             required
-            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
           />
         </div>
         <div class="mb-4">
@@ -53,16 +97,22 @@
             name="video_id"
             id="video_id"
             required
-            class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
           />
         </div>
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          class="w-full text-white p-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 createButton"
+          style="background-color: #0d9488"
         >
-          Add
+          Add Video
         </button>
       </form>
     </div>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
   </body>
 </html>

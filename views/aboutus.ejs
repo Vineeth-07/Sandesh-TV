@@ -12,25 +12,30 @@
         padding: 0;
         color: #333;
       }
+
       .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 1fr;
         gap: 20px;
         padding: 20px;
         justify-content: center;
       }
+
       .col-start-2 {
-        grid-column-start: 2;
+        grid-column-start: 1;
       }
+
       .col-span-2 {
-        grid-column-end: span 2;
+        grid-column-end: span 1;
       }
+
       .col-start-2.col-span-2 {
         background-color: #fff;
-        padding: 30px;
+        padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       }
+
       p {
         font-size: 1.2rem;
         line-height: 1.6;
@@ -38,24 +43,61 @@
         text-align: justify;
         color: #555;
       }
+
+      h1 {
+        color: #007bff;
+        font-family: 'Mandali', sans-serif;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #007bff;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .flexImage {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .role {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 5px;
+      }
+
+      @media screen and (min-width: 768px) {
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .col-start-2 {
+          grid-column-start: 2;
+        }
+
+        .col-span-2 {
+          grid-column-end: span 2;
+        }
+      }
     </style>
   </head>
   <body>
-    <%- include('header.ejs') %> <%- include('navBar.ejs') %>
+    <%- include('header.ejs') %>
+    <%- include('navBar.ejs') %>
     <div class="grid">
       <div class="col-start-2 col-span-2">
-        <h1
-          class="font-bold"
-          style="
-            color: #007bff;
-            font-family: 'Mandali', sans-serif;
-            font-size: 30px;
-            text-align: center;
-            margin-bottom: 20px;
-          "
-        >
-          Welcome to Sandesh TV
-        </h1>
+        <h1 class="font-bold">Welcome to Sandesh TV</h1>
         <p>
           Where creativity meets innovation. We are a dynamic team of passionate
           individuals dedicated to delivering compelling and cutting-edge
@@ -73,26 +115,17 @@
           inspiration, as we continue to shape the narrative in the
           ever-evolving landscape of media.
         </p>
-        <div class="flex">
+        <div class="flexImage">
           <img
             src="/images/anil-kumar.JPG"
             alt="anil-kumar"
-            style="max-width: 200px; max-height: 200px; margin-right: 50px"
+            style="max-width: 200px; max-height: 200px; margin-right: 0; margin-bottom: 20px;"
           />
           <div>
-            <h2
-              style="
-                color: #007bff;
-                font-size: 24px;
-                font-weight: bold;
-                margin: 0;
-              "
-            >
+            <h2 style="color: #007bff; font-size: 24px; font-weight: bold; margin: 0;">
               Kunta Anil Kumar
             </h2>
-            <div style="margin: 0; font-size: 16px; font-weight: bold">
-              Managing director & Chairman
-            </div>
+            <div class="role">Managing Director & Chairman</div>
           </div>
         </div>
       </div>
