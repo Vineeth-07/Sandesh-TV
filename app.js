@@ -279,6 +279,7 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
+
 app.delete("/deleteMagazine/:id", async (req, res) => {
   try {
     const magazine = await Magazine.getMagazineById(req.params.id);
