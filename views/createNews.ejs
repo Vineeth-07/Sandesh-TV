@@ -21,7 +21,7 @@
       #content:focus {
         outline: none;
         border: 2px solid #0d9488;
-        box-shadow : 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
       }
       label {
         display: block;
@@ -37,7 +37,6 @@
         outline: none;
         border: 2px solid #0d9488;
         box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
-        
       }
       .backButton {
         background-color: #0d9488;
@@ -50,7 +49,7 @@
       }
 
       .backButton:hover {
-        background-color: #075e54; 
+        background-color: #075e54;
       }
       .createButton {
         background-color: #0d9488;
@@ -59,24 +58,27 @@
         border: none;
         border-radius: 0.375rem;
         cursor: pointer;
-        transition: background-color 0.3s, box-shadow 0.3s; 
-        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40; 
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40;
       }
 
       .createButton:hover {
         background-color: #075e54;
-        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40; 
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
       }
     </style>
   </head>
   <body class="bg-gray-100">
-    <div class="mb-2">
-      <%- include("header.ejs") %>
-    </div>
+    <div class="mb-2"><%- include("header.ejs") %></div>
     <div class="ml-6 mb-2">
       <button class="backButton" onclick="goBack()">Go Back</button>
     </div>
-    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
+    <div
+      class="max-w-md mx-auto bg-white p-8 border rounded-lg"
+      style="
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      "
+    >
       <h1 class="text-xl font-bold mb-4">Add News</h1>
       <form action="/createNews" method="post" enctype="multipart/form-data">
         <div class="mb-4">
@@ -92,10 +94,14 @@
           />
         </div>
         <div class="mb-4">
-          <label for="state" class="block text-sm font-medium text-gray-600 "
+          <label for="state" class="block text-sm font-medium text-gray-600"
             >Select State:</label
           >
-          <select id="state" name="state" class="p-2 m-1 border rounded-lg shadow-md formInput">
+          <select
+            id="state"
+            name="state"
+            class="p-2 m-1 border rounded-lg shadow-md formInput"
+          >
             <option value="telangana">Telangana</option>
             <option value="andhrapradesh">Andhra Pradesh</option>
             <option value="other">Other</option>
@@ -111,13 +117,18 @@
             rows="10"
             cols="50"
             class="shadow-md"
+            required
           ></textarea>
         </div>
         <div class="mb-4">
-          <label for="category" class="block text-sm font-medium text-gray-600 "
+          <label for="category" class="block text-sm font-medium text-gray-600"
             >Select category:</label
           >
-          <select class="p-2 m-1 border rounded-lg formInput" id="category" name="category">
+          <select
+            class="p-2 m-1 border rounded-lg formInput"
+            id="category"
+            name="category"
+          >
             <option value="cinema">Cinema</option>
             <option value="sports">Sports</option>
             <option value="business">Business</option>

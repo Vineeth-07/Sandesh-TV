@@ -45,8 +45,8 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="content" class="block text-sm font-medium text-gray-600">Content</label>
-                <input type="text" name="content" id="content" value="<%= news.content %>" required class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                <label for="content" class="block text-sm font-medium text-gray-600">Content:</label>
+                <textarea id="content" name="content" rows="10" cols="50" class="shadow-md" required><%= news.content %></textarea>
             </div>
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-600">Select category:</label>
