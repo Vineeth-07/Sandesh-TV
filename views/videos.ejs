@@ -45,9 +45,9 @@
       </a>
     </div>
     <div class="container mx-auto px-4 py-8">
+      <% if (videos && videos.length > 0) { %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <% if (videos && videos.length > 0) { %> <%
-        videos.forEach((video,index)=> { %>
+        <% videos.forEach((video, index) => { %>
         <div class="border rounded-lg p-4 bg-white">
           <h2
             class="text-xl font-semibold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis"
@@ -76,8 +76,13 @@
             Delete
           </button>
         </div>
-        <% })} %>
+        <% }) %>
       </div>
+      <% } else { %>
+      <div class="flex justify-center items-center">
+        <p class="text-xl text-gray-500">No videos available</p>
+      </div>
+      <% } %>
     </div>
   </body>
 </html>
