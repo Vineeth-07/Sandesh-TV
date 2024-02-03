@@ -113,6 +113,16 @@
               alt="<%= news.title %>"
               loading="lazy"
             />
+            <h2
+              class="absolute bottom-0 mb-4 text-white bg-opacity-50 px-2 py-1"
+              style="
+                font-family: 'Mandali', sans-serif;
+                font-size: 26px;
+                font-weight: bold;
+              "
+            >
+              <%=news.title.substring(0, 42) + '...'%>
+            </h2>
           </a>
         </div>
         <% }) %> <% } else { %>
@@ -125,6 +135,7 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
+
     <div class="grid grid-cols-4"><%- include('newsListItems') %></div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>

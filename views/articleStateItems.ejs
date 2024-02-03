@@ -13,8 +13,7 @@
       <% const telanganaArticles=articles.filter(article=> article.state ===
       'telangana'); %> <% const latestTelanganaArticle=telanganaArticles.length>
       0 ? telanganaArticles.reduce((prev,current) => (prev.date > current.date)
-      ? current : prev) : null; %> <% if (latestTelanganaArticle) { %> <%
-      console.log("Latest Telangana Article:", latestTelanganaArticle); %>
+      ? current : prev) : null; %> <% if (latestTelanganaArticle) { %>
       <a href="/epaper/<%= latestTelanganaArticle.state %>">
         <div class="article-image flex-grow overflow-hidden h-90">
           <% if (latestTelanganaArticle.images &&
