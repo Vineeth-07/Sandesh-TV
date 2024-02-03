@@ -9,6 +9,11 @@
       .box {
         box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
       }
+      .articleflex {
+        display: flex;
+      justify-content: center;
+      align-items: center;
+      }
       @media screen and (max-width: 768px) {
         .responsive-box {
           width: 100%;
@@ -47,7 +52,8 @@
     />
   </head>
   <body>
-    <%- include('header.ejs') %> <%- include("navBar.ejs")%>
+    <%- include('header.ejs') %> 
+    <%- include("navBar.ejs")%>
     <div class="flex p-2 space-x-4 justify-end">
       <a
         href="/allPapers"

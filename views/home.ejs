@@ -1,159 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <style>
-      /* Custom styles for centering and resizing the slider */
-      .swiper-container {
-        width: 50%; /* Adjust as needed */
-        height: 300px; /* Adjust the height as needed */
-        margin: auto; /* Center the slider */
-        position: relative; /* Position for absolute navigation buttons */
-        overflow: hidden; /* Hide overflow to prevent next/prev images from being visible */
-        box-shadow: 5px 5px 15px #00000041, inset -5px -5px 15px #ffffff40;
-      }
-      .content-container {
-        transition: margin-left 0.3s ease;
-        margin-left: 0;
-        z-index: 1; /* Adjust the margin to match the sidebar width */
-      }
-      @media (max-width: 640px) {
         .swiper-container {
-          width: 100%;
+            width: 50%;
+            height: 300px;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 5px 15px #00000041, inset -5px -5px 15px #ffffff40;
         }
-      }
-      .swiper-slide {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        text-align: center;
-      }
-      .swiper-slide img {
-        width: 100%;
-        height: 300px;
-        object-fit: fill;
-      }
 
-      .swiper-button-next,
-      .swiper-button-prev {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 50px;
-        height: 50px;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1; /* Ensure buttons appear above the image */
-        transition: background-color 0.3s;
-      }
-      .swiper-button-next:hover,
-      .swiper-button-prev:hover {
-        background-color: rgba(
-          0,
-          0,
-          0,
-          0.5
-        ); /* Change background color on hover */
-      }
-      .swiper-pagination {
-        z-index: 1;
-      }
-      .swiper-button-next::after,
-      .swiper-button-prev::after {
-        font-size: 2rem;
-        color: #333; /* Adjust the color as needed */
-      }
-      .swiper-button-prev::after {
-        content: "\2039"; /* Unicode character for left-pointing arrow */
-      }
-      .swiper-button-next::after {
-        content: "\203A"; /* Unicode character for right-pointing arrow */
-      }
-      .swiper-button-prev {
-        left: 10px;
-      }
-      .swiper-button-next {
-        right: 10px;
-      }
-      .group:hover .hidden {
-        display: block;
-      }
+        @media (max-width: 640px) {
+            .swiper-container {
+                width: 100%;
+            }
+        }
+
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 300px;
+            object-fit: fill;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .swiper-pagination {
+            z-index: 1;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .swiper-button-prev::after {
+            content: "\2039";
+        }
+
+        .swiper-button-next::after {
+            content: "\203A";
+        }
+
+        .swiper-button-prev {
+            left: 10px;
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
     </style>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <%- include('header.ejs') %> <%- include('navBar.ejs') %>
-    <div class="content-container">
-      <div class="swiper-container mb-6">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+    <%- include('navBar.ejs') %>
+    <div class="swiper-container mb-6">
         <div class="swiper-wrapper">
-          <% if (todaysNews.length > 0) { %> <% todaysNews.forEach(news => { %>
-          <div class="swiper-slide">
-            <a href="/news/<%=news.id%>">
-              <img
-                src="/uploads/<%= news.image.filename %>"
-                alt="<%= news.title %>"
-                loading="lazy"
-              />
-            </a>
-          </div>
-          <% }) %> <% } else { %>
-          <div class="swiper-slide">
-            <p>No news available for today.</p>
-          </div>
-          <% } %>
+            <% if (todaysNews.length > 0) { %> <% todaysNews.forEach(news => { %>
+            <div class="swiper-slide">
+                <a href="/news/<%=news.id%>">
+                    <img src="/uploads/<%= news.image.filename %>" alt="<%= news.title %>" loading="lazy" />
+                </a>
+            </div>
+            <% }) %> <% } else { %>
+            <div class="swiper-slide">
+                <p>No news available for today.</p>
+            </div>
+            <% } %>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
-      </div>
-      <div class="grid grid-cols-4"><%- include('newsListItems') %></div>
     </div>
+    <div class="grid grid-cols-4"><%- include('newsListItems') %></div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var mySwiper = new Swiper(".swiper-container", {
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          autoplay: {
-            delay: 2000,
-          },
+        document.addEventListener("DOMContentLoaded", function () {
+            var mySwiper = new Swiper(".swiper-container", {
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 2000,
+                },
+            });
         });
-      });
     </script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
     <%- include('footer.ejs') %>
-  </body>
+</body>
+
 </html>
