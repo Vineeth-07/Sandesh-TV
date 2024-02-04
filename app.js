@@ -3,7 +3,9 @@ const app = express();
 const path = require("path");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const { Article, News, Videos, Magazine } = require("./models");
+var cookieParser = require("cookie-parser");
+var csrf = require("tiny-csrf");
+const { Article, News, Videos, Magazine, Admin } = require("./models");
 const { title } = require("process");
 const fs = require("fs");
 app.use(express.json());
@@ -11,6 +13,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+const connectEnsureLogin = require("connect-ensure-login");
+const LocalStrategy = require("passport-local");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const passport = require("passport");
+const flash = require("connect-flash");
+const saltRounds = 10;
+app.use(flash());
+app.use(cookieParser("Some secret String"));
+app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
+
+app.use(
+  session({
+    secret: "my-super-secret-key-2837428907583420",
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
+app.use((request, response, next) => {
+  response.locals.messages = request.flash();
+  next();
+});
+app.use(passport.initialize());
+app.use(passport.session());
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -26,10 +53,121 @@ const upload = multer({ storage: storage });
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
+    (username, password, done) => {
+      Admin.findOne({ where: { email: username } })
+        .then(async function (user) {
+          const result = await bcrypt.compare(password, user.password);
+          if (result) {
+            return done(null, user);
+          } else {
+            return done(null, false, { message: "Invalid password" });
+          }
+        })
+        .catch(() => {
+          return done(null, false, {
+            message: "Account doesn't exist for this mail",
+          });
+        });
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  console.log("Serializing user in session", user.id);
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  Admin.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error, null);
+    });
+});
+
+app.get("/signup", (request, response) => {
+  response.render("signup", {
+    title: "Signup",
+    csrfToken: request.csrfToken(),
+  });
+});
+
+app.post("/users", async (request, response) => {
+  if (request.body.email.length == 0) {
+    request.flash("error", "Email can not be empty!");
+    return response.redirect("/signup");
+  }
+
+  if (request.body.firstName.length == 0) {
+    request.flash("error", "First name can not be empty!");
+    return response.redirect("/signup");
+  }
+  if (request.body.password.length < 8) {
+    request.flash("error", "Password length should be minimun 8");
+    return response.redirect("/signup");
+  }
+  const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
+  console.log(hashedPwd);
+
+  try {
+    const user = await Admin.create({
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      email: request.body.email,
+      password: hashedPwd,
+    });
+    request.login(user, (err) => {
+      if (err) {
+        console.log(err);
+      }
+      response.redirect("/");
+    });
+  } catch (error) {
+    console.log(error);
+    request.flash(
+      "error",
+      "This mail already having account, try another mail!"
+    );
+    return response.redirect("/signup");
+  }
+});
+
+app.get("/login", (request, response) => {
+  response.render("login", { title: "Login", csrfToken: request.csrfToken() });
+});
+
+app.post(
+  "/session",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  function (request, response) {
+    request.flash("success", "Signup successfull!");
+    response.redirect("/");
+  }
+);
+app.get("/signout", (request, response, next) => {
+  request.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    response.redirect("/login");
+  });
+});
+
 app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
-    const news = await News.getNews();
+    console.log(req.user);
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
@@ -37,6 +175,7 @@ app.get("/", async (req, res) => {
       title: "Sandesh TV Daily News",
       articles: articles,
       todaysNews,
+      admin: req.user,
     });
   } catch (err) {
     console.log(err);
@@ -278,7 +417,6 @@ app.get("/news/:id", async (req, res) => {
     console.log(err);
   }
 });
-
 
 app.delete("/deleteMagazine/:id", async (req, res) => {
   try {

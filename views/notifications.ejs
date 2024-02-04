@@ -1,0 +1,33 @@
+<% if (messages && messages.error && messages.error.length > 0) { %> <% for (var
+i = 0; i < messages.error.length; i++) { %>
+<p class="bg-red-200 my-3 list-none rounded px-4 py-2">
+  <%= messages.error[i] %>
+</p>
+<% } %> <% } %> <% if (messages && messages.success) { %>
+<div
+  id="successPopup"
+  class="popup bg-green-200 text-black p-2 rounded-lg shadow"
+>
+  <p><%= messages.success %></p>
+</div>
+<style>
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+</style>
+<script>
+  window.onload = function () {
+    var successPopup = document.getElementById("successPopup");
+    if (successPopup) {
+      successPopup.style.display = "block";
+      setTimeout(function () {
+        successPopup.style.display = "none";
+      }, 3000);
+    }
+  };
+</script>
+<% } %>

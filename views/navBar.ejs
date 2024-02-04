@@ -114,7 +114,6 @@
             </svg>
             <span
               class="flex-1 ml-3 text-left whitespace-nowrap"
-              
               sidebar-toggle-item
               >వార్తలు</span
             >
@@ -462,23 +461,24 @@
     const toggleButton = document.getElementById("toggleSidebar");
     const closeSidebarButton = document.getElementById("closeSidebar");
     const dropdown = document.getElementById("dropdown-example");
-    const newsButton = document.querySelector("[data-collapse-toggle='dropdown-example']");
+    const newsButton = document.querySelector(
+      "[data-collapse-toggle='dropdown-example']"
+    );
 
     toggleButton.addEventListener("click", function () {
-        sidebar.classList.toggle("open");
-        dropdown.classList.add("hidden"); // Added this line to hide dropdown when sidebar is toggled
+      sidebar.classList.toggle("open");
+      dropdown.classList.add("hidden"); // Added this line to hide dropdown when sidebar is toggled
     });
 
     closeSidebarButton.addEventListener("click", function () {
-        sidebar.classList.remove("open");
-        dropdown.classList.add("hidden");
+      sidebar.classList.remove("open");
+      dropdown.classList.add("hidden");
     });
 
     newsButton.addEventListener("click", function () {
-        dropdown.classList.toggle("hidden");
+      dropdown.classList.toggle("hidden");
     });
-});
-
+  });
 </script>
 <script
   type="module"

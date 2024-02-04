@@ -102,7 +102,26 @@
   </head>
 
   <body>
-    <%- include('header.ejs') %> <%- include('navBar.ejs') %>
+    <%- include('header.ejs') %> <%- include('navBar.ejs') %> <%-
+    include('notifications.ejs') %> <% if (admin) { %>
+    <div style="float: right">
+      <a
+        href="/signout"
+        class="text-xl mb-2"
+        style="
+          font-size: 14px;
+          font-weight: 600;
+          color: white;
+          background-color: red;
+          padding: 8px 16px;
+          border-radius: 4px;
+          text-decoration: none;
+        "
+        >SIGNOUT</a
+      >
+    </div>
+
+    <% } %>
     <div class="swiper-container mb-6">
       <div class="swiper-wrapper">
         <% if (todaysNews.length > 0) { %> <% todaysNews.forEach(news => { %>
