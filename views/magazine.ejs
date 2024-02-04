@@ -68,11 +68,13 @@
   <body>
     <%- include("header.ejs") %> <%- include("navBar.ejs")%>
     <div class="content-container">
+      <% if (admin) {%>
         <div class="flex p-2 space-x-4 justify-end">
           <a href="/createMagazine" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Add magazine
           </a>
         </div> 
+        <% } %>
           <% if (magazines && magazines.length > 0) { %>
             <% magazines.forEach(magazine => { %>
             <div class="box mb-4 py-2 px-4 grid grid-rows-1 gap-2 rounded-lg border-b-2 border-black">
@@ -107,7 +109,7 @@
             <% }) %>
           </ul>
           <% } else { %>
-          <p class="no-magazines">No magazines available</p>
+            <p style="text-align: center;">No magazines available</p>
           <% } %>
     </div>
   </body>

@@ -38,7 +38,7 @@
     </script>
   </head>
   <body>
-    <%- include('header.ejs') %> <%- include('navBar.ejs') %>
+    <%- include('header.ejs') %> <%- include('navBar.ejs') %> <% if(admin) { %>
     <div class="add-video-link m-6">
       <a
         href="/createVideo"
@@ -47,6 +47,7 @@
         Add video
       </a>
     </div>
+    <% } %>
     <div class="container mx-auto px-4 py-8">
       <% if (videos && videos.length > 0) { %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -72,12 +73,14 @@
               allowfullscreen
             ></iframe>
           </div>
+          <% if (admin) {%>
           <button
             onclick="deleteVideo('<%= video.id %>')"
             class="block w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
             Delete
           </button>
+          <% } %>
         </div>
         <% }) %>
       </div>

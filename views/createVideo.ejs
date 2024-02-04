@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
+    <meta name="csrf-token" content="<%= csrfToken %>" />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -55,7 +56,12 @@
         Go Back
       </button>
     </div>
-    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
+    <div
+      class="max-w-md mx-auto bg-white p-8 border rounded-lg"
+      style="
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      "
+    >
       <h2 class="text-2xl font-semibold mb-4" style="text-align: center">
         Add Video
       </h2>
@@ -64,6 +70,7 @@
         method="post"
         enctype="application/x-www-form-urlencoded"
       >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <div class="mb-4">
           <label for="title" class="block text-sm font-medium text-gray-600"
             >Title</label

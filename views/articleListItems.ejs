@@ -1,7 +1,7 @@
 <div class="flex-container gap-4 p-4">
   <% for (let i = 0; i < articles.length; i++) { %>
   <div class="article-box rounded-lg">
-    <% const article = articles[i]; %>
+    <% const article = articles[i]; %> <% if(admin) {%>
     <div class="flex">
       <a
         href="/editEpaper/<%= article.id%>"
@@ -42,6 +42,7 @@
         </svg>
       </button>
     </div>
+    <% } %>
     <div class="article-date">
       <% let date = new Date(article.date); %> <% let formattedDate =
       date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year:

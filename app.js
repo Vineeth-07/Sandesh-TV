@@ -182,36 +182,48 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/createnews", async (req, res) => {
-  try {
-    res.render("createNews", { title: "Create News" });
-  } catch (err) {
-    console.log(err);
+app.get(
+  "/createnews",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      res.render("createNews", {
+        title: "Create News",
+        csrfToken: req.csrfToken(),
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
-app.post("/createNews", upload.single("image"), async (req, res) => {
-  try {
-    const image = req.file;
-    const imageData = {
-      filename: image.originalname,
-      data: image.buffer,
-    };
-    const today = new Date();
-    const todayDate = today.toISOString().split("T")[0];
-    await News.createNews({
-      title: req.body.title,
-      state: req.body.state,
-      category: req.body.category,
-      content: req.body.content,
-      date: todayDate,
-      image: imageData,
-    });
-    return res.redirect("/allNews");
-  } catch (err) {
-    console.log(err);
+app.post(
+  "/createNews",
+  connectEnsureLogin.ensureLoggedIn(),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const image = req.file;
+      const imageData = {
+        filename: image.originalname,
+        data: image.buffer,
+      };
+      const today = new Date();
+      const todayDate = today.toISOString().split("T")[0];
+      await News.createNews({
+        title: req.body.title,
+        state: req.body.state,
+        category: req.body.category,
+        content: req.body.content,
+        date: todayDate,
+        image: imageData,
+      });
+      return res.redirect("/allNews");
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 app.get("/epaper", async (req, res) => {
   try {
@@ -225,36 +237,48 @@ app.get("/epaper", async (req, res) => {
   }
 });
 
-app.get("/createarticle", async (req, res) => {
-  try {
-    res.render("createArticle", { title: "Create Article" });
-  } catch (err) {
-    console.log(err);
+app.get(
+  "/createarticle",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      res.render("createArticle", {
+        title: "Create Article",
+        csrfToken: req.csrfToken(),
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
-app.post("/createArticle", upload.single("image"), async (req, res) => {
-  try {
-    const image = req.file;
-    const imageData = {
-      filename: image.originalname,
-      data: image.buffer,
-    };
-    const today = new Date();
-    const todayDate = today.toISOString().split("T")[0];
+app.post(
+  "/createArticle",
+  connectEnsureLogin.ensureLoggedIn(),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const image = req.file;
+      const imageData = {
+        filename: image.originalname,
+        data: image.buffer,
+      };
+      const today = new Date();
+      const todayDate = today.toISOString().split("T")[0];
 
-    await Article.createArticle({
-      title: req.body.title,
-      date: todayDate,
-      images: imageData,
-      state: req.body.state,
-    });
+      await Article.createArticle({
+        title: req.body.title,
+        date: todayDate,
+        images: imageData,
+        state: req.body.state,
+      });
 
-    return res.redirect("/epaper");
-  } catch (err) {
-    console.log(err);
+      return res.redirect("/epaper");
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 app.get("/magazine", async (req, res) => {
   try {
@@ -266,45 +290,56 @@ app.get("/magazine", async (req, res) => {
       magazines: magazines,
       protocol,
       host,
+      admin: req.user,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get("/createMagazine", async (req, res) => {
-  try {
-    res.render("createMagazine", {
-      title: "Add magazine",
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post("/createMagazine", upload.single("pdf"), async (req, res) => {
-  try {
-    const pdf = req.file;
-    let filename = pdf.originalname;
-    if (filename.includes(" ")) {
-      filename = filename.trim();
+app.get(
+  "/createMagazine",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      res.render("createMagazine", {
+        title: "Add magazine",
+        csrfToken: req.csrfToken(),
+      });
+    } catch (err) {
+      console.log(err);
     }
-    const pdfData = {
-      filename: filename,
-      data: pdf.buffer,
-    };
-    const today = new Date();
-    const todayDate = today.toISOString().split("T")[0];
-    await Magazine.createMagazine({
-      title: req.body.title,
-      date: todayDate,
-      pdf: pdfData,
-    });
-    return res.redirect("/magazine");
-  } catch (err) {
-    console.log(err);
   }
-});
+);
+
+app.post(
+  "/createMagazine",
+  connectEnsureLogin.ensureLoggedIn(),
+  upload.single("pdf"),
+  async (req, res) => {
+    try {
+      const pdf = req.file;
+      let filename = pdf.originalname;
+      if (filename.includes(" ")) {
+        filename = filename.trim();
+      }
+      const pdfData = {
+        filename: filename,
+        data: pdf.buffer,
+      };
+      const today = new Date();
+      const todayDate = today.toISOString().split("T")[0];
+      await Magazine.createMagazine({
+        title: req.body.title,
+        date: todayDate,
+        pdf: pdfData,
+      });
+      return res.redirect("/magazine");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 app.get("/videos", async (req, res) => {
   try {
@@ -312,6 +347,7 @@ app.get("/videos", async (req, res) => {
     res.render("videos", {
       title: "Sandesh TV videos",
       videos: videos,
+      admin: req.user,
     });
   } catch (err) {
     console.log(err);
@@ -324,6 +360,7 @@ app.get("/allNews", async (req, res) => {
     res.render("allNews", {
       title: "All News",
       todaysNews: news,
+      admin: req.user,
     });
   } catch (err) {
     console.log(err);
@@ -336,34 +373,44 @@ app.get("/allPapers", async (req, res) => {
     res.render("allPapers", {
       title: "All Papers",
       articles,
+      admin: req.user,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get("/createVideo", async (req, res) => {
-  try {
-    res.render("createVideo", {
-      title: "Add video",
-    });
-  } catch (err) {
-    console.log(err);
+app.get(
+  "/createVideo",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      res.render("createVideo", {
+        title: "Add video",
+        csrfToken: req.csrfToken(),
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
-app.post("/createVideo", async (req, res) => {
-  try {
-    await Videos.createVideo({
-      title: req.body.title,
-      url: req.body.url,
-      video_id: req.body.video_id,
-    });
-    return res.redirect("/videos");
-  } catch (err) {
-    console.log(err);
+app.post(
+  "/createVideo",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      await Videos.createVideo({
+        title: req.body.title,
+        url: req.body.url,
+        video_id: req.body.video_id,
+      });
+      return res.redirect("/videos");
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 app.get("/aboutus", async (req, res) => {
   try {
@@ -375,34 +422,42 @@ app.get("/aboutus", async (req, res) => {
   }
 });
 
-app.get("/editNews/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const news = await News.getNewsById(id);
-    res.render("editNews", {
-      title: "Edit News",
-      id,
-      news,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Internal Server Error");
+app.get(
+  "/editNews/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const news = await News.getNewsById(id);
+      res.render("editNews", {
+        title: "Edit News",
+        id,
+        news,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    }
   }
-});
+);
 
-app.get("/editEpaper/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const article = await Article.getArticleById(id);
-    res.render("editEpaper", {
-      title: "Edit Epaper",
-      id,
-      article,
-    });
-  } catch (err) {
-    console.log(err);
+app.get(
+  "/editEpaper/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const article = await Article.getArticleById(id);
+      res.render("editEpaper", {
+        title: "Edit Epaper",
+        id,
+        article,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 app.get("/news/:id", async (req, res) => {
   try {
@@ -418,128 +473,158 @@ app.get("/news/:id", async (req, res) => {
   }
 });
 
-app.delete("/deleteMagazine/:id", async (req, res) => {
-  try {
-    const magazine = await Magazine.getMagazineById(req.params.id);
-    if (!magazine) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Magazine not found" });
-    }
-    const result = await Magazine.deleteMagazine(req.params.id);
-    if (result !== 1) {
-      return res
-        .status(500)
-        .json({ success: false, message: "Failed to delete magazine" });
-    }
-    const pdfPath = path.join(__dirname, "uploads", magazine.pdf.filename);
-    fs.unlink(pdfPath, (err) => {
-      if (err) {
-        console.error("Error deleting pdf:", err);
+app.delete(
+  "/deleteMagazine/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const magazine = await Magazine.getMagazineById(req.params.id);
+      if (!magazine) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Magazine not found" });
+      }
+      const result = await Magazine.deleteMagazine(req.params.id);
+      if (result !== 1) {
         return res
           .status(500)
-          .json({ success: false, message: "Failed to delete pdf" });
+          .json({ success: false, message: "Failed to delete magazine" });
       }
-      return res.json({ success: true });
-    });
-  } catch (error) {
-    console.error("Error deleting magazine:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-});
-
-app.put("/editEpaper/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    const updatedArticle = await Article.updateArticle(
-      id,
-      req.body.title,
-      req.body.state
-    );
-    return res.json(updatedArticle);
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.delete("/editPaper/:id", async (req, res) => {
-  try {
-    const article = await Article.getArticleById(req.params.id);
-    if (!article) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Article not found" });
-    }
-    const result = await Article.deleteArticle(req.params.id);
-    if (result !== 1) {
-      return res
+      const pdfPath = path.join(__dirname, "uploads", magazine.pdf.filename);
+      fs.unlink(pdfPath, (err) => {
+        if (err) {
+          console.error("Error deleting pdf:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to delete pdf" });
+        }
+        return res.json({ success: true });
+      });
+    } catch (error) {
+      console.error("Error deleting magazine:", error);
+      res
         .status(500)
-        .json({ success: false, message: "Failed to delete article" });
+        .json({ success: false, message: "Internal Server Error" });
     }
-    const imagePath = path.join(__dirname, "uploads", article.images.filename);
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        console.error("Error deleting image:", err);
+  }
+);
+
+app.put(
+  "/editEpaper/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    const id = req.params.id;
+    try {
+      const updatedArticle = await Article.updateArticle(
+        id,
+        req.body.title,
+        req.body.state
+      );
+      return res.json(updatedArticle);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+app.delete(
+  "/editPaper/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const article = await Article.getArticleById(req.params.id);
+      if (!article) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Article not found" });
+      }
+      const result = await Article.deleteArticle(req.params.id);
+      if (result !== 1) {
         return res
           .status(500)
-          .json({ success: false, message: "Failed to delete image" });
+          .json({ success: false, message: "Failed to delete article" });
       }
-      return res.json({ success: true });
-    });
-  } catch (error) {
-    console.error("Error deleting article:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
-  }
-});
-
-app.put("/editNews/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    const today = new Date();
-    const todayDate = today.toISOString().split("T")[0];
-    const newNews = await News.updateNews(
-      id,
-      req.body.title,
-      req.body.state,
-      req.body.category,
-      req.body.content
-    );
-    return res.json(newNews);
-  } catch (error) {
-    console.error("Error updating news:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.delete("/editNews/:id", async (req, res) => {
-  try {
-    const news = await News.getNewsById(req.params.id);
-    if (!news) {
-      return res
-        .status(404)
-        .json({ success: false, message: "News not found" });
-    }
-    const result = await News.deleteNews(req.params.id);
-    if (result !== 1) {
-      return res
+      const imagePath = path.join(
+        __dirname,
+        "uploads",
+        article.images.filename
+      );
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error("Error deleting image:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to delete image" });
+        }
+        return res.json({ success: true });
+      });
+    } catch (error) {
+      console.error("Error deleting article:", error);
+      res
         .status(500)
-        .json({ success: false, message: "Failed to delete news" });
+        .json({ success: false, message: "Internal Server Error" });
     }
-    const imagePath = path.join(__dirname, "uploads", news.image.filename);
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        console.error("Error deleting image:", err);
+  }
+);
+
+app.put(
+  "/editNews/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    const id = req.params.id;
+    try {
+      const today = new Date();
+      const todayDate = today.toISOString().split("T")[0];
+      const newNews = await News.updateNews(
+        id,
+        req.body.title,
+        req.body.state,
+        req.body.category,
+        req.body.content
+      );
+      return res.json(newNews);
+    } catch (error) {
+      console.error("Error updating news:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
+app.delete(
+  "/editNews/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const news = await News.getNewsById(req.params.id);
+      if (!news) {
+        return res
+          .status(404)
+          .json({ success: false, message: "News not found" });
+      }
+      const result = await News.deleteNews(req.params.id);
+      if (result !== 1) {
         return res
           .status(500)
-          .json({ success: false, message: "Failed to delete image" });
+          .json({ success: false, message: "Failed to delete news" });
       }
-      return res.json({ success: true });
-    });
-  } catch (error) {
-    console.error("Error deleting news:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+      const imagePath = path.join(__dirname, "uploads", news.image.filename);
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error("Error deleting image:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to delete image" });
+        }
+        return res.json({ success: true });
+      });
+    } catch (error) {
+      console.error("Error deleting news:", error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal Server Error" });
+    }
   }
-});
+);
 
 app.get("/magazine/:id", async (req, res) => {
   try {
@@ -626,28 +711,34 @@ function mapState(state) {
   return state;
 }
 
-app.delete("/deleteVideo/:id", async (req, res) => {
-  try {
-    const video = await Videos.getVideoById(req.params.id);
-    if (!video) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Video not found" });
-    }
+app.delete(
+  "/deleteVideo/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const video = await Videos.getVideoById(req.params.id);
+      if (!video) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Video not found" });
+      }
 
-    const result = await Videos.deleteVideo(req.params.id);
-    if (result !== 1) {
-      return res
+      const result = await Videos.deleteVideo(req.params.id);
+      if (result !== 1) {
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to delete video" });
+      }
+
+      return res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting video:", error);
+      res
         .status(500)
-        .json({ success: false, message: "Failed to delete video" });
+        .json({ success: false, message: "Internal Server Error" });
     }
-
-    return res.json({ success: true });
-  } catch (error) {
-    console.error("Error deleting video:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
-});
+);
 
 app.get("/epaper/:state", async (req, res) => {
   let state = req.params.state;

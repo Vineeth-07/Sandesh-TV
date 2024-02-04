@@ -118,11 +118,11 @@
     </script>
   </head>
   <body>
-    <%- include("header.ejs")%> <%- include("navBar.ejs")%>
+    <%- include("header.ejs")%> <%- include("navBar.ejs")%> <% if(admin) {%>
     <div class="header">
       <h1 class="title">Edit Papers</h1>
       <a href="/createArticle" class="button">Add Paper</a>
     </div>
-    <%- include("articleListItems.ejs") %>
+    <% } %> <%- include("articleListItems.ejs") %>
   </body>
 </html>
