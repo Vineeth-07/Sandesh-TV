@@ -22,7 +22,6 @@ const flash = require("connect-flash");
 const saltRounds = 10;
 app.use(flash());
 app.use(cookieParser("Some secret String"));
-app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 
 app.use(
   session({
@@ -47,6 +46,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 
 const upload = multer({ storage: storage });
 
@@ -184,7 +184,7 @@ app.get("/", async (req, res) => {
 
 app.get(
   "/createnews",
-  connectEnsureLogin.ensureLoggedIn(),
+
   async (req, res) => {
     try {
       res.render("createNews", {
@@ -197,33 +197,29 @@ app.get(
   }
 );
 
-app.post(
-  "/createNews",
-  connectEnsureLogin.ensureLoggedIn(),
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const image = req.file;
-      const imageData = {
-        filename: image.originalname,
-        data: image.buffer,
-      };
-      const today = new Date();
-      const todayDate = today.toISOString().split("T")[0];
-      await News.createNews({
-        title: req.body.title,
-        state: req.body.state,
-        category: req.body.category,
-        content: req.body.content,
-        date: todayDate,
-        image: imageData,
-      });
-      return res.redirect("/allNews");
-    } catch (err) {
-      console.log(err);
-    }
+app.post("/addNews", upload.single("image"), async (req, res) => {
+  try {
+    const image = req.file;
+    const imageData = {
+      filename: image.originalname,
+      data: image.buffer,
+    };
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0];
+    await News.createNews({
+      title: req.body.title,
+      state: req.body.state,
+      category: req.body.category,
+      content: req.body.content,
+      date: todayDate,
+      image: imageData,
+      _csrfToken: req.csrfToken(),
+    });
+    return res.redirect("/allNews");
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
 app.get("/epaper", async (req, res) => {
   try {
