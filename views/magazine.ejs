@@ -87,6 +87,7 @@
                     </p>
                   </a>
               </div>
+              <% if (admin) {%>
               <div class="row-start-1 flex justify-end space-x-2">
                   <a onclick="deleteMagazine(<%=magazine.id%>)" class="delete-button transition-transform duration-300 transform hover:-translate-y-1 flex p-2 bg-red-500 text-white rounded">
                 <svg
@@ -105,6 +106,7 @@
                 </svg>
               </a>
               </div>
+              <% } %>
               </div>
             <% }) %>
           </ul>
