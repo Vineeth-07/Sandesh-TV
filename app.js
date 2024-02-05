@@ -9,7 +9,7 @@ const { Article, News, Videos, Magazine, Admin } = require("./models");
 const { title } = require("process");
 const fs = require("fs");
 app.use(express.json());
-bodyParser.json();
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
