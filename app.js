@@ -9,7 +9,7 @@ const { Article, News, Videos, Magazine, Admin } = require("./models");
 const { title } = require("process");
 const fs = require("fs");
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+bodyParser.json();
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -53,9 +53,9 @@ const upload = multer({ storage: storage });
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
-app.use(multer({ dest: "public/" }).single("file")); //Beware, you need to match .single() with whatever name="" of your file upload field in html
-app.use(csrf("this_should_be_32_character_long", { cookie: true })); //So here follows csurf, _after_ multer
+app.use(upload.single("image"));
+//Beware, you need to match .single() with whatever name="" of your file upload field in html
+app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 passport.use(
   new LocalStrategy(
     {
