@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap" />
-  <style>
-    /* Add custom styles for page borders */
-    #pdf-viewer canvas {
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      max-width: 100%;
-    }
-
-    #download-button {
-      margin-bottom: 20px;
-      background-color: #0d9488;
-      color: #fff;
-      padding: 10px 20px;
-      font-size: 16px;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s, box-shadow 0.3s;
-      box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40;
-    }
-    #pdf-viewer-container {
-        overflow-x: auto;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Mandali:wght@400&display=swap"
+    />
+    <style>
+      /* Add custom styles for page borders */
+      #pdf-viewer canvas {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        max-width: 100%;
       }
 
-    #download-button:hover {
-      background-color: #075e54;
-      box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
-    }
-
-    /* Additional Styles for Mobile Responsiveness */
-    @media screen and (max-width: 768px) {
+      #download-button {
+        margin-bottom: 20px;
+        background-color: #0d9488;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40;
+      }
       #pdf-viewer-container {
         overflow-x: auto;
       }
 
-      #pdf-viewer canvas {
-        max-width: 100%;
+      #download-button:hover {
+        background-color: #075e54;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <%- include("header.ejs") %>
+      /* Additional Styles for Mobile Responsiveness */
+      @media screen and (max-width: 768px) {
+        #pdf-viewer-container {
+          overflow-x: auto;
+        }
+
+        #pdf-viewer canvas {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include("header.ejs") %>
     <div class="grid grid-cols-6">
       <div class="col-start-2 col-span-3">
-        <h3 class="font-bold text-4xl mb-4">
-          <%= magazine.title %>
-        </h3>
-        <a id="download-button"
-          class="mt-4 px-4 py-2 text-white rounded-md cursor-pointer hover:bg-blue-600 flex" download>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m9 13.5 3 3m0 0 3-3m-3 3v-6m1.06-4.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-          </svg>
+        <h3 class="font-bold text-4xl mb-4"><%= magazine.title %></h3>
+        <a
+          id="download-button"
+          class="mt-4 px-2 py-2 text-white rounded-md cursor-pointer hover:bg-blue-600"
+          download
+        >
           Download PDF
         </a>
       </div>
       <div class="col-start-2 col-span-4">
-        
         <br />
         <div id="pdf-viewer-container shadow-md">
           <div id="pdf-viewer" style="width: 100%; height: 800px"></div>
@@ -111,6 +111,5 @@
         downloadButton.href = pdfUrl;
       });
     </script>
-</body>
-
+  </body>
 </html>

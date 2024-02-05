@@ -66,11 +66,17 @@
     </script>
   </head>
   <body>
-    <%- include("header.ejs") %> <%- include("navBar.ejs")%>
+    <%- include("header.ejs") %> <%- include("navBar.ejs")%><%-
+    include('notifications.ejs') %>
     <div class="content-container">
       <% if (admin) {%>
         <div class="flex p-2 space-x-4 justify-end">
-          <a href="/createMagazine" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <a href="/createMagazine" class="py-2 px-4 rounded" style="
+          background-color: #aee9e5;
+          color: black;
+          font-size: 16px;
+          font-weight: 600;
+        ">
             Add magazine
           </a>
         </div> 

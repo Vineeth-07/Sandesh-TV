@@ -38,11 +38,18 @@
     </script>
   </head>
   <body>
-    <%- include('header.ejs') %> <%- include('navBar.ejs') %> <% if(admin) { %>
+    <%- include('header.ejs') %> <%- include('navBar.ejs') %> <%-
+    include('notifications.ejs') %> <% if(admin) { %>
     <div class="add-video-link m-6">
       <a
         href="/createVideo"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="py-2 px-4 rounded"
+        style="
+          background-color: #aee9e5;
+          color: black;
+          font-size: 16px;
+          font-weight: 600;
+        "
       >
         Add video
       </a>

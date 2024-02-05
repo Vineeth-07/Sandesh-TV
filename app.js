@@ -4,9 +4,7 @@ const path = require("path");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
-var csrf = require("tiny-csrf");
 const { Article, News, Videos, Magazine, Admin } = require("./models");
-const { title } = require("process");
 const fs = require("fs");
 app.use(express.json());
 app.use(bodyParser.json());
@@ -53,9 +51,6 @@ const upload = multer({ storage: storage });
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
-app.use(upload.single("image"));
-//Beware, you need to match .single() with whatever name="" of your file upload field in html
-app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 passport.use(
   new LocalStrategy(
     {
@@ -99,7 +94,6 @@ passport.deserializeUser((id, done) => {
 app.get("/signup", (request, response) => {
   response.render("signup", {
     title: "Signup",
-    csrfToken: request.csrfToken(),
   });
 });
 
@@ -118,8 +112,6 @@ app.post("/users", async (request, response) => {
     return response.redirect("/signup");
   }
   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
-  console.log(hashedPwd);
-
   try {
     const user = await Admin.create({
       firstName: request.body.firstName,
@@ -144,7 +136,7 @@ app.post("/users", async (request, response) => {
 });
 
 app.get("/login", (request, response) => {
-  response.render("login", { title: "Login", csrfToken: request.csrfToken() });
+  response.render("login", { title: "Login" });
 });
 
 app.post(
@@ -170,7 +162,6 @@ app.get("/signout", (request, response, next) => {
 app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
-    console.log(req.user);
     const today = new Date();
     const todayDate = today.toLocaleDateString("en-GB");
     const todaysNews = await News.getNewsByTodaysDate(todayDate);
@@ -187,12 +178,11 @@ app.get("/", async (req, res) => {
 
 app.get(
   "/createnews",
-
+  connectEnsureLogin.ensureLoggedIn(),
   async (req, res) => {
     try {
       res.render("createNews", {
         title: "Create News",
-        csrfToken: req.csrfToken(),
       });
     } catch (err) {
       console.log(err);
@@ -200,29 +190,34 @@ app.get(
   }
 );
 
-app.post("/addNews", upload.single("image"), async (req, res) => {
-  try {
-    const image = req.file;
-    const imageData = {
-      filename: image.originalname,
-      data: image.buffer,
-    };
-    const today = new Date();
-    const todayDate = today.toISOString().split("T")[0];
-    await News.createNews({
-      title: req.body.title,
-      state: req.body.state,
-      category: req.body.category,
-      content: req.body.content,
-      date: todayDate,
-      image: imageData,
-      _csrfToken: req.csrfToken(),
-    });
-    return res.redirect("/allNews");
-  } catch (err) {
-    console.log(err);
+app.post(
+  "/addNews",
+  upload.single("image"),
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const image = req.file;
+      const imageData = {
+        filename: image.originalname,
+        data: image.buffer,
+      };
+      const today = new Date();
+      const todayDate = today.toISOString().split("T")[0];
+      await News.createNews({
+        title: req.body.title,
+        state: req.body.state,
+        category: req.body.category,
+        content: req.body.content,
+        date: todayDate,
+        image: imageData,
+      });
+      req.flash("success", "News added");
+      return res.redirect("/allNews");
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 app.get("/epaper", async (req, res) => {
   try {
@@ -243,7 +238,6 @@ app.get(
     try {
       res.render("createArticle", {
         title: "Create Article",
-        csrfToken: req.csrfToken(),
       });
     } catch (err) {
       console.log(err);
@@ -271,8 +265,8 @@ app.post(
         images: imageData,
         state: req.body.state,
       });
-
-      return res.redirect("/epaper");
+      req.flash("success", "Paper added");
+      return res.redirect("/allPapers");
     } catch (err) {
       console.log(err);
     }
@@ -303,7 +297,6 @@ app.get(
     try {
       res.render("createMagazine", {
         title: "Add magazine",
-        csrfToken: req.csrfToken(),
       });
     } catch (err) {
       console.log(err);
@@ -320,7 +313,13 @@ app.post(
       const pdf = req.file;
       let filename = pdf.originalname;
       if (filename.includes(" ")) {
-        filename = filename.trim();
+        if (filename.includes(" ")) {
+          req.flash(
+            "error",
+            "Filename contains spaces. Please remove spaces from the filename and try again."
+          );
+          return res.redirect("/createMagazine");
+        }
       }
       const pdfData = {
         filename: filename,
@@ -333,6 +332,7 @@ app.post(
         date: todayDate,
         pdf: pdfData,
       });
+      req.flash("success", "Magazine added");
       return res.redirect("/magazine");
     } catch (err) {
       console.log(err);
@@ -386,7 +386,6 @@ app.get(
     try {
       res.render("createVideo", {
         title: "Add video",
-        csrfToken: req.csrfToken(),
       });
     } catch (err) {
       console.log(err);
@@ -404,6 +403,7 @@ app.post(
         url: req.body.url,
         video_id: req.body.video_id,
       });
+      req.flash("success", "Video added");
       return res.redirect("/videos");
     } catch (err) {
       console.log(err);

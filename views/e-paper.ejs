@@ -11,8 +11,8 @@
       }
       .articleflex {
         display: flex;
-      justify-content: center;
-      align-items: center;
+        justify-content: center;
+        align-items: center;
       }
       @media screen and (max-width: 768px) {
         .responsive-box {
@@ -52,12 +52,17 @@
     />
   </head>
   <body>
-    <%- include('header.ejs') %> 
-    <%- include("navBar.ejs")%>
+    <%- include('header.ejs') %> <%- include("navBar.ejs")%>
     <div class="flex p-2 space-x-4 justify-end">
       <a
         href="/allPapers"
-        class="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded"
+        class="flex items-center space-x-2 px-4 py-2 text-xl"
+        style="
+          background-color: #aee9e5;
+          color: black;
+          font-size: 16px;
+          font-weight: 600;
+        "
       >
         <span>All epapers</span>
       </a>

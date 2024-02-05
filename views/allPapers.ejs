@@ -118,10 +118,21 @@
     </script>
   </head>
   <body>
-    <%- include("header.ejs")%> <%- include("navBar.ejs")%> <% if(admin) {%>
+    <%- include("header.ejs")%> <%- include("navBar.ejs")%><%-
+    include('notifications.ejs') %> <% if(admin) {%>
     <div class="header">
       <h1 class="title">Edit Papers</h1>
-      <a href="/createArticle" class="button">Add Paper</a>
+      <a
+        href="/createArticle"
+        class="button"
+        style="
+          background-color: #aee9e5;
+          color: black;
+          font-size: 16px;
+          font-weight: 600;
+        "
+        >Add Paper</a
+      >
     </div>
     <% } %> <%- include("articleListItems.ejs") %>
   </body>

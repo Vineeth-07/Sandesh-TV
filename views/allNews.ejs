@@ -62,13 +62,20 @@
     />
   </head>
   <body>
-    <%- include("header.ejs") %> <%- include("navBar.ejs") %>
+    <%- include("header.ejs") %> <%- include("navBar.ejs") %> <%-
+    include('notifications.ejs') %>
     <div class="content-container">
       <% if (admin) {%>
       <div class="flex p-2 space-x-4 justify-end">
         <a
           href="/createnews"
           class="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded"
+          style="
+            background-color: #aee9e5;
+            color: black;
+            font-size: 16px;
+            font-weight: 600;
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
