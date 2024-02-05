@@ -35,6 +35,7 @@ app.use((request, response, next) => {
   response.locals.messages = request.flash();
   next();
 });
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,13 +47,15 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 
 const upload = multer({ storage: storage });
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
+// app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
+app.use(multer({ dest: "public/" }).single("file")); //Beware, you need to match .single() with whatever name="" of your file upload field in html
+app.use(csrf("this_should_be_32_character_long", { cookie: true })); //So here follows csurf, _after_ multer
 passport.use(
   new LocalStrategy(
     {
