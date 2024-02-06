@@ -53,15 +53,16 @@
     }
 
     ul {
-      margin-left: 20px; /* Added margin to indent list items */
+      margin-left: 20px; /* Added margin to indent the list */
+      list-style-type: disc; /* Set the bullet point style */
     }
-
+    
     li {
       font-size: 16px; /* Set font size for list items */
       color: #555; /* Set color for list items */
       line-height: 1.6; /* Set line height for list items */
     }
-
+    
     @media screen and (min-width: 768px) {
       .grid {
         grid-template-columns: repeat(4, 1fr);
@@ -86,24 +87,24 @@
     <%- include('navBar.ejs') %>
   <div class="grid">
     <div class="col-start-2 col-span-2">
-      <h1>Privacy Policy</h1>
+      <h1 style="font-size: 36px;">Privacy Policy</h1>
       <p>
-        At Sandesh TV, we respect the privacy of our users and are committed to protecting it through our compliance with this policy. This policy describes the types of information we may collect from you or that you may provide when you visit the website and our practices for collecting, using, maintaining, protecting, and disclosing that information.
-      </p>
+        At Sandesh TV, we don't collect any data from our users and are committed to ensuring their privacy through our adherence to this principle. This statement describes our commitment to not gathering any information from you when you visit our website. We neither collect nor maintain any data from users.      </p>
+      <br>
       <p>
-        This policy applies to information we collect:
-        <ul>
-          <li>On this website.</li>
-          <li>In email, text, and other electronic messages between you and this website.</li>
-          <li>Through mobile and desktop applications you download from this website, which provides dedicated non-browser-based interaction between you and this website.</li>
+        This policy applies to our website and confirms that:
+        <ul style="list-style-type: disc;margin-left: 20px;">
+          <li style="font-size: 16px;color: #555; line-height: 1.7;">We do not collect any information on this website.</li>
+          <li style="font-size: 16px;color: #555; line-height: 1.7;">We do not engage in email, text, or other electronic message communications that involve data collection.</li>
+          <li style="font-size: 16px;color: #555; line-height: 1.7;">We do not offer mobile or desktop applications for download, thus eliminating any interaction that could involve data collection.</li>
         </ul>
       </p>
+      <br>
       <p>
-        Please read this policy carefully to understand our policies and practices regarding your information and how we will treat it. If you do not agree with our policies and practices, your choice is not to use our website. By accessing or using this website, you agree to this privacy policy. This policy may change from time to time. Your continued use of this website after we make changes is deemed to be acceptance of those changes, so please check the policy periodically for updates.
+        We prioritize your privacy and assure you that no data is collected or stored.
       </p>
       <p>
-        <strong>Contact Information:</strong><br />
-        To ask questions or comment about this privacy policy and our privacy practices, contact us at: <span class="text-blue-500">anil.sandeshtv@gmail.com</span>
+        Please be assured that your privacy is our utmost concern. If you have any questions or concerns regarding our privacy policy or practices, please feel free to contact us at: <span class="text-blue-500">anil.sandeshtv@gmail.com</span>
       </p>
     </div>
   </div>
