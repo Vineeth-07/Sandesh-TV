@@ -186,6 +186,7 @@ app.get("/privacyPolicy",async(req,res) => {
   }
 })
 
+
 app.get(
   "/createnews",
   connectEnsureLogin.ensureLoggedIn(),
