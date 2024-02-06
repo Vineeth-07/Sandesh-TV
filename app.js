@@ -176,6 +176,16 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/privacyPolicy",async(req,res) => {
+  try {
+    res.render("privacyPolicy",{
+      title: "Privacy Policy"
+    })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 app.get(
   "/createnews",
   connectEnsureLogin.ensureLoggedIn(),

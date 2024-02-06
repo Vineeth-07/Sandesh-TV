@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .col-start-2 {
+      grid-column-start: 1;
+    }
+
+    .col-span-2 {
+      grid-column-end: span 1;
+    }
+
+    .col-start-2.col-span-2 {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007bff;
+      font-family: 'Mandali', sans-serif;
+      font-size: 28px; /* Increased font size */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      text-align: justify;
+      color: #555;
+    }
+
+    ul {
+      margin-left: 20px; /* Added margin to indent list items */
+    }
+
+    li {
+      font-size: 16px; /* Set font size for list items */
+      color: #555; /* Set color for list items */
+      line-height: 1.6; /* Set line height for list items */
+    }
+
+    @media screen and (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .col-start-2 {
+        grid-column-start: 2;
+      }
+
+      .col-span-2 {
+        grid-column-end: span 2;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <%- include('navBar.ejs') %>
+  <div class="grid">
+    <div class="col-start-2 col-span-2">
+      <h1>Privacy Policy</h1>
+      <p>
+        At Sandesh TV, we respect the privacy of our users and are committed to protecting it through our compliance with this policy. This policy describes the types of information we may collect from you or that you may provide when you visit the website and our practices for collecting, using, maintaining, protecting, and disclosing that information.
+      </p>
+      <p>
+        This policy applies to information we collect:
+        <ul>
+          <li>On this website.</li>
+          <li>In email, text, and other electronic messages between you and this website.</li>
+          <li>Through mobile and desktop applications you download from this website, which provides dedicated non-browser-based interaction between you and this website.</li>
+        </ul>
+      </p>
+      <p>
+        Please read this policy carefully to understand our policies and practices regarding your information and how we will treat it. If you do not agree with our policies and practices, your choice is not to use our website. By accessing or using this website, you agree to this privacy policy. This policy may change from time to time. Your continued use of this website after we make changes is deemed to be acceptance of those changes, so please check the policy periodically for updates.
+      </p>
+      <p>
+        <strong>Contact Information:</strong><br />
+        To ask questions or comment about this privacy policy and our privacy practices, contact us at: <span class="text-blue-500">anil.sandeshtv@gmail.com</span>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
