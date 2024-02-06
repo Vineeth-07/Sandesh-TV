@@ -19,7 +19,18 @@
         margin-bottom: 10px;
         max-width: 100%;
       }
+      .backButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
 
+      .backButton:hover {
+        background-color: #075e54;
+      }
       #download-button {
         margin-bottom: 20px;
         background-color: #0d9488;
@@ -55,6 +66,9 @@
 
   <body>
     <%- include("header.ejs") %>
+    <div class="ml-6 mb-2">
+      <button class="backButton shadow-md p-4 mt-4 rounded-lg" onclick="goBack()">Go Back</button>
+    </div>
     <div class="grid grid-cols-6">
       <div class="col-start-2 col-span-3">
         <h3 class="font-bold text-4xl mb-4"><%= magazine.title %></h3>
@@ -110,6 +124,11 @@
         // Set download URL
         downloadButton.href = pdfUrl;
       });
+    </script>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
     </script>
   </body>
 </html>
