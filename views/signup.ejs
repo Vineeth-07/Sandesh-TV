@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link href="./css/style.css" rel="stylesheet" />
     <title><%= title %></title>
+    <link rel="website icon" type="jpg" href="/images/web-icon.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="./css/style.css" rel="stylesheet" />
     <style>
@@ -51,59 +52,72 @@
         background-color: #075e54;
         box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
       }
-      </style>
+    </style>
   </head>
   <body>
-    <div class="mb-2">
-      <%- include("header.ejs") %>
-    </div>
+    <div class="mb-2"><%- include("header.ejs") %></div>
     <div class="ml-6 mb-2">
-      <button class="backButton rounded-lg shadow-md" onclick="goBack()">Go Back</button>
+      <button class="backButton rounded-lg shadow-md" onclick="goBack()">
+        Go Back
+      </button>
     </div>
-    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
+    <div
+      class="max-w-md mx-auto bg-white p-8 border rounded-lg"
+      style="
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      "
+    >
       <h1 class="text-xl font-bold mb-4">Signup as a new user</h1>
-        <form action="/users" method="post">
-          <div class="mb-4">
-            <label for="firstName" class="block text-sm font-medium text-gray-600">First Name:</label>
-            <input
-              type="text"
-              name="firstName"
-              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="lastName" class="block text-sm font-medium text-gray-600">Last Name:</label>
-            <input
-              type="text"
-              name="lastName"
-              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
-            <input
-              type="email"
-              name="email"
-              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="password" class="block text-sm font-medium text-gray-600">Password:</label>
-            <input
-              type="password"
-              name="password"
-              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
-            />
-          </div>
-            <button
-              type="submit"
-              class="w-full bg-blue-500 text-white p-3 rounded-lg createButton"
-            style="background-color: #0d9488"
-            >
-              Sign up
-            </button>
-        </form>
-        <%- include('notifications.ejs') %>
+      <form action="/users" method="post">
+        <div class="mb-4">
+          <label for="firstName" class="block text-sm font-medium text-gray-600"
+            >First Name:</label
+          >
+          <input
+            type="text"
+            name="firstName"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="lastName" class="block text-sm font-medium text-gray-600"
+            >Last Name:</label
+          >
+          <input
+            type="text"
+            name="lastName"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-600"
+            >Email:</label
+          >
+          <input
+            type="email"
+            name="email"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-600"
+            >Password:</label
+          >
+          <input
+            type="password"
+            name="password"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white p-3 rounded-lg createButton"
+          style="background-color: #0d9488"
+        >
+          Sign up
+        </button>
+      </form>
+      <%- include('notifications.ejs') %>
     </div>
     <div class="mt-4"></div>
     <script>

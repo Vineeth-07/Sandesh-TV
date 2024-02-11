@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
+    <link rel="website icon" type="jpg" href="/images/web-icon.jpg" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
@@ -65,11 +66,11 @@
   </head>
 
   <body>
-    <div class="mb-2">
-      <%- include("header.ejs") %>
-    </div>
+    <div class="mb-2"><%- include("header.ejs") %></div>
     <div class="ml-6 mb-2">
-      <button class="backButton shadow-md rounded-lg" onclick="goBack()">Go Back</button>
+      <button class="backButton shadow-md rounded-lg" onclick="goBack()">
+        Go Back
+      </button>
     </div>
     <div class="grid grid-cols-6">
       <div class="col-start-2 col-span-3">

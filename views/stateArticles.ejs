@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
+    <link rel="website icon" type="jpg" href="/images/web-icon.jpg" />
     <style>
       body {
         margin: 0;
@@ -107,13 +108,13 @@
     </h1>
     <div class="pl-3">
       <input
-      type="date"
-      id="dateInput"
-      onchange="displaySelectedDate()"
-      class="custom-date-input"
-    />
+        type="date"
+        id="dateInput"
+        onchange="displaySelectedDate()"
+        class="custom-date-input"
+      />
     </div>
-    
+
     <div class="flex-container gap-4 p-4">
       <% for (let i = 0; i < articles.length; i++) { %>
       <div class="article-box rounded-lg">

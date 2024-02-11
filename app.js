@@ -135,14 +135,14 @@ app.post("/users", async (request, response) => {
   }
 });
 
-app.get("/login", (request, response) => {
+app.get("/login-admin-stv", (request, response) => {
   response.render("login", { title: "Login" });
 });
 
 app.post(
   "/session",
   passport.authenticate("local", {
-    failureRedirect: "/login",
+    failureRedirect: "/login-admin-stv",
     failureFlash: true,
   }),
   function (request, response) {
@@ -155,7 +155,7 @@ app.get("/signout", (request, response, next) => {
     if (err) {
       return next(err);
     }
-    response.redirect("/login");
+    response.redirect("/login-admin-stv");
   });
 });
 
@@ -176,16 +176,15 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/privacyPolicy",async(req,res) => {
+app.get("/privacyPolicy", async (req, res) => {
   try {
-    res.render("privacyPolicy",{
-      title: "Privacy Policy"
-    })
+    res.render("privacyPolicy", {
+      title: "Privacy Policy",
+    });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-})
-
+});
 
 app.get(
   "/createnews",

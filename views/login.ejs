@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>
-    <%= title %>
-  </title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    label {
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="website icon" type="jpg" href="/images/web-icon.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      label {
         display: block;
         margin-bottom: 0.5rem;
         font-size: 14px;
@@ -52,43 +50,59 @@
         background-color: #075e54;
         box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
       }
-  </style>
-</head>
+    </style>
+  </head>
 
-<body>
-  <div class="mb-2">
-    <%- include("header.ejs") %>
-  </div>
-  <div class="ml-6 mb-2">
-    <button class="backButton rounded-lg shadow-md" onclick="goBack()">Go Back</button>
-  </div>
-  <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
-    <h1 class="text-xl font-bold mb-4">Login to your account</h1>
-        <form action="/session" method="post">
-          <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
-            <input type="email" name="email" class="mt-1 p-2 w-full border rounded-lg shadow-md formInput" />
-          </div>
-          <div class="mb-4">
-            <label for="password" class="block text-sm font-medium text-gray-600">Password:</label>
-            <input type="password" name="password" class="mt-1 p-2 w-full border rounded-lg shadow-md formInput" />
-          </div>
-            <button type="submit"
-            class="w-full bg-blue-500 text-white p-3 rounded-lg createButton"
-            style="background-color: #0d9488">Sign in</button>
-        </form>
-        <%- include('notifications.ejs') %>
-  </div>
-  <div class="mt-4"></div>
+  <body>
+    <div class="mb-2"><%- include("header.ejs") %></div>
+    <div class="ml-6 mb-2">
+      <button class="backButton rounded-lg shadow-md" onclick="goBack()">
+        Go Back
+      </button>
+    </div>
+    <div
+      class="max-w-md mx-auto bg-white p-8 border rounded-lg"
+      style="
+        box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;
+      "
+    >
+      <h1 class="text-xl font-bold mb-4">Login to your account</h1>
+      <form action="/session" method="post">
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-600"
+            >Email:</label
+          >
+          <input
+            type="email"
+            name="email"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-600"
+            >Password:</label
+          >
+          <input
+            type="password"
+            name="password"
+            class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white p-3 rounded-lg createButton"
+          style="background-color: #0d9488"
+        >
+          Sign in
+        </button>
+      </form>
+      <%- include('notifications.ejs') %>
+    </div>
+    <div class="mt-4"></div>
     <script>
       function goBack() {
         window.history.back();
       }
     </script>
-
-        
-        
-      
-</body>
-
+  </body>
 </html>

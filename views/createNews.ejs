@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
+    <link rel="website icon" type="jpg" href="/images/web-icon.jpg" />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -69,7 +70,9 @@
   <body class="bg-gray-50">
     <div class="mb-2"><%- include("header.ejs") %></div>
     <div class="ml-6 mb-2">
-      <button class="backButton rounded-lg shadow-md" onclick="goBack()">Go Back</button>
+      <button class="backButton rounded-lg shadow-md" onclick="goBack()">
+        Go Back
+      </button>
     </div>
     <div
       class="max-w-md mx-auto bg-white p-8 border rounded-lg"
