@@ -8,62 +8,108 @@
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="./css/style.css" rel="stylesheet" />
+    <style>
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+      }
+
+      .formInput:focus {
+        outline: none;
+        border: 2px solid #0d9488;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
+      }
+      .backButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .backButton:hover {
+        background-color: #075e54;
+      }
+      .createButton {
+        background-color: #0d9488;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 5px 5px 20px #00000041, inset -5px -5px 20px #ffffff40;
+      }
+
+      .createButton:hover {
+        background-color: #075e54;
+        box-shadow: 10px 10px 60px #00000041, inset -10px -10px 60px #ffffff40;
+      }
+      </style>
   </head>
-  <body style="background-color: rgb(171, 237, 241)">
-    <div class="grid grid-cols-6">
-      <div class="col-start-3 col-span-2">
-        <p class="py-2">
-          <a
-            href="/"
-            class="bg-red-600 text-white px-4 py-1 rounded font-medium mr-2 mb-2"
-            >Home page</a
-          >
-        </p>
-        <h6 class="py-4">Signup as a new user</h6>
+  <body>
+    <div class="mb-2">
+      <%- include("header.ejs") %>
+    </div>
+    <div class="ml-6 mb-2">
+      <button class="backButton rounded-lg shadow-md" onclick="goBack()">Go Back</button>
+    </div>
+    <div class="max-w-md mx-auto bg-white p-8 border rounded-lg" style="box-shadow: 20px 20px 60px #00000041, inset -20px -20px 60px #ffffff40;">
+      <h1 class="text-xl font-bold mb-4">Signup as a new user</h1>
         <form action="/users" method="post">
-          <div class="py-3">
-            <label for="firstName">First Name:</label>
+          <div class="mb-4">
+            <label for="firstName" class="block text-sm font-medium text-gray-600">First Name:</label>
             <input
               type="text"
               name="firstName"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
             />
           </div>
-          <div class="py-3">
-            <label for="lastName">Last Name:</label>
+          <div class="mb-4">
+            <label for="lastName" class="block text-sm font-medium text-gray-600">Last Name:</label>
             <input
               type="text"
               name="lastName"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
             />
           </div>
-          <div class="py-3">
-            <label for="email">Email:</label>
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
             <input
               type="email"
               name="email"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
             />
           </div>
-          <div class="py-3">
-            <label for="password">Password:</label>
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-600">Password:</label>
             <input
               type="password"
               name="password"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+              class="mt-1 p-2 w-full border rounded-lg shadow-md formInput"
             />
           </div>
-          <div class="py-3">
             <button
               type="submit"
-              class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2"
+              class="w-full bg-blue-500 text-white p-3 rounded-lg createButton"
+            style="background-color: #0d9488"
             >
               Sign up
             </button>
-          </div>
         </form>
         <%- include('notifications.ejs') %>
-      </div>
     </div>
+    <div class="mt-4"></div>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
   </body>
 </html>
