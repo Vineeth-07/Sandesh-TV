@@ -91,49 +91,49 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-app.get("/signup", (request, response) => {
-  response.render("signup", {
-    title: "Signup",
-  });
-});
+// app.get("/signup", (request, response) => {
+//   response.render("signup", {
+//     title: "Signup",
+//   });
+// });
 
-app.post("/users", async (request, response) => {
-  if (request.body.email.length == 0) {
-    request.flash("error", "Email can not be empty!");
-    return response.redirect("/signup");
-  }
+// app.post("/users", async (request, response) => {
+//   if (request.body.email.length == 0) {
+//     request.flash("error", "Email can not be empty!");
+//     return response.redirect("/signup");
+//   }
 
-  if (request.body.firstName.length == 0) {
-    request.flash("error", "First name can not be empty!");
-    return response.redirect("/signup");
-  }
-  if (request.body.password.length < 8) {
-    request.flash("error", "Password length should be minimun 8");
-    return response.redirect("/signup");
-  }
-  const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
-  try {
-    const user = await Admin.create({
-      firstName: request.body.firstName,
-      lastName: request.body.lastName,
-      email: request.body.email,
-      password: hashedPwd,
-    });
-    request.login(user, (err) => {
-      if (err) {
-        console.log(err);
-      }
-      response.redirect("/");
-    });
-  } catch (error) {
-    console.log(error);
-    request.flash(
-      "error",
-      "This mail already having account, try another mail!"
-    );
-    return response.redirect("/signup");
-  }
-});
+//   if (request.body.firstName.length == 0) {
+//     request.flash("error", "First name can not be empty!");
+//     return response.redirect("/signup");
+//   }
+//   if (request.body.password.length < 8) {
+//     request.flash("error", "Password length should be minimun 8");
+//     return response.redirect("/signup");
+//   }
+//   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
+//   try {
+//     const user = await Admin.create({
+//       firstName: request.body.firstName,
+//       lastName: request.body.lastName,
+//       email: request.body.email,
+//       password: hashedPwd,
+//     });
+//     request.login(user, (err) => {
+//       if (err) {
+//         console.log(err);
+//       }
+//       response.redirect("/");
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     request.flash(
+//       "error",
+//       "This mail already having account, try another mail!"
+//     );
+//     return response.redirect("/signup");
+//   }
+// });
 
 app.get("/login-admin-stv", (request, response) => {
   response.render("login", { title: "Login" });
