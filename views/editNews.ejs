@@ -118,6 +118,7 @@
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-600">Select category:</label>
                 <select id="category" name="category" class="p-2 m-1 border rounded-lg shadow-md formInput">
+                  <option value="politics" <%= news.category === 'politics' ? 'selected' : '' %>>Politics</option>
                     <option value="cinema" <%= news.category === 'cinema' ? 'selected' : '' %>>Cinema</option>
                     <option value="sports" <%= news.category === 'sports' ? 'selected' : '' %>>Sports</option>
                     <option value="business" <%= news.category === 'business' ? 'selected' : '' %>>Business</option>

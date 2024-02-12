@@ -678,6 +678,12 @@ app.get("/category/:category", async (req, res) => {
   const category = req.params.category;
   const newsByCategory = await News.getNewsByCategory(category);
   switch (category) {
+    case "politics":
+      res.render("categoryNews", {
+        title: "Politics",
+        newsByCategory,
+      });
+      break;
     case "cinema":
       res.render("categoryNews", {
         title: "Cinema",
