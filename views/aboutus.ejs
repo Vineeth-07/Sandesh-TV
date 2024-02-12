@@ -8,7 +8,7 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+        background: linear-gradient(to right, #e4e7e6,#7bb6a7,#32b0a5);
         margin: 0;
         padding: 0;
         color: #333;
@@ -46,20 +46,21 @@
       }
 
       h1 {
-        color: #007bff;
+        color: #0d9488;
         font-family: "Mandali", sans-serif;
         font-size: 24px;
+        /* font-weight: bold; */
         text-align: center;
         margin-bottom: 20px;
       }
 
       img {
-        max-width: 100%;
-        height: auto;
-        margin-right: 0;
-        margin-bottom: 20px;
-      }
-
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      /* border-radius: 5px; */
+      /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    }
       h2 {
         color: #007bff;
         font-size: 18px;
@@ -77,7 +78,7 @@
         font-weight: bold;
         margin-top: 5px;
       }
-
+      
       @media screen and (min-width: 768px) {
         .grid {
           grid-template-columns: repeat(4, 1fr);
@@ -124,11 +125,11 @@
     <%- include('header.ejs') %> <%- include('navBar.ejs') %>
     <div class="grid">
       <div class="col-start-2 col-span-2">
-        <button id="languageSwitchButton">Translate to Telugu</button>
-        <div class="english">
-          <h1 style="font-size: 36px">Welcome to Sandesh TV</h1>
+        
+        
+          <h1 class="mb-3" style="font-size: 36px; font-weight: 700;">Welcome to Sandesh TV</h1>
           <p>
-            Where creativity meets innovation. We are a dynamic team of
+            &nbsp &nbsp Where creativity meets innovation. We are a dynamic team of
             passionate individuals dedicated to delivering compelling and
             cutting-edge content. With a focus on storytelling and multimedia
             excellence, we strive to captivate audiences and leave a lasting
@@ -136,7 +137,7 @@
           </p>
           <br />
           <p style="margin-bottom: 30px">
-            Established in 2009 as a cable-based channel,
+            &nbsp &nbsp Established in 2009 as a cable-based channel,
             <strong>Sandesh TV</strong> has evolved into a digital media
             powerhouse, boasting a viewership of 16 Lakhs. Our commitment to
             excellence is reflected in our comprehensive coverage, with a
@@ -145,16 +146,12 @@
             information meets inspiration, as we continue to shape the narrative
             in the ever-evolving landscape of media.
           </p>
-        </div>
-        <div class="telugu">
-          <h1 style="font-size: 36px">
-            అందమైన తెలుగులిపికి మరింత అందమైన ఫాంట్లు
-          </h1>
-        </div>
+        
         <div class="flexImage">
           <img
             src="/images/anil-kumar.JPG"
             alt="anil-kumar"
+            class="shadow-md"
             style="
               max-width: 200px;
               max-height: 200px;
@@ -165,7 +162,7 @@
           <div>
             <h2
               style="
-                color: #007bff;
+                color: #0d9488;
                 font-size: 24px;
                 font-weight: bold;
                 margin: 0;
