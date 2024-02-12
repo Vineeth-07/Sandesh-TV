@@ -92,29 +92,65 @@
         }
       }
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const englishElements = document.querySelectorAll(".english");
+        const teluguElements = document.querySelectorAll(".telugu");
+        teluguElements.forEach(function (element) {
+          element.style.display = "none";
+        });
+        document
+          .getElementById("languageSwitchButton")
+          .addEventListener("click", function () {
+            englishElements.forEach(function (element) {
+              element.style.display =
+                element.style.display === "none" ? "block" : "none";
+            });
+            teluguElements.forEach(function (element) {
+              element.style.display =
+                element.style.display === "none" ? "block" : "none";
+            });
+            const button = document.getElementById("languageSwitchButton");
+            if (button.textContent === "Translate to Telugu") {
+              button.textContent = "Translate to English";
+            } else {
+              button.textContent = "Translate to Telugu";
+            }
+          });
+      });
+    </script>
   </head>
   <body>
     <%- include('header.ejs') %> <%- include('navBar.ejs') %>
     <div class="grid">
       <div class="col-start-2 col-span-2">
-        <h1 style="font-size: 36px">Welcome to Sandesh TV</h1>
-        <p>
-          Where creativity meets innovation. We are a dynamic team of passionate
-          individuals dedicated to delivering compelling and cutting-edge
-          content. With a focus on storytelling and multimedia excellence, we
-          strive to captivate audiences and leave a lasting impact.
-        </p>
-        <br />
-        <p style="margin-bottom: 30px">
-          Established in 2009 as a cable-based channel,
-          <strong>Sandesh TV</strong> has evolved into a digital media
-          powerhouse, boasting a viewership of 16 Lakhs. Our commitment to
-          excellence is reflected in our comprehensive coverage, with a special
-          emphasis on pivotal events spanning politics, culture, movies,
-          spirituality, and sports. Join us on a journey where information meets
-          inspiration, as we continue to shape the narrative in the
-          ever-evolving landscape of media.
-        </p>
+        <button id="languageSwitchButton">Translate to Telugu</button>
+        <div class="english">
+          <h1 style="font-size: 36px">Welcome to Sandesh TV</h1>
+          <p>
+            Where creativity meets innovation. We are a dynamic team of
+            passionate individuals dedicated to delivering compelling and
+            cutting-edge content. With a focus on storytelling and multimedia
+            excellence, we strive to captivate audiences and leave a lasting
+            impact.
+          </p>
+          <br />
+          <p style="margin-bottom: 30px">
+            Established in 2009 as a cable-based channel,
+            <strong>Sandesh TV</strong> has evolved into a digital media
+            powerhouse, boasting a viewership of 16 Lakhs. Our commitment to
+            excellence is reflected in our comprehensive coverage, with a
+            special emphasis on pivotal events spanning politics, culture,
+            movies, spirituality, and sports. Join us on a journey where
+            information meets inspiration, as we continue to shape the narrative
+            in the ever-evolving landscape of media.
+          </p>
+        </div>
+        <div class="telugu">
+          <h1 style="font-size: 36px">
+            అందమైన తెలుగులిపికి మరింత అందమైన ఫాంట్లు
+          </h1>
+        </div>
         <div class="flexImage">
           <img
             src="/images/anil-kumar.JPG"
