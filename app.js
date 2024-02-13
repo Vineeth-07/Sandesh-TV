@@ -162,9 +162,7 @@ app.get("/signout", (request, response, next) => {
 app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
-    const today = new Date();
-    const todayDate = today.toLocaleDateString("en-GB");
-    const todaysNews = await News.getNewsByTodaysDate(todayDate);
+    const todaysNews = await News.getLastSevenDaysNews();
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,

@@ -27,6 +27,24 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static getLastSevenDaysNews() {
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const formattedDate = `${sevenDaysAgo
+        .getDate()
+        .toString()
+        .padStart(2, "0")}/${(sevenDaysAgo.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${sevenDaysAgo.getFullYear()}`;
+      return News.findAll({
+        where: {
+          date: {
+            [Op.gte]: sevenDaysAgo,
+          },
+        },
+      });
+    }
+
     static updateNews(id, title, state, category, content) {
       return this.update(
         {
