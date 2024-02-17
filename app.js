@@ -163,6 +163,7 @@ app.get("/", async (req, res) => {
   try {
     let articles = await Article.getArticles();
     const todaysNews = await News.getLastSevenDaysNews();
+    todaysNews.reverse();
     res.render("home", {
       title: "Sandesh TV Daily News",
       articles: articles,
