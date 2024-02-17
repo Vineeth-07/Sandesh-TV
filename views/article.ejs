@@ -162,15 +162,22 @@
       });
 
       document.addEventListener("DOMContentLoaded", function () {
+        const articleTitle = "<%= encodeURIComponent(article.title) %>";
+        const articleState = "<%= encodeURIComponent(article.state) %>";
+        const articleUrl = window.location.href;
+        const formattedDate = "<%= article.date %>";
+
+        const shareMessage = `సందేశ్ మీడియా ${formattedDate}, ${articleState} EDITION%0A%0A${articleTitle}%0A%0Aఇంకా మరెన్నో...${articleUrl}`;
+
         const whatsappShare = document.getElementById("whatsapp-share");
         const facebookShare = document.getElementById("facebook-share");
         const twitterShare = document.getElementById("twitter-share");
-        const articleTitle = "<%= encodeURIComponent(article.title) %>";
-        const articleUrl = window.location.href;
 
-        whatsappShare.href = `whatsapp://send?text=Check out this article: ${articleTitle} - ${articleUrl}`;
+        whatsappShare.href = `whatsapp://send?text=${shareMessage}`;
         facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${articleUrl}`;
-        twitterShare.href = `https://twitter.com/intent/tweet?text=Check out this article: ${articleTitle}&url=${articleUrl}`;
+        twitterShare.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          shareMessage
+        )}`;
       });
     </script>
   </head>
@@ -193,7 +200,7 @@
           Share on :
         </span>
         <a
-          href="https://wa.me/?text=<%= encodeURIComponent(article.title) %> - <%= encodeURIComponent(articleUrl) %>"
+          href="whatsapp://send?text=<%= encodeURIComponent('*సందేశ్ మీడియా*\n ' + article.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' }) + '\n\n' + article.state.toUpperCase() + ' EDITION\n' + article.title + '\n\n' + articleUrl) %>"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
